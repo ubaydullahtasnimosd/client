@@ -3,6 +3,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { BsMoon, BsSun } from "react-icons/bs";
+import logoImg from "../../public/logo.jpg";
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,11 +32,11 @@ export const Header = () => {
         </button>
         {/* Logo */}
         <a
-          href="https://flowbite.com/"
+          href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img
-            src="../../public/logo.jpg"
+            src={logoImg}
             className="size-8 rounded-2xl"
             alt="Flowbite Logo"
           />
@@ -94,9 +95,8 @@ export const Header = () => {
 
         {/* Menu items */}
         <div
-          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
-            menuOpen ? "block" : "hidden"
-          }`}
+          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${menuOpen ? "block" : "hidden"
+            }`}
         >
           <ul className="navMenu">
             <li>
