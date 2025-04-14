@@ -189,7 +189,7 @@ export const Header = () => {
 
       {/* Mobile menu - Full screen overlay */}
       {menuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 mt-16 overflow-y-auto">
+        <div className="md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 mt-20 overflow-y-auto w-52">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <NavLink
               to="/"
