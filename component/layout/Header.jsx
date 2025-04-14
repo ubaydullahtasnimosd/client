@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { HiMenuAlt3 } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { NavLink, useLocation } from "react-router-dom";
 import { BsMoon, BsSun } from "react-icons/bs";
 import logoImg from "../../public/logo.jpg";
 
@@ -9,129 +9,231 @@ export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const location = useLocation();
 
+  // Close mobile menu when navigating
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
+
+  // Initialize theme from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") setDarkMode(true);
+    if (savedTheme === "dark" || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setDarkMode(true);
+    }
   }, []);
 
+  // Apply theme changes
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
+  // Toggle search visibility on mobile
+  const toggleSearch = () => {
+    setShowSearch(prev => !prev);
+    if (menuOpen) setMenuOpen(false);
+  };
+
+  // Toggle mobile menu with fullscreen background
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
+    if (showSearch) setShowSearch(false);
+  };
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [menuOpen]);
+
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 border-b">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="p-2 text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded absolute top-3 right-3"
-        >
-          <BsMoon className="hidden dark:inline w-5 h-5" />
-          <BsSun className="inline dark:hidden w-5 h-5" />
-        </button>
-        {/* Logo */}
-        <a
-          href="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img
-            src={logoImg}
-            className="size-8 rounded-2xl"
-            alt="Flowbite Logo"
-          />
-        </a>
+    <header className="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700 sticky top-0 z-50">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Left section - Logo and mobile menu button */}
+          <div className="flex items-center">
+            {/* Mobile menu button */}
+            <button
+              onClick={toggleMenu}
+              className="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:outline-none"
+              aria-expanded={menuOpen}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? (
+                <HiX className="w-6 h-6" />
+              ) : (
+                <HiMenuAlt3 className="w-6 h-6" />
+              )}
+            </button>
 
-        {/* Right buttons */}
-        <div className="flex md:order-2 items-center gap-2">
-          {/* Mobile menu toggle */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          >
-            <HiMenuAlt3 className="w-5 h-5" />
-            <span className="sr-only">Open main menu</span>
-          </button>
-
-          {/* Mobile search toggle */}
-          <button
-            type="button"
-            onClick={() => setShowSearch(!showSearch)}
-            className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600 rounded-lg text-sm p-2.5"
-          >
-            <AiOutlineSearch className="w-5 h-5" />
-            <span className="sr-only">Search</span>
-          </button>
-
-          {/* Desktop search */}
-          <div className="relative hidden md:block">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <AiOutlineSearch className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            </div>
-            <input
-              type="text"
-              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-              placeholder="Search..."
-            />
+            {/* Logo */}
+            <NavLink
+              to="/"
+              className="flex-shrink-0 flex items-center ml-2 md:ml-0"
+            >
+              <img
+                src={logoImg}
+                className="h-16 w-16 rounded-4xl object-cover"
+                alt="Website Logo"
+                width={32}
+                height={32}
+                loading="lazy"
+              />
+            </NavLink>
           </div>
-        </div>
 
-        {/* Mobile Search Field */}
-        {showSearch && (
-          <div className="w-full mt-4 md:hidden">
-            <div className="relative">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <AiOutlineSearch className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          {/* Center section - Desktop navigation */}
+          <nav className="hidden md:flex md:items-center md:space-x-8 md:ml-10">
+            <NavLink
+              to="/"
+              className="navLink"
+              activeClassName="font-medium text-blue-600 dark:text-blue-400"
+            >
+              হোম
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="navLink"
+              activeClassName="font-medium text-blue-600 dark:text-blue-400"
+            >
+              লেখক সম্পর্কে
+            </NavLink>
+            <NavLink
+              to="/articles"
+              className="navLink"
+              activeClassName="font-medium text-blue-600 dark:text-blue-400"
+            >
+              প্রবন্ধ-নিবন্ধ
+            </NavLink>
+            <NavLink
+              to="/miscellaneous"
+              className="navLink"
+              activeClassName="font-medium text-blue-600 dark:text-blue-400"
+            >
+              বিবিধ
+            </NavLink>
+            <NavLink
+              to="/books"
+              className="navLink"
+              activeClassName="font-medium text-blue-600 dark:text-blue-400"
+            >
+              বই পরিচিতি
+            </NavLink>
+          </nav>
+
+          {/* Right section - Search and theme toggle */}
+          <div className="flex items-center space-x-4">
+            {/* Desktop search */}
+            <div className="relative hidden md:block">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <AiOutlineSearch className="h-4 w-4 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="text"
-                className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white sm:text-sm"
                 placeholder="Search..."
+                aria-label="Search"
+              />
+            </div>
+
+            {/* Mobile search button */}
+            <button
+              onClick={toggleSearch}
+              className="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:outline-none"
+              aria-label="Search"
+            >
+              <AiOutlineSearch className="h-5 w-5" />
+            </button>
+
+            {/* Theme toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:outline-none"
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {darkMode ? (
+                <BsSun className="h-5 w-5" />
+              ) : (
+                <BsMoon className="h-5 w-5" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile search */}
+        {showSearch && (
+          <div className="md:hidden pb-3">
+            <div className="relative mt-2">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <AiOutlineSearch className="h-4 w-4 text-gray-400 dark:text-gray-500" />
+              </div>
+              <input
+                type="text"
+                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white sm:text-sm"
+                placeholder="Search..."
+                aria-label="Search"
               />
             </div>
           </div>
         )}
-
-        {/* Menu items */}
-        <div
-          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${menuOpen ? "block" : "hidden"
-            }`}
-        >
-          <ul className="navMenu">
-            <li>
-              <NavLink to="/" className="navLink">
-                হোম
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="navLink">
-                লেখক সম্পর্কে
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="navLink">
-                প্রবন্ধ-নিবন্ধ
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="navLink">
-                বিবিধ
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="navLink">
-                বই পরিচিতি
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="navLink">
-                পাঠক রিভিউ
-              </NavLink>
-            </li>
-          </ul>
-        </div>
       </div>
-    </nav>
+
+      {/* Mobile menu - Full screen overlay */}
+      {menuOpen && (
+        <div className="md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 mt-16 overflow-y-auto">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <NavLink
+              to="/"
+              className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              activeClassName="bg-gray-100 dark:bg-gray-800"
+              onClick={() => setMenuOpen(false)}
+            >
+              হোম
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              activeClassName="bg-gray-100 dark:bg-gray-800"
+              onClick={() => setMenuOpen(false)}
+            >
+              লেখক সম্পর্কে
+            </NavLink>
+            <NavLink
+              to="/articles"
+              className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              activeClassName="bg-gray-100 dark:bg-gray-800"
+              onClick={() => setMenuOpen(false)}
+            >
+              প্রবন্ধ-নিবন্ধ
+            </NavLink>
+            <NavLink
+              to="/miscellaneous"
+              className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              activeClassName="bg-gray-100 dark:bg-gray-800"
+              onClick={() => setMenuOpen(false)}
+            >
+              বিবিধ
+            </NavLink>
+            <NavLink
+              to="/books"
+              className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              activeClassName="bg-gray-100 dark:bg-gray-800"
+              onClick={() => setMenuOpen(false)}
+            >
+              বই পরিচিতি
+            </NavLink>
+          </div>
+        </div>
+      )}
+    </header>
   );
 };

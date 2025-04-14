@@ -1,18 +1,24 @@
+import heroImg from "../public/heroImg.jpg";
+import { Helmet } from 'react-helmet';
+
 export const Home = () => {
   return (
     <>
       <div className="container px-2 max-w-screen-xl mx-auto py-5">
+      <Helmet>
+        <title>ওবায়দুল্লাহ তাসনিম</title>
+      </Helmet>
         <div className="py-10">
           <img
             className="rounded-md border"
-            src="../public/heroImg.jpg"
-            alt=""
+            src={heroImg}
+            alt="heroImg"
           />
         </div>
 
-        <h1 className="dark:text-slate-50 text-7xl">সর্বশেষ ব্লগ</h1>
+        <h1 className="dark:text-slate-50 text-3xl">সর্বশেষ ব্লগ</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-7">
-          <div class="relative flex bg-gray-100 flex-col my-6 dark:bg-white shadow-sm  rounded-lg w-96">
+          <div class="relative flex bg-gray-100 flex-col my-6 dark: shadow-sm  rounded-lg w-96">
             <div class="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
               <img
                 src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
