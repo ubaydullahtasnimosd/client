@@ -135,8 +135,8 @@ const Media = () => (
 
 export const EmailSubscribe = () => {
   return (
-    <div className="p-6 bg-green-100 dark:bg-slate-600 text-center">
-      <h2 className="text-xl font-bold dark:text-slate-100 mb-4">ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন</h2>
+    <div className="p-6 bg-green-50 dark:bg-slate-600 rounded-2xl text-center">
+      <h2 className="text-xl font-bold dark:text-slate-200 mb-4">ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন</h2>
       <hr className="w-64 mx-auto dark:text-slate-200 mt-5" />
       <form className="max-w-md mx-auto mt-5">
         <div className="mb-4 text-left">
