@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import heroImg from "../public/Banner.png";
+import { Link } from "react-router-dom";
+import { LoadingSpinner } from '../component/layout/Loading';
+import { ErrorMessage } from '../component/layout/ErrorMessage';
+import { Media } from '../component/layout/Media';
 import Time from '../utils/banglaDateFormatter';
 import Title from '../utils/pageTitle';
-import Logo from '../public/logo.jpg';
+import heroImg from "/Banner.png";
+import Logo from '/logo.jpg';
 
 // api
 const API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/book/";
@@ -13,22 +17,6 @@ const fetchBooks = async () => {
   const { data } = await axios.get(API_URL);
   return data;
 };
-
-// loading spinner
-export const LoadingSpinner = () => (
-  <div className="flex justify-center items-center py-20">
-    <div className="relative h-12 w-12">
-      <div className="absolute inset-0 rounded-full border-4 border-slate-300 dark:border-slate-700 opacity-30" />
-      <div className="absolute inset-0 rounded-full border-t-4 border-slate-800 dark:border-slate-200 animate-spin" />
-    </div>
-  </div>
-);
-
-const ErrorMessage = () => (
-  <div className="text-center py-10 text-red-500">
-    ডেটা লোড করতে সমস্যা হয়েছে
-  </div>
-);
 
 const BookCard = ({ book }) => {
   const { bookImage, bookTitle, bookCreatedAt, bookDescription } = book;
@@ -43,16 +31,16 @@ const BookCard = ({ book }) => {
           {bookTitle}
         </h6>
         <p className="mb-4 dark:text-slate-200 whitespace-nowrap">
-          <span className="text-[#078870]">ওবায়দুল্লাহ তাসনিম</span> ⬤ {Time(bookCreatedAt)}
+          <span className="text-[#078870]">উবায়দুল্লাহ তাসনিম</span> ⬤ {Time(bookCreatedAt)}
         </p>
         <p className="mb-4 dark:text-slate-200">
           {bookDescription.slice(0, 50)}.....
         </p>
       </div>
       <div className="px-4 pb-4 pt-0 mt-2">
-        <button className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300" type="button">
+        <Link to={'/books'} className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300" type="button">
           বিস্তারিত পড়ুন
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -60,7 +48,7 @@ const BookCard = ({ book }) => {
 
 const HeroSection = () => (
   <div className="py-10">
-    <img className="rounded-xl w-full" src={heroImg} alt="ওবায়দুল্লাহ তাসনিম" />
+    <img className="rounded-xl w-full" src={heroImg} alt="উবায়দুল্লাহ তাসনিম" />
   </div>
 );
 
@@ -74,10 +62,8 @@ const BookList = ({ books }) => (
 
 const PageHeader = () => (
   <>
-    <Title key="Home" title="ওবায়দুল্লাহ তাসনিম" />
-    <h1 className="dark:text-slate-50 text-3xl text-center">
-      ওবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ
-    </h1>
+    <Title key="Home" title="উবায়দুল্লাহ তাসনিম" />
+    <h1 className="dark:text-slate-50 text-3xl text-center">উবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ</h1>
     <hr className="mt-10 dark:text-slate-50" />
   </>
 );
@@ -85,9 +71,7 @@ const PageHeader = () => (
 const Profile = () => (
   <div className="container px-4 max-w-screen-xl mx-auto py-10">
     <div className="text-center mb-12">
-      <h1 className="dark:text-slate-50 text-3xl md:text-3xl text-slate-800 mb-4">
-        ওবায়দুল্লাহ তাসনিম
-      </h1>
+      <h1 className="dark:text-slate-50 text-3xl md:text-3xl text-slate-800 mb-4">উবায়দুল্লাহ তাসনিম</h1>
       <hr className="mt-10 dark:text-slate-50" />
     </div>
 
@@ -114,25 +98,6 @@ const Profile = () => (
   </div>
 );
 
-const Media = () => (
-  <div className="container px-4 max-w-screen-xl mx-auto py-10">
-    <div className="text-center mb-12">
-      <h1 className="dark:text-slate-50 text-3xl md:text-3xl text-slate-800 mb-4">সোশ্যাল মিডিয়ায় ফলো করুন</h1>
-      <hr className="mt-10 dark:text-slate-50" />
-    </div>
-    <div className="flex md:flex-row justify-center gap-8 md:gap-12 items-center">
-      <a href="https://www.facebook.com/profile.php?id=100094697794310" target="_blank" rel="noopener noreferrer" className="fab fa-facebook text-5xl text-blue-600"></a>
-
-      <a href="https://www.instagram.com/ubaydullahtasnim" target="_blank" rel="noopener noreferrer" className="fab fa-instagram text-5xl text-pink-500"></a>
-
-      <a href="https://t.me/ubaydullahtasnim" target="_blank" rel="noopener noreferrer" className="fab fa-telegram text-5xl text-sky-500"></a>
-
-      <a href="https://youtube.com/@tasnimhadi5440?si=oo_lxBa8JepcBWZG" target="_blank" rel="noopener noreferrer" className="fab fa-youtube text-5xl text-red-600"></a>
-    </div>
-    <hr className="mt-10 dark:text-slate-50" />
-  </div>
-);
-
 export const EmailSubscribe = () => {
   return (
     <div className="p-6 bg-green-50 dark:bg-slate-600 rounded-2xl text-center">
@@ -153,7 +118,7 @@ export const EmailSubscribe = () => {
       </form>
       <p className="mt-6 text-sm dark:text-slate-200">
         বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{' '}
-        <span className="font-bold text-green-500"><a href="https://www.facebook.com/profile.php?id=100094697794310">Team ওবায়দুল্লাহ তাসনিম</a></span>{' '}
+        <span className="font-bold text-green-500 underline"><a href="https://www.facebook.com/profile.php?id=100094697794310">Ubaydullah Tasnim</a></span>{' '}
         ফেসবুক পেইজে ইনবক্স করুন।
       </p>
     </div>
@@ -171,7 +136,6 @@ export const Home = () => {
     <div className="container px-2 max-w-screen-xl mx-auto py-5">
       <HeroSection />
       <PageHeader />
-
       {isLoading ? (
         <LoadingSpinner />
       ) : isError ? (

@@ -3,7 +3,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { NavLink, useLocation } from "react-router-dom";
-import logoImg from "../../public/logo.jpg";
+import logoImg from "/logo.jpg";
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);

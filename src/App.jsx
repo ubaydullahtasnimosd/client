@@ -1,20 +1,17 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppLayout } from "../component/layout/AppLayout";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Home } from "../pages/Home";
-import { ErrorPage } from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    errorElement: <ErrorPage/>,
     children: [
       {
-        path: "",
+        path: "/",
         element: <Home />,
       },
-      
     ],
   },
 ]);
