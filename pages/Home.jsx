@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { LoadingSpinner } from '../component/layout/Loading';
 import { ErrorMessage } from '../component/layout/ErrorMessage';
+import { LoadingSpinner } from '../component/layout/Loading';
 import { Media } from '../component/layout/Media';
 import Time from '../utils/banglaDateFormatter';
 import Title from '../utils/pageTitle';
@@ -22,9 +22,13 @@ const BookCard = ({ book }) => {
   const { bookImage, bookTitle, bookCreatedAt, bookDescription } = book;
 
   return (
-    <div className="relative flex bg-gray-100 dark:bg-slate-800 flex-col my-6 shadow-sm rounded-lg w-full max-w-sm mx-auto">
-      <div className="relative h-56 m-2.5 text-white rounded-md">
-        <img src={bookImage} alt={bookTitle} className="w-96 h-56 rounded-lg" />
+    <div className="relative flex bg-gray-100 dark:bg-slate-800 flex-col my-6 shadow-sm w-full max-w-sm mx-auto">
+      <div className="w-full h-64 text-white">
+        <img 
+          src={bookImage} 
+          alt={bookTitle} 
+          className="w-full h-full object-cover" 
+        />
       </div>
       <div className="p-4">
         <h6 className="mb-8 text-slate-800 dark:text-slate-200 text-2xl font-semibold">
@@ -90,8 +94,8 @@ const Profile = () => (
 
         <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
           <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">লেখক</span>
-          <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">কলামিস্ট</span>
-          <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">চিন্তক</span>
+          <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">অনুবাদক</span>
+          <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">শিক্ষক</span>
         </div>
       </div>
     </div>
