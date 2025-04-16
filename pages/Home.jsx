@@ -43,7 +43,7 @@ const BookCard = ({ book }) => {
       </div>
       <div className="px-4 pb-4 pt-0 mt-2">
         <Link to={'/books'} className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300" type="button">
-          বিস্তারিত পড়ুন
+          বিস্তারিত
         </Link>
       </div>
     </div>

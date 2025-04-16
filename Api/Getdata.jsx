@@ -1,5 +1,7 @@
-// import axios from "axios";
+import axios from "axios";
 
-// const api = axios.create({
-//   baseURL: "https://server-iota-ebon-83.vercel.app/api/v1",
-// });
+export const BaseUrl = "https://server-iota-ebon-83.vercel.app";
+
+export const api = axios.create({
+  baseURL: `${BaseUrl}/api/v1`,
+});

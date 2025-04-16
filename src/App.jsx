@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppLayout } from "../component/layout/AppLayout";
 import { Home } from "../pages/Home";
+import { BookIntroduction } from "../pages/BookIntroduction";
+import { BookDetails } from "../pages/BookDetails";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +13,15 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },  
+      {
+        path: "/books",
+        element: <BookIntroduction />,
       },
+      {
+        path: "/books/:id",
+        element: <BookDetails />,
+      }
     ],
   },
 ]);

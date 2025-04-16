@@ -150,7 +150,7 @@ export const Header = () => {
             <NavLink to="/miscellaneous" className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800" activeClassName="bg-gray-100 dark:bg-gray-800" onClick={() => setMenuOpen(false)}>
               বিবিধ
             </NavLink>
-            <NavLink to="/books" className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800" activeClassName="bg-gray-100 dark:bg-gray-800" onClick={() => setMenuOpen(false)}>
+            <NavLink to={'/books'} className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800" activeClassName="bg-gray-100 dark:bg-gray-800" onClick={() => setMenuOpen(false)}>
               বই পরিচিতি
             </NavLink>
           </div>
