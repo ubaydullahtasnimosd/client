@@ -7,10 +7,10 @@ export const Media = () => (
         <div className="flex md:flex-row justify-center gap-8 md:gap-12 items-center">
             <a href="https://www.facebook.com/profile.php?id=100094697794310" target="_blank" rel="noopener noreferrer" className="fab fa-facebook text-5xl text-blue-600"></a>
 
-            <a href="https://www.instagram.com/ubaydullahtasnim" target="_blank" rel="noopener noreferrer" className="fab fa-instagram text-5xl text-pink-500"></a>
+            <a href="https://www.youtube.com/@ubaydullah12" target="_blank" rel="noopener noreferrer" className="fab fa-instagram text-5xl text-pink-500"></a>
 
             <a href="https://t.me/ubaydullahtasnim" target="_blank" rel="noopener noreferrer" className="fab fa-telegram text-5xl text-sky-500"></a>
-            
+
             <a href="https://youtube.com/@tasnimhadi5440?si=oo_lxBa8JepcBWZG" target="_blank" rel="noopener noreferrer" className="fab fa-youtube text-5xl text-red-600"></a>
         </div>
         <hr className="mt-10 dark:text-slate-50" />
