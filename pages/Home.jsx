@@ -24,11 +24,7 @@ const BookCard = ({ book }) => {
   return (
     <div className="relative flex bg-gray-100 dark:bg-slate-800 flex-col my-6 shadow-sm w-full max-w-sm mx-auto">
       <div className="w-full h-64 text-white">
-        <img 
-          src={bookImage} 
-          alt={bookTitle} 
-          className="w-full h-full object-cover" 
-        />
+        <img src={bookImage} alt={bookTitle} className="w-full h-full object-cover" />
       </div>
       <div className="p-4">
         <h6 className="mb-8 text-slate-800 dark:text-slate-200 text-2xl font-semibold">
@@ -52,7 +48,7 @@ const BookCard = ({ book }) => {
 
 const HeroSection = () => (
   <div className="py-10">
-    <img className="rounded-xl w-full" src={heroImg} alt="উবায়দুল্লাহ তাসনিম" />
+    <img src={heroImg} className="w-full mx-auto" alt="hero section"></img>
   </div>
 );
 
@@ -104,7 +100,7 @@ const Profile = () => (
 
 export const EmailSubscribe = () => {
   return (
-    <div className="p-6 bg-green-50 dark:bg-slate-600 rounded-2xl text-center">
+    <div className="p-6 bg-green-50 dark:bg-slate-600 text-center">
       <h2 className="text-xl font-bold dark:text-slate-200 mb-4">ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন</h2>
       <hr className="w-64 mx-auto dark:text-slate-200 mt-5" />
       <form className="max-w-md mx-auto mt-5">

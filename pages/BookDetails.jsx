@@ -30,11 +30,7 @@ export const BookDetails = () => {
             <div className="bg-white dark:bg-gray-800 shadow-lg overflow-hidden">
                 {/* Image Section - Responsive height */}
                 <div className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden">
-                    <img
-                        src={book?.bookImage}
-                        alt={book?.bookTitle}
-                        className="w-full h-full"
-                    />
+                    <img src={book?.bookImage} alt={book?.bookTitle} className="w-full h-full" />
                 </div>
 
                 {/* Content Section */}
@@ -63,11 +59,7 @@ export const BookDetails = () => {
                         </p>
 
                         <p className="mt-3 sm:mt-5 text-base sm:text-lg dark:text-slate-50">
-                            বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{' '}
-                            <a className="underline text-green-500" href="">
-                                Ubaydullah Tasnim
-                            </a>{' '}
-                            ফেসবুক পেইজে ইনবক্স করুন।
+                            বইটি অর্ডার করতে এই লিংক এ ক্লিক করুন : <a target="_blank" className="underline text-[#078870]" href={book?.bookPurchaseLink}>{book?.bookPurchaseLink}</a>
                         </p>
                     </div>
 

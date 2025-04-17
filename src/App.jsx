@@ -4,6 +4,10 @@ import { AppLayout } from "../component/layout/AppLayout";
 import { Home } from "../pages/Home";
 import { BookIntroduction } from "../pages/BookIntroduction";
 import { BookDetails } from "../pages/BookDetails";
+import { AboutAuthor } from "../pages/AboutAuthor";
+import { Articles } from "../pages/Articles";
+import { ArticlesDetails } from "../pages/ArticlesDetails";
+import { Miscellaneous } from "../pages/Miscellaneous";
 
 const router = createBrowserRouter([
   {
@@ -21,10 +25,27 @@ const router = createBrowserRouter([
       {
         path: "/books/:id",
         element: <BookDetails />,
-      }
+      },
+      {
+        path: "/about",
+        element: <AboutAuthor />,
+      },
+      {
+        path: "/articles",
+        element: <Articles />,
+      },
+      {
+        path: "/articles/:id",
+        element: <ArticlesDetails />,
+      },
+      {
+        path: "/miscellaneous",
+        element: <Miscellaneous />,
+      },
     ],
   },
 ]);
+
 export const App = () => {
   const queryClient = new QueryClient();
   return (

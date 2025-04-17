@@ -6,7 +6,7 @@ import { LoadingSpinner } from '../component/layout/Loading';
 import Title from '../utils/pageTitle';
 import Time from '../utils/banglaDateFormatter';
 
-// API URL (Home.jsx-এর মতো একই)
+// API URL
 const API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/book/";
 
 // API Service
@@ -21,12 +21,7 @@ const BookCard = ({ book }) => {
   return (
     <div className="relative flex bg-gray-100 dark:bg-slate-800 flex-col my-6 shadow-sm w-full max-w-sm mx-auto">
       <div className="w-full h-64 text-white">
-        <img 
-          src={bookImage} 
-          alt={bookTitle} 
-          className="w-full h-full object-cover" 
-          loading="lazy"
-        />
+        <img src={bookImage} alt={bookTitle} className="w-full h-full object-cover" loading="lazy" />
       </div>
       <div className="p-4">
         <h6 className="mb-8 text-slate-800 dark:text-slate-200 text-2xl font-semibold">
@@ -40,14 +35,10 @@ const BookCard = ({ book }) => {
         </p>
       </div>
       <div className="px-4 pb-4 pt-0 mt-2">
-        <Link 
-          to={`/books/${book.id}/`} 
-          className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300" 
-          type="button"
-        >
+        <Link to={`/books/${book.id}/`} className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300" type="button">
           পুরোটা পড়ুন
         </Link>
-      </div>    
+      </div>
     </div>
   );
 };
@@ -61,7 +52,7 @@ export const BookIntroduction = () => {
   return (
     <div className="container px-2 max-w-screen-xl mx-auto py-5">
       <Title key="BookIntroduction" title="বই পরিচিতি" />
-      
+
       <h1 className="dark:text-slate-50 text-3xl text-center py-10">উবায়দুল্লাহ তাসনিম এর সমস্ত বই</h1>
       <hr className="mt-4 mb-10 dark:border-slate-50" />
 
