@@ -13,18 +13,20 @@ export const VerificationPage = () => {
       try {
         if (token) {
           const response = await verifySubscription(token);
-          
+
+          let status;
+          let message;
+
           if (response.message === "already verified") {
-            setVerificationStatus('already_verified');
+            status = 'already_verified';
+            message = 'আপনি ইতিমধ্যেই সাবস্ক্রাইব করেছেন!';
           } else {
-            setVerificationStatus('success');
+            status = 'success';
+            message = 'সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে!';
           }
-          
-          toast.success(
-            verificationStatus === 'already_verified' 
-              ? 'আপনি ইতিমধ্যেই সাবস্ক্রাইব করেছেন!' 
-              : 'সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে!'
-          );
+
+          setVerificationStatus(status);
+          toast.success(message);
         }
       } catch (error) {
         setVerificationStatus('error');
@@ -33,15 +35,15 @@ export const VerificationPage = () => {
     };
 
     verifyToken();
-  }, [token, verificationStatus]);
+  }, [token]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-slate-800 p-4">
       {(verificationStatus === 'success' || verificationStatus === 'already_verified') && (
         <div className="bg-black text-white p-10 rounded-lg shadow-xl text-center max-w-md w-full">
           <h2 className="text-2xl font-bold mb-4">
-            {verificationStatus === 'success' 
-              ? 'Subscription confirmed!' 
+            {verificationStatus === 'success'
+              ? 'Subscription confirmed!'
               : 'You are already subscribed!'}
           </h2>
           <p className="mb-6">
