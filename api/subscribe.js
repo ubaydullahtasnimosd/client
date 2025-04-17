@@ -1,4 +1,3 @@
-// src/api/subscribe.js
 import axios from 'axios';
 
 const API_BASE_URL = "https://server-iota-ebon-83.vercel.app/api/v1/subscribe";

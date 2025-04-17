@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { verifySubscription } from '../api/subscribe';
@@ -6,38 +6,77 @@ import { verifySubscription } from '../api/subscribe';
 export const VerificationPage = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('verification_token');
+  const [verificationStatus, setVerificationStatus] = useState(null);
 
   useEffect(() => {
     const verifyToken = async () => {
       try {
         if (token) {
-          await verifySubscription(token);
-          toast.success('ইমেইল ভেরিফিকেশন সফল!');
-          setTimeout(() => {
-            window.location.href = '/';
-          }, 3000);
+          const response = await verifySubscription(token);
+          
+          if (response.message === "already verified") {
+            setVerificationStatus('already_verified');
+          } else {
+            setVerificationStatus('success');
+          }
+          
+          toast.success(
+            verificationStatus === 'already_verified' 
+              ? 'আপনি ইতিমধ্যেই সাবস্ক্রাইব করেছেন!' 
+              : 'সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে!'
+          );
         }
       } catch (error) {
+        setVerificationStatus('error');
         toast.error(error.response?.data?.message || 'ভেরিফিকেশন ব্যর্থ');
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 3000);
       }
     };
 
     verifyToken();
-  }, [token]);
+  }, [token, verificationStatus]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4 dark:text-white">
-          ভেরিফিকেশন প্রক্রিয়াধীন...
-        </h2>
-        <p className="dark:text-gray-300">
-          অনুগ্রহ করে অপেক্ষা করুন, আপনাকে স্বয়ংক্রিয়ভাবে রিডাইরেক্ট করা হবে
-        </p>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-slate-800 p-4">
+      {(verificationStatus === 'success' || verificationStatus === 'already_verified') && (
+        <div className="bg-black text-white p-10 rounded-lg shadow-xl text-center max-w-md w-full">
+          <h2 className="text-2xl font-bold mb-4">
+            {verificationStatus === 'success' 
+              ? 'Subscription confirmed!' 
+              : 'You are already subscribed!'}
+          </h2>
+          <p className="mb-6">
+            {verificationStatus === 'success'
+              ? 'আপনার সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে। নতুন আপডেট পেতে আপনার ইমেইল চেক করুন।'
+              : 'আপনি ইতিমধ্যেই আমাদের সাবস্ক্রাইবার লিস্টে রয়েছেন। নতুন আপডেট পেতে আপনার ইমেইল চেক করুন।'}
+          </p>
+          <a
+            href="/"
+            className="inline-block bg-white text-black px-6 py-2 rounded-md font-medium hover:bg-gray-200 transition"
+          >
+            হোম পেজে ফিরে যান
+          </a>
+        </div>
+      )}
+
+      {verificationStatus === 'error' && (
+        <div className="bg-red-500 text-white p-10 rounded-lg shadow-xl text-center max-w-md w-full">
+          <h2 className="text-2xl font-bold mb-4">ভেরিফিকেশন ব্যর্থ</h2>
+          <p className="mb-6">দুঃখিত, আপনার ভেরিফিকেশন প্রক্রিয়া সম্পন্ন হয়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</p>
+          <a
+            href="/"
+            className="inline-block bg-white text-red-500 px-6 py-2 rounded-md font-medium hover:bg-gray-100 transition"
+          >
+            হোম পেজে ফিরে যান
+          </a>
+        </div>
+      )}
+
+      {!verificationStatus && (
+        <div className="bg-blue-500 text-white p-10 rounded-lg shadow-xl text-center max-w-md w-full">
+          <h2 className="text-2xl font-bold mb-4">ভেরিফিকেশন প্রক্রিয়াধীন...</h2>
+          <p>অনুগ্রহ করে অপেক্ষা করুন</p>
+        </div>
+      )}
     </div>
   );
 };
