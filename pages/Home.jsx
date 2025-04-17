@@ -1,6 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { ErrorMessage } from '../component/layout/ErrorMessage';
 import { LoadingSpinner } from '../component/layout/Loading';
 import { Media } from '../component/layout/Media';
@@ -9,36 +11,59 @@ import Title from '../utils/pageTitle';
 import heroImg from "/Banner.png";
 import Logo from '/logo.jpg';
 
-// api
-const API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/book/";
+// API URLs
+const BOOK_API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/book/";
+const SUBSCRIBE_API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/subscribe/subscribe/";
+const VERIFY_API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/subscribe/subscribe/verify/";
 
-// API Service
+// API Services
 const fetchBooks = async () => {
-  const { data } = await axios.get(API_URL);
+  const { data } = await axios.get(BOOK_API_URL);
   return data;
 };
 
+const subscribeEmail = async (formData) => {
+  const response = await axios.post(SUBSCRIBE_API_URL, formData);
+  return response.data;
+};
+
+const verifySubscription = async (token) => {
+  const response = await axios.get(`${VERIFY_API_URL}${token}/`);
+  return response.data;
+};
+
+// Components
 const BookCard = ({ book }) => {
-  const { bookImage, bookTitle, bookCreatedAt, bookDescription } = book;
+  const { bookImage, bookTitle, bookCreatedAt, bookDescription, id } = book;
 
   return (
-    <div className="relative flex bg-gray-100 dark:bg-slate-800 flex-col my-6 shadow-sm w-full max-w-sm mx-auto">
-      <div className="w-full h-64 text-white">
-        <img src={bookImage} alt={bookTitle} className="w-full h-full object-cover" />
+    <div className="relative flex flex-col bg-gray-100 dark:bg-slate-800 my-6 shadow-sm w-full max-w-sm mx-auto rounded-lg overflow-hidden">
+      <div className="w-full h-64">
+        <img 
+          src={bookImage || Logo} 
+          alt={bookTitle} 
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            e.target.src = Logo; // Fallback image if bookImage fails to load
+          }}
+        />
       </div>
-      <div className="p-4">
-        <h6 className="mb-8 text-slate-800 dark:text-slate-200 text-2xl font-semibold">
+      <div className="p-4 flex-grow">
+        <h6 className="mb-3 text-slate-800 dark:text-slate-200 text-xl font-semibold">
           {bookTitle}
         </h6>
-        <p className="mb-4 dark:text-slate-200 whitespace-nowrap">
-          <span className="text-[#078870]">উবায়দুল্লাহ তাসনিম</span> ⬤ {Time(bookCreatedAt)}
+        <p className="mb-3 dark:text-slate-200 whitespace-nowrap">
+          <span className="text-[#078870]">উবায়দুল্লাহ তাসনিম</span> • {Time(bookCreatedAt)}
         </p>
-        <p className="mb-4 dark:text-slate-200">
-          {bookDescription.slice(0, 50)}.....
+        <p className="mb-3 dark:text-slate-200 line-clamp-3">
+          {bookDescription}
         </p>
       </div>
-      <div className="px-4 pb-4 pt-0 mt-2">
-        <Link to={'/books'} className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300" type="button">
+      <div className="px-4 pb-4">
+        <Link 
+          to={`/books/${id}`}
+          className="inline-block rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg hover:bg-slate-700 dark:hover:bg-slate-300"
+        >
           বিস্তারিত
         </Link>
       </div>
@@ -48,12 +73,17 @@ const BookCard = ({ book }) => {
 
 const HeroSection = () => (
   <div className="py-10">
-    <img src={heroImg} className="w-full mx-auto" alt="hero section"></img>
+    <img 
+      src={heroImg} 
+      className="w-full max-w-6xl mx-auto rounded-lg shadow-md" 
+      alt="hero section"
+      loading="lazy"
+    />
   </div>
 );
 
 const BookList = ({ books }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-7 gap-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-7 gap-6 px-4">
     {books?.map((book) => (
       <BookCard key={book.id} book={book} />
     ))}
@@ -61,23 +91,32 @@ const BookList = ({ books }) => (
 );
 
 const PageHeader = () => (
-  <>
+  <div className="px-4">
     <Title key="Home" title="উবায়দুল্লাহ তাসনিম" />
-    <h1 className="dark:text-slate-50 text-3xl text-center">উবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ</h1>
-    <hr className="mt-10 dark:text-slate-50" />
-  </>
+    <h1 className="dark:text-slate-50 text-2xl md:text-3xl text-center text-gray-800">
+      উবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ
+    </h1>
+    <hr className="mt-6 max-w-2xl mx-auto border-gray-300 dark:border-slate-500" />
+  </div>
 );
 
 const Profile = () => (
   <div className="container px-4 max-w-screen-xl mx-auto py-10">
     <div className="text-center mb-12">
-      <h1 className="dark:text-slate-50 text-3xl md:text-3xl text-slate-800 mb-4">উবায়দুল্লাহ তাসনিম</h1>
-      <hr className="mt-10 dark:text-slate-50" />
+      <h1 className="dark:text-slate-50 text-2xl md:text-3xl text-slate-800  mb-4">
+        উবায়দুল্লাহ তাসনিম
+      </h1>
+      <hr className="mt-6 max-w-2xl mx-auto border-gray-300 dark:border-slate-500" />
     </div>
 
     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
       <div className="w-full md:w-1/3 lg:w-1/4 flex justify-center">
-        <img src={Logo} alt="Profile Logo" className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-slate-200 dark:border-slate-600 shadow-lg" />
+        <img 
+          src={Logo} 
+          alt="Profile Logo" 
+          className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-slate-200 dark:border-slate-600 shadow-lg"
+          loading="lazy"
+        />
       </div>
 
       <div className="w-full md:w-2/3 lg:w-3/4">
@@ -89,37 +128,114 @@ const Profile = () => (
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
-          <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">লেখক</span>
-          <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">অনুবাদক</span>
-          <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">শিক্ষক</span>
+          {['লেখক', 'অনুবাদক', 'শিক্ষক'].map((role) => (
+            <span 
+              key={role}
+              className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium"
+            >
+              {role}
+            </span>
+          ))}
         </div>
       </div>
     </div>
   </div>
 );
 
-export const EmailSubscribe = () => {
+const EmailSubscribe = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const subscribeMutation = useMutation({
+    mutationFn: subscribeEmail,
+    onSuccess: () => {
+      toast.success("সাবস্ক্রিপশন সফল! ভেরিফিকেশনের জন্য আপনার ইমেইল চেক করুন।");
+      setName("");
+      setEmail("");
+    },
+    onError: (error) => {
+      toast.error(error.response?.data?.message || "সাবস্ক্রিপশন ব্যর্থ। আবার চেষ্টা করুন।");
+    },
+  });
+
+  const token = new URLSearchParams(window.location.search).get("token");
+  
+  useQuery({
+    queryKey: ["verifySubscription", token],
+    queryFn: () => verifySubscription(token),
+    enabled: !!token,
+    onSuccess: () => {
+      toast.success("ইমেইল ভেরিফিকেশন সফল!");
+      window.history.replaceState({}, document.title, window.location.pathname);
+    },
+    onError: (error) => {
+      toast.error(error.response?.data?.message || "ভেরিফিকেশন ব্যর্থ। আবার চেষ্টা করুন।");
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !email) {
+      toast.warning("দয়া করে নাম এবং ইমেইল ঠিকানা প্রদান করুন");
+      return;
+    }
+    subscribeMutation.mutate({ name, email });
+  };
+
   return (
-    <div className="p-6 bg-green-50 dark:bg-slate-600 text-center">
-      <h2 className="text-xl font-bold dark:text-slate-200 mb-4">ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন</h2>
-      <hr className="w-64 mx-auto dark:text-slate-200 mt-5" />
-      <form className="max-w-md mx-auto mt-5">
-        <div className="mb-4 text-left">
-          <label htmlFor="name" className="block font-medium dark:text-slate-100 mb-1">Name*</label>
-          <input type="text" id="name" placeholder="আপনার সম্পূর্ন নাম লিখুন" className="w-full px-4 dark:text-slate-200 py-2 border rounded" required />
+    <div className="mb-10 py-10 bg-green-50 dark:bg-slate-600 mx-4">
+      <h2 className="text-xl font-bold dark:text-slate-200 mb-4 text-center">
+        ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন
+      </h2>
+      <hr className="w-64 mx-auto dark:border-slate-500 my-4" />
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+        <div className="mb-4">
+          <label htmlFor="name" className="block font-medium dark:text-slate-100 mb-2">
+            নাম*
+          </label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="আপনার সম্পূর্ণ নাম"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-600 dark:text-white"
+            required
+          />
         </div>
-        <div className="mb-4 text-left">
-          <label htmlFor="email" className="block font-medium dark:text-slate-100 mb-1">Email*</label>
-          <input type="email" id="email" placeholder="আপনার একটি একটিভ ই-মেইল দিন" className="w-full px-4 py-2 border dark:text-slate-200 rounded" required />
-          <button type="submit" className="bg-green-600 text-white px-6 py-2 mt-5 rounded hover:bg-green-700 transition">
-            Subscribe
-          </button>
+        <div className="mb-4">
+          <label htmlFor="email" className="block font-medium dark:text-slate-100 mb-2">
+            ইমেইল*
+          </label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="আপনার ইমেইল ঠিকানা"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-600 dark:text-white"
+            required
+          />
         </div>
+        <button
+          type="submit"
+          disabled={subscribeMutation.isPending}
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+        >
+          {subscribeMutation.isPending ? "প্রক্রিয়াধীন..." : "সাবস্ক্রাইব"}
+        </button>
       </form>
-      <p className="mt-6 text-sm dark:text-slate-200">
+      <p className="mt-6 text-sm dark:text-slate-300 text-center">
         বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{' '}
-        <span className="font-bold text-green-500 underline"><a href="https://www.facebook.com/profile.php?id=100094697794310">Ubaydullah Tasnim</a></span>{' '}
-        ফেসবুক পেইজে ইনবক্স করুন।
+        <a 
+          href="https://www.facebook.com/profile.php?id=100094697794310" 
+          className="font-semibold text-green-600 dark:text-green-400 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ubaydullah Tasnim
+        </a>{' '}
+        ফেসবুক পেইজে।
       </p>
     </div>
   );
@@ -133,13 +249,17 @@ export const Home = () => {
   });
 
   return (
-    <div className="container px-2 max-w-screen-xl mx-auto py-5">
+    <div className="max-w-screen-xl mx-auto">
       <HeroSection />
       <PageHeader />
       {isLoading ? (
-        <LoadingSpinner />
+        <div className="py-20">
+          <LoadingSpinner />
+        </div>
       ) : isError ? (
-        <ErrorMessage />
+        <div className="py-20">
+          <ErrorMessage />
+        </div>
       ) : (
         <BookList books={books} />
       )}
