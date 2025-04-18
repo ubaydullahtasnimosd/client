@@ -10,24 +10,28 @@ export const VerificationPage = () => {
 
   useEffect(() => {
     const verifyToken = async () => {
+      if (!token) {
+        setVerificationStatus('error');
+        toast.error('ভেরিফিকেশন টোকেন পাওয়া যায়নি।');
+        return;
+      }
+
       try {
-        if (token) {
-          const response = await verifySubscription(token);
+        const response = await verifySubscription(token);
 
-          let status;
-          let message;
+        let status;
+        let message;
 
-          if (response.message === "already verified") {
-            status = 'already_verified';
-            message = 'আপনি ইতিমধ্যেই সাবস্ক্রাইব করেছেন!';
-          } else {
-            status = 'success';
-            message = 'সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে!';
-          }
-
-          setVerificationStatus(status);
-          toast.success(message);
+        if (response.message === "already verified") {
+          status = 'already_verified';
+          message = 'আপনি ইতিমধ্যেই সাবস্ক্রাইব করেছেন!';
+        } else {
+          status = 'success';
+          message = 'সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে!';
         }
+
+        setVerificationStatus(status);
+        toast.success(message);
       } catch (error) {
         setVerificationStatus('error');
         toast.error(error.response?.data?.message || 'ভেরিফিকেশন ব্যর্থ');
@@ -37,15 +41,17 @@ export const VerificationPage = () => {
     verifyToken();
   }, [token]);
 
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-slate-800 p-4">
       {(verificationStatus === 'success' || verificationStatus === 'already_verified') && (
         <div className="bg-black text-white p-10 rounded-lg shadow-xl text-center max-w-md w-full">
           <h2 className="text-2xl font-bold mb-4">
             {verificationStatus === 'success'
-              ? 'Subscription confirmed!'
-              : 'You are already subscribed!'}
+              ? 'সাবস্ক্রিপশন নিশ্চিত হয়েছে!'
+              : 'আপনি ইতিমধ্যেই সাবস্ক্রাইব করেছেন!'}
           </h2>
+
           <p className="mb-6">
             {verificationStatus === 'success'
               ? 'আপনার সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে। নতুন আপডেট পেতে আপনার ইমেইল চেক করুন।'
