@@ -40,9 +40,9 @@ export const Miscellaneous = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {data?.map((item) => (
-                        <div key={item.id} className="border border-gray-200 dark:border-slate-500 p-4 bg-white dark:bg-slate-600 shadow-md hover:shadow-xl transition-shadow duration-300 rounded-lg">
+                        <div key={item.id} className="border border-gray-200 dark:border-slate-500 p-4 bg-white dark:bg-slate-600 shadow-md hover:shadow-xl transition-shadow duration-300">
                             <div className="aspect-w-16 aspect-h-9 mb-4">
-                                <iframe src={item.misecllaneousVideo} title={item.misecllaneousTitle} className="w-full h-64 rounded-lg" allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                <iframe src={item.misecllaneousVideo} title={item.misecllaneousTitle} className="w-full h-64" allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                             </div>
 
                             <h2 className="text-sm font-bold mb-2 text-gray-900 dark:text-white">

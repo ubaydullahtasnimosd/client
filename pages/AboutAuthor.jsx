@@ -42,7 +42,7 @@ export const AboutAuthor = () => {
                                 <img src={data[0].aboutAuthorImg} alt="Profile Logo" className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-slate-200 dark:border-slate-600 shadow-lg" />
                             </div>
 
-                            <div className="w-full md:w-2/3 lg:w-3/4">
+                            <div className="w-full mt-5 md:w-2/3 lg:w-3/4">
                                 <p className="text-lg text-justify dark:text-slate-200">{data[0].aboutAuthorDescription}</p>
                                 <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
                                     <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">লেখক</span>
