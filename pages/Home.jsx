@@ -2,7 +2,6 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { ErrorMessage } from '../component/layout/ErrorMessage';
 import { LoadingSpinner } from '../component/layout/Loading';
 import { Media } from '../component/layout/Media';
@@ -10,6 +9,7 @@ import Time from '../utils/banglaDateFormatter';
 import Title from '../utils/pageTitle';
 import heroImg from "/Banner.png";
 import Logo from '/logo.jpg';
+import { toast } from 'react-toastify';
 
 // API URLs
 const BOOK_API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/book/";
