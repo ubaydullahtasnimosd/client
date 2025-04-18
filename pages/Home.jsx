@@ -39,12 +39,12 @@ const BookCard = ({ book }) => {
   return (
     <div className="relative flex flex-col bg-gray-100 dark:bg-slate-800 my-6 w-full max-w-sm mx-auto overflow-hidden">
       <div className="w-full h-64">
-        <img 
-          src={bookImage || Logo} 
-          alt={bookTitle} 
+        <img
+          src={bookImage || Logo}
+          alt={bookTitle}
           className="w-full h-full object-cover"
           onError={(e) => {
-            e.target.src = Logo; 
+            e.target.src = Logo;
           }}
         />
       </div>
@@ -60,7 +60,7 @@ const BookCard = ({ book }) => {
         </p>
       </div>
       <div className="px-4 pb-4">
-        <Link 
+        <Link
           to={`/books/${id}`}
           className="inline-block rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg hover:bg-slate-700 dark:hover:bg-slate-300"
         >
@@ -73,9 +73,9 @@ const BookCard = ({ book }) => {
 
 const HeroSection = () => (
   <div className="py-10 p-3">
-    <img 
-      src={heroImg} 
-      className="w-[1230px] mx-auto" 
+    <img
+      src={heroImg}
+      className="w-[1230px] mx-auto"
       alt="hero section"
       loading="lazy"
     />
@@ -111,9 +111,9 @@ const Profile = () => (
 
     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
       <div className="w-full md:w-1/3 lg:w-1/4 flex justify-center">
-        <img 
-          src={Logo} 
-          alt="Profile Logo" 
+        <img
+          src={Logo}
+          alt="Profile Logo"
           className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-slate-200 dark:border-slate-600 shadow-lg"
           loading="lazy"
         />
@@ -129,7 +129,7 @@ const Profile = () => (
 
         <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
           {['লেখক', 'অনুবাদক', 'শিক্ষক'].map((role) => (
-            <span 
+            <span
               key={role}
               className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium"
             >
@@ -142,14 +142,17 @@ const Profile = () => (
   </div>
 );
 
-const EmailSubscribe = () => {
+export const EmailSubscribe = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const subscribeMutation = useMutation({
     mutationFn: subscribeEmail,
     onSuccess: () => {
-      toast.success("সাবস্ক্রিপশন সফল! ভেরিফিকেশনের জন্য আপনার ইমেইল চেক করুন।");
+      const message = "সাবস্ক্রিপশন সফল! ভেরিফিকেশনের জন্য আপনার ইমেইল চেক করুন।";
+      toast.success(message);
+      setSuccessMessage(message);
       setName("");
       setEmail("");
     },
@@ -159,7 +162,7 @@ const EmailSubscribe = () => {
   });
 
   const token = new URLSearchParams(window.location.search).get("token");
-  
+
   useQuery({
     queryKey: ["verifySubscription", token],
     queryFn: () => verifySubscription(token),
@@ -179,6 +182,7 @@ const EmailSubscribe = () => {
       toast.warning("দয়া করে নাম এবং ইমেইল ঠিকানা প্রদান করুন");
       return;
     }
+    setSuccessMessage("");
     subscribeMutation.mutate({ name, email });
   };
 
@@ -188,6 +192,13 @@ const EmailSubscribe = () => {
         ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন
       </h2>
       <hr className="w-64 mx-auto dark:border-slate-500 my-4" />
+
+      {successMessage && (
+        <div className="max-w-md mx-auto bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6 text-center">
+          {successMessage}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="mb-4">
           <label htmlFor="name" className="block font-medium dark:text-slate-100 mb-2">
@@ -225,16 +236,17 @@ const EmailSubscribe = () => {
           {subscribeMutation.isPending ? "প্রক্রিয়াধীন..." : "সাবস্ক্রাইব"}
         </button>
       </form>
+
       <p className="mt-6 text-sm dark:text-slate-300 text-center">
-        বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{' '}
-        <a 
-          href="https://www.facebook.com/profile.php?id=100094697794310" 
+        বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{" "}
+        <a
+          href="https://www.facebook.com/profile.php?id=100094697794310"
           className="font-semibold text-green-600 dark:text-green-400 hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
           Ubaydullah Tasnim
-        </a>{' '}
+        </a>{" "}
         ফেসবুক পেইজে।
       </p>
     </div>
