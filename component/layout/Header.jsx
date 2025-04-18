@@ -7,10 +7,11 @@ import logoImg from "/logo.jpg";
 
 const navLinks = [
   { path: "/", label: "হোম" },
-  { path: "/about", label: "আমার সম্পর্কে" },
+  { path: "/about", label: "পরিচয়" },
   { path: "/articles", label: "প্রবন্ধ-নিবন্ধ" },
   { path: "/miscellaneous", label: "বিবিধ" },
   { path: "/books", label: "বই পরিচিতি" },
+  { path: "/books", label: "পাঠকের ভালোবাসা" },
 ];
 
 export const Header = () => {
