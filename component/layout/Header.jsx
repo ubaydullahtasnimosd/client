@@ -11,7 +11,7 @@ const navLinks = [
   { path: "/articles", label: "প্রবন্ধ-নিবন্ধ" },
   { path: "/miscellaneous", label: "বিবিধ" },
   { path: "/books", label: "বই পরিচিতি" },
-  { path: "/books", label: "পাঠক রিভিউ" },
+  { path: "/user-review", label: "পাঠক রিভিউ" },
 ];
 
 export const Header = () => {

@@ -1,7 +1,8 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { ErrorMessage } from '../component/layout/ErrorMessage';
 import { LoadingSpinner } from '../component/layout/Loading';
 import { Media } from '../component/layout/Media';
@@ -9,7 +10,6 @@ import Time from '../utils/banglaDateFormatter';
 import Title from '../utils/pageTitle';
 import heroImg from "/Banner.png";
 import Logo from '/logo.jpg';
-import { toast } from 'react-toastify';
 
 // API URLs
 const BOOK_API_URL = "https://server-iota-ebon-83.vercel.app/api/v1/book/";
@@ -37,14 +37,14 @@ const BookCard = ({ book }) => {
   const { bookImage, bookTitle, bookCreatedAt, bookDescription, id } = book;
 
   return (
-    <div className="relative flex flex-col bg-gray-100 dark:bg-slate-800 my-6 shadow-sm w-full max-w-sm mx-auto rounded-lg overflow-hidden">
+    <div className="relative flex flex-col bg-gray-100 dark:bg-slate-800 my-6 w-full max-w-sm mx-auto overflow-hidden">
       <div className="w-full h-64">
         <img 
           src={bookImage || Logo} 
           alt={bookTitle} 
           className="w-full h-full object-cover"
           onError={(e) => {
-            e.target.src = Logo; // Fallback image if bookImage fails to load
+            e.target.src = Logo; 
           }}
         />
       </div>
@@ -72,10 +72,10 @@ const BookCard = ({ book }) => {
 };
 
 const HeroSection = () => (
-  <div className="py-10">
+  <div className="py-10 p-3">
     <img 
       src={heroImg} 
-      className="w-full max-w-6xl mx-auto rounded-lg shadow-md" 
+      className="w-[1230px] mx-auto" 
       alt="hero section"
       loading="lazy"
     />
@@ -96,7 +96,7 @@ const PageHeader = () => (
     <h1 className="dark:text-slate-50 text-2xl md:text-3xl text-center text-gray-800">
       উবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ
     </h1>
-    <hr className="mt-6 max-w-2xl mx-auto border-gray-300 dark:border-slate-500" />
+    <hr className="mt-6 dark:border-slate-200" />
   </div>
 );
 
@@ -106,7 +106,7 @@ const Profile = () => (
       <h1 className="dark:text-slate-50 text-2xl md:text-3xl text-slate-800  mb-4">
         উবায়দুল্লাহ তাসনিম
       </h1>
-      <hr className="mt-6 max-w-2xl mx-auto border-gray-300 dark:border-slate-500" />
+      <hr className="mt-6 dark:border-slate-200" />
     </div>
 
     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">

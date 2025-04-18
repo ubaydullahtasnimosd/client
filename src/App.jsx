@@ -9,6 +9,7 @@ import { Articles } from "../pages/Articles";
 import { ArticlesDetails } from "../pages/ArticlesDetails";
 import { Miscellaneous } from "../pages/Miscellaneous";
 import { VerificationPage } from "../pages/VerificationPage";
+import { User_Review } from "../pages/User_Review";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/verify",
         element: <VerificationPage />,
+      },
+      {
+        path: "/user-review",
+        element: <User_Review />,
       }
     ],
   },
