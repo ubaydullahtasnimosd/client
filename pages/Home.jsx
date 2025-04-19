@@ -39,14 +39,7 @@ const BookCard = ({ book }) => {
   return (
     <div className="relative flex flex-col bg-gray-100 dark:bg-slate-800 my-6 w-full max-w-sm mx-auto overflow-hidden">
       <div className="w-full h-64">
-        <img
-          src={bookImage || Logo}
-          alt={bookTitle}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.target.src = Logo;
-          }}
-        />
+        <img src={bookImage || Logo} alt={bookTitle} className="w-full h-full object-cover" onError={(e) => { e.target.src = Logo; }} />
       </div>
       <div className="p-4 flex-grow">
         <h6 className="mb-3 text-slate-800 dark:text-slate-200 text-xl font-semibold">
@@ -60,10 +53,7 @@ const BookCard = ({ book }) => {
         </p>
       </div>
       <div className="px-4 pb-4">
-        <Link
-          to={`/books/${id}`}
-          className="inline-block rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg hover:bg-slate-700 dark:hover:bg-slate-300"
-        >
+        <Link to={`/books/${id}`} className="inline-block rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg hover:bg-slate-700 dark:hover:bg-slate-300" >
           বিস্তারিত
         </Link>
       </div>
@@ -73,12 +63,7 @@ const BookCard = ({ book }) => {
 
 const HeroSection = () => (
   <div className="py-10 p-3">
-    <img
-      src={heroImg}
-      className="w-[1230px] mx-auto"
-      alt="hero section"
-      loading="lazy"
-    />
+    <img src={heroImg} className="w-[1230px] mx-auto" alt="hero section" loading="lazy" />
   </div>
 );
 
@@ -111,12 +96,7 @@ const Profile = () => (
 
     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
       <div className="w-full md:w-1/3 lg:w-1/4 flex justify-center">
-        <img
-          src={Logo}
-          alt="Profile Logo"
-          className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-slate-200 dark:border-slate-600 shadow-lg"
-          loading="lazy"
-        />
+        <img src={Logo} alt="Profile Logo" className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-slate-200 dark:border-slate-600 shadow-lg" loading="lazy" />
       </div>
 
       <div className="w-full md:w-2/3 lg:w-3/4">
@@ -129,12 +109,7 @@ const Profile = () => (
 
         <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
           {['লেখক', 'অনুবাদক', 'শিক্ষক'].map((role) => (
-            <span
-              key={role}
-              className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium"
-            >
-              {role}
-            </span>
+            <span key={role} className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium" >{role}</span>
           ))}
         </div>
       </div>
@@ -199,52 +174,23 @@ export const EmailSubscribe = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-3">
         <div className="mb-4">
-          <label htmlFor="name" className="block font-medium dark:text-slate-100 mb-2">
-            নাম*
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="আপনার সম্পূর্ণ নাম"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-600 dark:text-white"
-            required
-          />
+          <label htmlFor="name" className="block font-medium dark:text-slate-100 mb-2">নাম*</label>
+          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="আপনার সম্পূর্ণ নাম" className="w-full px-4 py-2 border border-gray-300 dark:border-slate-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-600 dark:text-white" required />
         </div>
         <div className="mb-4">
-          <label htmlFor="email" className="block font-medium dark:text-slate-100 mb-2">
-            ইমেইল*
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="আপনার ইমেইল ঠিকানা"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-600 dark:text-white"
-            required
-          />
+          <label htmlFor="email" className="block font-medium dark:text-slate-100 mb-2">ইমেইল*</label>
+          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="আপনার ইমেইল ঠিকানা" className="w-full px-4 py-2 border border-gray-300 dark:border-slate-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-600 dark:text-white" required />
         </div>
-        <button
-          type="submit"
-          disabled={subscribeMutation.isPending}
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-        >
+        <button type="submit" disabled={subscribeMutation.isPending} className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 disabled:opacity-70 disabled:cursor-not-allowed">
           {subscribeMutation.isPending ? "প্রক্রিয়াধীন..." : "সাবস্ক্রাইব"}
         </button>
       </form>
 
       <p className="mt-6 text-sm dark:text-slate-300 text-center">
         বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{" "}
-        <a
-          href="https://www.facebook.com/profile.php?id=100094697794310"
-          className="font-semibold text-green-600 dark:text-green-400 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://www.facebook.com/profile.php?id=100094697794310" className="font-semibold text-green-600 dark:text-green-400 hover:underline" target="_blank" rel="noopener noreferrer" >
           Ubaydullah Tasnim
         </a>{" "}
         ফেসবুক পেইজে।

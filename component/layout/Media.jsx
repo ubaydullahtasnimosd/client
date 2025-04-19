@@ -1,7 +1,7 @@
 export const Media = () => (
     <div className="container px-4 max-w-screen-xl mx-auto py-10">
         <div className="text-center mb-12">
-            <h1 className="dark:text-slate-50 text-3xl md:text-3xl text-slate-800 mb-4">সোশ্যাল মিডিয়ায় ফলো করুন</h1>
+            <h1 className="dark:text-slate-50 text-3xl text-slate-800 mb-4">সোশ্যাল মিডিয়ায় ফলো করুন</h1>
             <hr className="mt-10 dark:text-slate-50" />
         </div>
         <div className="flex md:flex-row justify-center gap-8 md:gap-12 items-center">

@@ -34,12 +34,11 @@ export const Articles = () => {
     <div className="py-10">
       <Title title="লেখা ও প্রবন্ধ" />
       <div className="container mx-auto px-4 max-w-screen-xl">
-        <h1 className="text-3xl font-bold text-center mb-10 text-gray-800 dark:text-white">লেখা ও প্রবন্ধ</h1>
-
+        <h1 className="text-3xl text-center mb-10 text-gray-800 dark:text-white">প্রবন্ধ-নিবন্ধ</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {data?.map((article) => (
             <div key={article.id} className="border border-gray-200 dark:border-slate-500 p-6 bg-white dark:bg-slate-600 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-              <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+              <h2 className="text-xl mb-2 text-gray-900 dark:text-white">
                 {article.articlesEssaysName}
               </h2>
 

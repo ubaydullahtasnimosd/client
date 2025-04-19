@@ -32,8 +32,8 @@ export const AboutAuthor = () => {
                 ) : error ? (
                     <ErrorMessage />
                 ) : data && data.length > 0 ? (
-                    <div className='py-10'>
-                        <h2 className="text-2xl font-bold dark:text-slate-200 mb-4 text-center">
+                    <div className='mt-10'>
+                        <h2 className="text-3xl dark:text-slate-200 mb-4 text-center">
                             {data[0].aboutAuthorName}
                         </h2>
                         <hr className="mt-10 dark:text-slate-50 w-[80rem] mx-auto" />
@@ -69,7 +69,7 @@ export const AboutAuthor = () => {
                         <Media />
                     </div>
                 ) : (
-                    <div className="text-center py-10">কোন ডাটা পাওয়া যায়নি</div>
+                    <div className="text-center">কোন ডাটা পাওয়া যায়নি</div>
                 )}
             </div>
         </div>

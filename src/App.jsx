@@ -9,7 +9,7 @@ import { Articles } from "../pages/Articles";
 import { ArticlesDetails } from "../pages/ArticlesDetails";
 import { Miscellaneous } from "../pages/Miscellaneous";
 import { VerificationPage } from "../pages/VerificationPage";
-import { User_Review } from "../pages/User_Review";
+import { UserReview } from "../pages/UserReview";
 
 const router = createBrowserRouter([
   {
@@ -49,8 +49,8 @@ const router = createBrowserRouter([
         element: <VerificationPage />,
       },
       {
-        path: "/user-review",
-        element: <User_Review />,
+        path: "/UserReview",
+        element: <UserReview />,
       }
     ],
   },
