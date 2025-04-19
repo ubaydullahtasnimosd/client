@@ -40,7 +40,7 @@ export const UserReview = () => {
   });
 
   return (
-    <div className="container mx-auto px-4 max-w-screen-xl">
+    <div className="container mx-auto px-4 max-w-screen-xl py-10">
       <Title title="পাঠকের ভালোবাসা" />
       <h1 className="text-3xl text-center mb-8 dark:text-white">পাঠকের ভালোবাসা</h1>
 
