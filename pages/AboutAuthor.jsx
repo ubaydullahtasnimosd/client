@@ -56,13 +56,13 @@ export const AboutAuthor = () => {
                 </p>
                 <div className="mt-6 flex flex-col gap-4">
                   <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                    <span className="px-4 py-2 bg-slate-200 dark:bg-slate-600 rounded-full text-sm font-medium">
+                    <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">
                       লেখক
                     </span>
-                    <span className="px-4 py-2 bg-slate-200 dark:bg-slate-600 rounded-full text-sm font-medium">
+                    <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">
                       অনুবাদক
                     </span>
-                    <span className="px-4 py-2 bg-slate-200 dark:bg-slate-600 rounded-full text-sm font-medium">
+                    <span className="px-4 py-2 bg-slate-200 dark:bg-slate-500 rounded-full text-sm font-medium">
                       শিক্ষক
                     </span>
                   </div>
