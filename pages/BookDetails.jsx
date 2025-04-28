@@ -96,13 +96,13 @@ export const BookDetails = () => {
 
             {book?.bookPublication && (
               <p className="mt-3 sm:mt-5 text-base sm:text-lg dark:text-slate-50">
-                প্রকাশনা: {book.bookPublication}
+                প্রকাশনা : {book.bookPublication}
               </p>
             )}
 
             {book?.bookPurchaseLink && (
               <p className="mt-3 sm:mt-5 text-base sm:text-lg dark:text-slate-50">
-                বইটি অর্ডার করতে:{" "}
+                বইটি অর্ডার করতে :{" "}
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -120,7 +120,21 @@ export const BookDetails = () => {
               বই সম্পর্কে
             </h3>
             <p className="text-gray-700 dark:text-gray-300 text-base sm:text-lg whitespace-pre-line">
-              {book?.bookDescription || "বইয়ের বিবরণ এখানে প্রদর্শিত হবে।"}
+              {book?.bookDescription}
+              {book?.bookPurchaseLink && (
+                <p className="mt-3 sm:mt-5 text-base sm:text-lg dark:text-slate-50">
+                  বইটি PDF আকারে দেখতে{" "}
+                  <a
+                    href={book.bookPurchaseLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-[#078870] hover:text-[#067a65]"
+                  >
+                    এই লিংক
+                  </a>{" "}
+                  এ ক্লিক করুন এবং <b>`একটু পড়ে দেখুন`</b> বাটনে ক্লিক করুন।
+                </p>
+              )}
             </p>
           </div>
 

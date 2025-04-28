@@ -34,6 +34,13 @@ export const Media = () => (
         rel="noopener noreferrer"
         className="fab fa-youtube text-5xl text-red-600"
       ></a>
+
+      <a
+        href="https://x.com/AbrarHasan92742?t=7rMOM__upbm1rkd9YLlyjA&s=09"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fab fa-twitter text-5xl text-dark-600"
+      ></a>
     </div>
     <hr className="mt-10 dark:text-slate-50" />
   </div>
