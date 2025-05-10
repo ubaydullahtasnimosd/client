@@ -10,6 +10,7 @@ import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 import heroImg from "/Banner.png";
 import Logo from "/logo.jpg";
+import VisitCount from "./VisitCount";
 import { baseUrl } from "../constants/env.constants";
 
 // API URLs
@@ -294,6 +295,7 @@ export const Home = () => {
         <BookList books={books} />
       )}
       <Profile />
+      <VisitCount />
       <Media />
       <EmailSubscribe />
     </div>

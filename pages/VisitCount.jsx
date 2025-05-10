@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
@@ -11,7 +11,7 @@ const fetchVisitorCount = async () => {
     const response = await axios.get(`${baseUrl}/visit_count/`);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to fetch visitor count", error);
+    throw new Error("Failed to fetch visitor count",error);
   }
 };
 
@@ -20,19 +20,26 @@ const incrementVisitorCount = async () => {
     const response = await axios.post(`${baseUrl}/visit_count/`);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to increment count", error);
+    throw new Error("Failed to increment count",error);
   }
 };
 
 const VisitCount = () => {
+  const queryClient = useQueryClient();
+  
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["visitor-count"],
     queryFn: fetchVisitorCount,
     retry: 2,
+    refetchInterval: 60000,
+    staleTime: 30000
   });
 
   const mutation = useMutation({
     mutationFn: incrementVisitorCount,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["visitor-count"]);
+    },
     onError: (error) => {
       console.error("Mutation error:", error);
       toast.error(error.message);
@@ -40,13 +47,22 @@ const VisitCount = () => {
   });
 
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem("hasVisited");
-    console.log("Initial visit check:", hasVisited);
-
+    const hasVisited = sessionStorage.getItem("pageVisit");
+    
     if (!hasVisited) {
-      console.log("Incrementing visitor count");
       mutation.mutate();
-      sessionStorage.setItem("hasVisited", "true");
+      sessionStorage.setItem("pageVisit", "true");
+      
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === 'visible') {
+          mutation.mutate();
+        }
+      };
+      
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      };
     }
   }, [mutation]);
 
@@ -83,11 +99,14 @@ const VisitCount = () => {
     );
   }
 
+  const percentageIncrease = data?.count 
+    ? Math.min(Math.floor(Math.log(data.count) * 10), 100) 
+    : 1;
+
   return (
-    <div className="bg-white dark:bg-slate-600 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-10 border border-gray-100 dark:border-slate-700 mt-10 mb-10">
+    <div className="max-w-6xl bg-white dark:bg-slate-600 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-10 mx-auto border border-gray-100 dark:border-slate-700 mt-5 mb-5">
       <Title title="ভিজিট কাউন্ট" />
       <div className="flex items-center justify-center gap-3">
-        {/* Animated Visitor Icon */}
         <div className="relative">
           <div className="bg-indigo-100 dark:bg-indigo-900/50 p-10 rounded-full flex items-center justify-center">
             <svg
@@ -108,14 +127,13 @@ const VisitCount = () => {
           <div className="absolute -top-1 -right-1 bg-green-500 rounded-full w-3 h-3 animate-ping"></div>
         </div>
 
-        {/* Count Display */}
         <div>
           <p className="text-2xl font-bold text-gray-500 dark:text-gray-100 tracking-wider">
             মোট ব্যাবহারকারী
           </p>
           <div className="flex items-baseline gap-1">
             <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-300">
-              {data?.count ?? "---"}
+              {data?.count?.toLocaleString() ?? "---"}
             </p>
             <span className="text-xl text-green-500 dark:text-green-400 flex items-center">
               <svg
@@ -130,9 +148,12 @@ const VisitCount = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              +{Math.floor(data?.count / 100) || 1}%
+              +{percentageIncrease}%
             </span>
           </div>
+          <p className="text-sm text-gray-400 dark:text-gray-300 mt-2">
+            ওয়েবসাইট ভিজিট করার জন্য ধন্যবাদ
+          </p>
         </div>
       </div>
     </div>

@@ -10,7 +10,6 @@ import { ArticlesDetails } from "../pages/ArticlesDetails";
 import { Miscellaneous } from "../pages/Miscellaneous";
 import { VerificationPage } from "../pages/VerificationPage";
 import { UserReview } from "../pages/UserReview";
-import VisitCount from "../pages/VisitCount";
 
 const router = createBrowserRouter([
   {
@@ -52,10 +51,6 @@ const router = createBrowserRouter([
       {
         path: "/UserReview",
         element: <UserReview />,
-      },
-      {
-        path: "/VisitCount/123456789",
-        element: <VisitCount />,
       }
     ],
   },
