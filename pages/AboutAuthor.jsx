@@ -21,7 +21,7 @@ export const AboutAuthor = () => {
 
   return (
     <div className="py-10">
-      <Title key="AboutAuthor" title="আমার সম্পর্কে" />
+      <Title key="AboutAuthor" title="লেখক সম্পর্কে" />
       <img
         src={author}
         className="mx-auto px-2"
