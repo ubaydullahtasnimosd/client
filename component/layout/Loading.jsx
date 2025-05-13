@@ -1,5 +1,5 @@
 export const LoadingSpinner = () => (
-  <div className="flex flex-col justify-center items-center py-20 space-y-3">
+  <div className="flex flex-col justify-center items-center max-h-screen h-screen py-20 space-y-3">
     <div className="relative h-14 w-14">
       <div className="absolute inset-0 rounded-full border-[5px] border-slate-200 dark:border-slate-800 opacity-70" />
       <div className="absolute inset-0 rounded-full border-t-[5px] border-b-[5px] border-blue-600 dark:border-blue-400 animate-spin duration-1000 ease-linear" />
