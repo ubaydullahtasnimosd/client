@@ -15,7 +15,7 @@ export const Footer = () => {
           Copyright &copy; {new Date().getFullYear()} - by <span className="font-bold">উবায়দুল্লাহ তাসনিম</span>
         </p>
         <p className="text-sm text-gray-500 mt-3 dark:text-gray-400">
-          ওয়েব সাইট বিকাশ করেছেন <a className="underline font-bold" href="https://najmusshakib.netlify.app/" target="_blank">নাজমুস সাকিব</a>
+          ওয়েব সাইট বিকাশ করেছেন <a className="underline font-bold" href="https://najmus-shakib-sand.vercel.app/" target="_blank">নাজমুস সাকিব</a>
         </p>
       </div>
 
