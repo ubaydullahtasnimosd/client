@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Title from "../utils/pageTitle";
+import { Link } from "react-router-dom";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { LoadingSpinner } from "../component/layout/Loading";
-import { Link } from "react-router-dom";
 import { baseUrl } from "../constants/env.constants";
+import Title from "../utils/pageTitle";
 
 export const Articles = () => {
   const { data, isLoading, isError } = useQuery({
@@ -44,7 +44,12 @@ export const Articles = () => {
               key={article.id}
               className="border border-gray-200 dark:border-slate-500 p-6 bg-white dark:bg-slate-600 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
             >
-              <h2 className="text-xl mb-2 text-gray-900 dark:text-white">
+              <img
+                className="h-52 object-cover"
+                src={article.articlesEssaysImg}
+                alt={article.articlesEssaysName}
+              />
+              <h2 className="text-xl mb-2 mt-5 text-gray-900 dark:text-white">
                 {article.articlesEssaysName}
               </h2>
 

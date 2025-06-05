@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Title from "../utils/pageTitle";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { LoadingSpinner } from "../component/layout/Loading";
-import { Link, useParams } from "react-router-dom";
-import logo from "/logo.jpg";
-import Time from "../utils/banglaDateFormatter";
-import { useState } from "react";
+import { baseUrl } from "../constants/env.constants";
 import { CommentModal } from "../pages/CommentModal";
 import { CommentsList } from "../pages/CommentsList";
-import { baseUrl } from "../constants/env.constants";
+import Time from "../utils/banglaDateFormatter";
+import Title from "../utils/pageTitle";
+import logo from "/logo.jpg";
 
 export const ArticlesDetails = () => {
   const { id } = useParams();
@@ -67,7 +67,12 @@ export const ArticlesDetails = () => {
 
         <div className="max-w-4xl mx-auto">
           <div className="border border-gray-200 dark:border-slate-500 p-6 bg-white dark:bg-slate-600 shadow-md">
-            <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+            <img
+              className="object-cover"
+              src={article?.articlesEssaysImg}
+              alt={article.articlesEssaysName}
+            />
+            <h1 className="text-3xl font-bold mb-4 mt-10 text-gray-900 dark:text-white">
               {article?.articlesEssaysName}
             </h1>
 
