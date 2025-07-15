@@ -12,10 +12,18 @@ export const Footer = () => {
     <footer className="relative p-10 bg-[#f5f5f5] dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
       <div className="max-w-screen-xl mx-auto p-4 text-center">
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Copyright &copy; {new Date().getFullYear()} - by <span className="font-bold">উবায়দুল্লাহ তাসনিম</span>
+          Copyright &copy; {new Date().getFullYear()} - by{" "}
+          <span className="font-bold">উবায়দুল্লাহ তাসনিম</span>
         </p>
         <p className="text-sm text-gray-500 mt-3 dark:text-gray-400">
-          ওয়েব সাইট বিকাশ করেছেন <a className="underline font-bold" href="https://najmus-shakib-sand.vercel.app/" target="_blank">নাজমুস সাকিব</a>
+          ওয়েব সাইট বিকাশ করেছেন{" "}
+          <a
+            className="underline font-bold"
+            href="https://najmus-shakib-sand.vercel.app/"
+            target="_blank"
+          >
+            নাজমুস সাকিব
+          </a>
         </p>
       </div>
 
