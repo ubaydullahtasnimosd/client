@@ -6,7 +6,7 @@ export const LoadingSpinner = () => (
     </div>
     <div className="flex items-center space-x-2">
       <span className="text-base font-semibold text-slate-600 dark:text-slate-300 tracking-wide">
-        LOADING
+        লোড হচ্ছে অপেক্ষা করুন
       </span>
       <div className="flex space-x-1">
         <span className="h-1 w-1 rounded-full bg-blue-600 dark:bg-blue-400 animate-bounce delay-75" />
