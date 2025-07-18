@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { baseUrl } from './../constants/env.constants';
 
-const API_BASE_URL = "https://ubaydullah-tasnim-backend.vercel.app/api/v1/subscribe";
+const API_BASE_URL = `${baseUrl}/subscribe`;
 
 export const subscribeEmail = async (formData) => {
   const response = await axios.post(`${API_BASE_URL}/subscribe/`, formData);
