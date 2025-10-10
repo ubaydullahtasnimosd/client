@@ -42,7 +42,7 @@ export const Articles = () => {
           {data?.map((article) => (
             <div
               key={article.id}
-              className="border border-gray-200 dark:border-slate-500 p-6 bg-white dark:bg-slate-600 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
+              className="dark:border-slate-500 p-6 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
             >
               <img
                 className="h-52 object-cover"

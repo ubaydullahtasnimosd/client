@@ -104,7 +104,7 @@ const VisitCount = () => {
     : 1;
 
   return (
-    <div className="max-w-6xl bg-white dark:bg-slate-600 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-10 mx-auto border border-gray-100 dark:border-slate-700 mt-5 mb-5">
+    <div className="max-w-6xl bg-white dark:bg-slate-800 rounded-xl p-10 mx-auto dark:border-slate-700 mt-5 mb-5 shadow-md hover:shadow-xl transition-shadow duration-300">
       <div className="flex items-center justify-center gap-3">
         <div className="relative">
           <div className="bg-indigo-100 dark:bg-indigo-900/50 p-10 rounded-full flex items-center justify-center">

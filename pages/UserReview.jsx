@@ -3,9 +3,9 @@ import axios from "axios";
 import { useState } from "react";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { LoadingSpinner } from "../component/layout/Loading";
+import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
-import { baseUrl } from "../constants/env.constants";
 
 const API_BASE_URL = `${baseUrl}/readers_love`;
 
@@ -47,7 +47,7 @@ export const UserReview = () => {
         পাঠকের ভালোবাসা
       </h1>
 
-      <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+      <div className="flex border-b border-gray-300 dark:border-gray-800 mb-6">
         <button
           className={`py-2 px-4 font-medium ${
             activeTab === "reviews"
@@ -79,7 +79,7 @@ export const UserReview = () => {
           {reviews?.map((review) => (
             <div
               key={review.id}
-              className="bg-white p-6 shadow-md hover:shadow-lg transition-shadow duration-300 dark:bg-slate-600 dark:text-white"
+              className="bg-white p-6 shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-slate-800 dark:text-white"
             >
               <div className="flex items-center mb-4">
                 <div className="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center font-bold dark:bg-blue-900 dark:text-blue-200">
@@ -112,7 +112,7 @@ export const UserReview = () => {
           {images?.map((image) => (
             <div
               key={image.id}
-              className="bg-white overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 dark:bg-slate-600"
+              className="bg-white overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 dark:bg-slate-800"
             >
               <img
                 src={image.readersBookImg}

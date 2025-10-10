@@ -66,7 +66,7 @@ export const ArticlesDetails = () => {
         />
 
         <div className="max-w-4xl mx-auto">
-          <div className="border border-gray-200 dark:border-slate-500 p-6 bg-white dark:bg-slate-600 shadow-md">
+          <div className="p-6 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-shadow duration-300">
             <img
               className="object-cover"
               src={article?.articlesEssaysImg}

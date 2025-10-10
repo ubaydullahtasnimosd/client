@@ -111,7 +111,7 @@ export const CommentsList = ({ content_type, object_id }) => {
             : ""
         }`}
       >
-        <div className="bg-gray-50 dark:bg-slate-600 p-4">
+        <div className="bg-white dark:bg-slate-800 p-4">
           <div className="flex justify-between items-start">
             <div>
               <h4 className="font-bold text-gray-800 dark:text-white">
@@ -138,7 +138,7 @@ export const CommentsList = ({ content_type, object_id }) => {
             onSubmit={(e) => handleReplySubmit(e, comment.id)}
             className="mt-4 ml-4"
           >
-            <div className="mb-3">
+            <div className="mb-">
               <input
                 type="text"
                 name="userName"

@@ -39,7 +39,7 @@ export const Media = () => (
         href="https://x.com/AbrarHasan92742?t=7rMOM__upbm1rkd9YLlyjA&s=09"
         target="_blank"
         rel="noopener noreferrer"
-        className="fab fa-twitter text-5xl text-dark-600"
+        className="fab fa-twitter text-5xl font-bold"
       ></a>
     </div>
     <hr className="mt-10 dark:text-slate-50" />

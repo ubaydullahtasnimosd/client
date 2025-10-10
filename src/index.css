@@ -3,11 +3,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-body{
-    @apply dark:bg-gray-700;
-    font-family: 'Hind', 'Kalpurush', sans-serif;
-    scroll-behavior: smooth;
-    cursor: context-menu;
+body {
+  background-color: whitesmoke; 
+  @apply dark:bg-gray-900;
+  font-family: 'Hind', 'Kalpurush', sans-serif;
+  scroll-behavior: smooth;
+  cursor: context-menu;
 }
 
 .navMenu {

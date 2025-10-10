@@ -19,7 +19,7 @@ const BookCard = ({ book }) => {
   const { bookImage, bookTitle, bookCreatedAt, bookDescription } = book;
 
   return (
-    <div className="relative flex bg-gray-100 dark:bg-slate-800 flex-col my-6 shadow-sm w-full max-w-sm mx-auto">
+    <div className="relative flex bg-white dark:bg-slate-800 flex-col my-6 w-full max-w-sm mx-auto shadow-md hover:shadow-xl transition-shadow duration-300">
       <div className="w-full h-64 text-white">
         <img
           src={bookImage}

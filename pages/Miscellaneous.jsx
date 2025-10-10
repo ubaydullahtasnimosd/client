@@ -45,7 +45,7 @@ export const Miscellaneous = () => {
           {data?.map((item) => (
             <div
               key={item.id}
-              className="border border-gray-200 dark:border-slate-500 p-4 bg-white dark:bg-slate-600 shadow-md hover:shadow-xl transition-shadow duration-300"
+              className="p-4 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               <div className="aspect-w-16 aspect-h-9 mb-4">
                 <iframe

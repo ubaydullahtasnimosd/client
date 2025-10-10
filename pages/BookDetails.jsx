@@ -60,7 +60,7 @@ export const BookDetails = () => {
         content_type="book"
       />
 
-      <div className="bg-white dark:bg-gray-800 shadow-lg overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
         <div className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden">
           <img
             src={book?.bookImage || "/placeholder-book.jpg"}

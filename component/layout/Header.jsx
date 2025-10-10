@@ -145,7 +145,7 @@ export const Header = () => {
   );
 
   return (
-    <header className="bg-[#f5f5f5] border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700 sticky top-0 z-50">
+    <header className="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">

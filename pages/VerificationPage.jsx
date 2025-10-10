@@ -42,7 +42,7 @@ export const VerificationPage = () => {
   }, [token]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-slate-800 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-800 p-4">
       {(verificationStatus === "success" ||
         verificationStatus === "already_verified") && (
         <div className="bg-black text-white p-10 rounded-lg shadow-xl text-center max-w-md w-full">

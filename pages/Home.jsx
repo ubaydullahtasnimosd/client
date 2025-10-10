@@ -39,7 +39,7 @@ const BookCard = ({ book }) => {
   const { bookImage, bookTitle, bookCreatedAt, bookDescription } = book;
 
   return (
-    <div className="relative flex flex-col bg-gray-100 dark:bg-slate-800 my-6 w-full max-w-sm mx-auto overflow-hidden">
+    <div className="relative flex flex-col bg-white dark:bg-slate-800 my-6 w-full max-w-sm mx-auto overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
       <div className="w-full h-64">
         <img
           src={bookImage || Logo}
@@ -196,7 +196,7 @@ export const EmailSubscribe = () => {
   };
 
   return (
-    <div className="mb-10 py-10 bg-green-50 dark:bg-slate-600 mx-4">
+    <div className="mb-10 py-10 bg-green-100 dark:bg-slate-800 mx-4">
       <h2 className="text-xl font-bold dark:text-slate-200 mb-4 text-center">
         ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন
       </h2>
