@@ -6,6 +6,8 @@ import { LoadingSpinner } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 
+const cx = (...classes) => classes.filter(Boolean).join(" ");
+
 export const CommentsList = ({ content_type, object_id }) => {
   const [replyData, setReplyData] = useState({
     userName: "",
@@ -15,11 +17,7 @@ export const CommentsList = ({ content_type, object_id }) => {
 
   const queryClient = useQueryClient();
 
-  const {
-    data: comments,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: comments, isLoading, isError } = useQuery({
     queryKey: ["comments", content_type, object_id],
     queryFn: async () => {
       try {
@@ -44,20 +42,12 @@ export const CommentsList = ({ content_type, object_id }) => {
           object_id: object_id,
         };
 
-        const response = await axios.post(
-          `${baseUrl}/comment/comments/`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.post(`${baseUrl}/comment/comments/`, formData, {
+          headers: { "Content-Type": "application/json" },
+        });
         return response.data;
       } catch (error) {
-        throw new Error(
-          error.response?.data?.message || "Failed to post reply"
-        );
+        throw new Error(error.response?.data?.message || "Failed to post reply");
       }
     },
     onSuccess: () => {
@@ -72,10 +62,7 @@ export const CommentsList = ({ content_type, object_id }) => {
 
   const handleReplyInputChange = (e) => {
     const { name, value } = e.target;
-    setReplyData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setReplyData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleReplySubmit = (e, parentId) => {
@@ -88,122 +75,175 @@ export const CommentsList = ({ content_type, object_id }) => {
   };
 
   const startReply = (parentId) => {
-    setReplyData((prev) => ({
-      ...prev,
-      parent_comment: parentId,
-    }));
+    setReplyData((prev) => ({ ...prev, parent_comment: parentId }));
   };
 
   const cancelReply = () => {
-    setReplyData((prev) => ({
-      ...prev,
-      parent_comment: null,
-    }));
+    setReplyData((prev) => ({ ...prev, parent_comment: null }));
   };
 
-  const renderComments = (commentList, level = 0) => {
-    return commentList.map((comment) => (
-      <div
-        key={comment.id}
-        className={`mt-4 ${
-          level > 0
-            ? "ml-8 border-l-2 border-gray-200 dark:border-gray-600 pl-4"
-            : ""
-        }`}
-      >
-        <div className="bg-white dark:bg-slate-800 p-4">
-          <div className="flex justify-between items-start">
-            <div>
-              <h4 className="font-bold text-gray-800 dark:text-white">
-                {comment.userName}
-              </h4>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
-                {Time(comment.commentCreateAt)}
-              </span>
+  const inputBase = cx(
+    "w-full rounded-2xl border px-4 py-3 text-sm shadow-sm",
+    "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
+    "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+    "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500",
+    "disabled:opacity-70 disabled:cursor-not-allowed"
+  );
+
+  const replyBtn = cx(
+    "text-xs font-semibold underline underline-offset-4 transition-colors",
+    "text-emerald-700 hover:text-emerald-800",
+    "dark:text-emerald-400 dark:hover:text-emerald-300",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 rounded"
+  );
+
+  const primaryBtn = cx(
+    "inline-flex items-center justify-center rounded-2xl px-3.5 py-2 text-sm font-semibold shadow-sm transition",
+    "bg-emerald-600 text-white hover:bg-emerald-700",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+    "disabled:opacity-70 disabled:cursor-not-allowed"
+  );
+
+  const ghostBtn = cx(
+    "inline-flex items-center justify-center rounded-2xl px-3.5 py-2 text-sm font-semibold transition",
+    "bg-slate-100 text-slate-700 hover:bg-slate-200",
+    "dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+    "disabled:opacity-70 disabled:cursor-not-allowed"
+  );
+
+  const CommentCard = ({ comment, level = 0 }) => {
+    const initial = (comment.userName || "?").trim().charAt(0) || "?";
+
+    return (
+      <div className={cx("mt-5", level > 0 ? "ml-6 md:ml-10" : "")}>
+        {/* thread line */}
+        {level > 0 && (
+          <div className="mb-3 -ml-3 md:-ml-6">
+            <div className="h-px w-full bg-slate-200 dark:bg-slate-800" />
+          </div>
+        )}
+
+        <div
+          className={cx(
+            "rounded-3xl border p-5 shadow-sm",
+            "border-slate-200/70 bg-white",
+            "dark:border-slate-800 dark:bg-slate-950"
+          )}
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div
+                className={cx(
+                  "h-10 w-10 rounded-full flex items-center justify-center font-bold",
+                  "bg-emerald-100 text-emerald-800",
+                  "dark:bg-emerald-900/40 dark:text-emerald-200"
+                )}
+              >
+                {initial}
+              </div>
+
+              <div>
+                <h4 className="font-semibold text-slate-900 dark:text-slate-100">
+                  {comment.userName}
+                </h4>
+                <span className="text-xs text-slate-500 dark:text-slate-400">
+                  {Time(comment.commentCreateAt)}
+                </span>
+              </div>
             </div>
+
             <button
               onClick={() => startReply(comment.id)}
-              className="text-xs font-bold text-[#078890] hover:underline"
+              className={replyBtn}
+              type="button"
+              disabled={isPending}
             >
               Reply
             </button>
           </div>
-          <p className="mt-2 text-gray-600 dark:text-gray-300 whitespace-pre-line">
+
+          <p className="mt-3 text-slate-700 dark:text-slate-300 whitespace-pre-line leading-7">
             {comment.userMessage}
           </p>
+
+          {/* Reply form */}
+          {replyData.parent_comment === comment.id && (
+            <form
+              onSubmit={(e) => handleReplySubmit(e, comment.id)}
+              className="mt-5 rounded-3xl border p-4 bg-slate-50/60 border-slate-200/70 dark:bg-slate-900/30 dark:border-slate-800"
+            >
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  name="userName"
+                  value={replyData.userName}
+                  onChange={handleReplyInputChange}
+                  placeholder="Your name"
+                  className={inputBase}
+                  required
+                  disabled={isPending}
+                />
+
+                <textarea
+                  name="userMessage"
+                  value={replyData.userMessage}
+                  onChange={handleReplyInputChange}
+                  placeholder="Your reply"
+                  rows="3"
+                  className={inputBase}
+                  required
+                  disabled={isPending}
+                />
+
+                <div className="flex flex-wrap gap-2">
+                  <button type="submit" className={primaryBtn} disabled={isPending}>
+                    {isPending ? "Posting..." : "Submit Reply"}
+                  </button>
+                  <button type="button" onClick={cancelReply} className={ghostBtn} disabled={isPending}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
+          )}
         </div>
 
-        {replyData.parent_comment === comment.id && (
-          <form
-            onSubmit={(e) => handleReplySubmit(e, comment.id)}
-            className="mt-4 ml-4"
-          >
-            <div className="mb-">
-              <input
-                type="text"
-                name="userName"
-                value={replyData.userName}
-                onChange={handleReplyInputChange}
-                placeholder="Your name"
-                className="w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white"
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <textarea
-                name="userMessage"
-                value={replyData.userMessage}
-                onChange={handleReplyInputChange}
-                placeholder="Your reply"
-                rows="3"
-                className="w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white"
-                required
-              />
-            </div>
-            <div className="flex gap-2">
-              <button
-                type="submit"
-                className="px-3 py-1 bg-[#078870] text-white text-sm rounded-md"
-                disabled={isPending}
-              >
-                {isPending ? "Posting..." : "Submit Reply"}
-              </button>
-              <button
-                type="button"
-                onClick={cancelReply}
-                className="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-sm rounded-md"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        )}
-
+        {/* Replies */}
         {comment.replies && comment.replies.length > 0 && (
-          <div className="replies">
-            {renderComments(comment.replies, level + 1)}
+          <div className="mt-4">
+            {comment.replies.map((reply) => (
+              <CommentCard key={reply.id} comment={reply} level={level + 1} />
+            ))}
           </div>
         )}
       </div>
-    ));
+    );
   };
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <div className="text-center py-4">
+      <div className="text-center py-8">
         <LoadingSpinner />
       </div>
     );
-  if (isError)
+  }
+
+  if (isError) {
     return (
-      <p className="text-red-500 text-center py-4">Error loading comments</p>
+      <p className="text-slate-500 dark:text-slate-400 text-center py-8">
+        Error loading comments
+      </p>
     );
-  if (!comments || comments.length === 0)
+  }
+
+  if (!comments || comments.length === 0) {
     return (
-      <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+      <p className="text-slate-500 dark:text-slate-400 text-center py-8">
         এখনও কোন মন্তব্য নেই। মন্তব্যকারী প্রথম হন!
       </p>
     );
+  }
 
-  return <div>{renderComments(comments)}</div>;
+  return <div>{comments.map((c) => <CommentCard key={c.id} comment={c} />)}</div>;
 };

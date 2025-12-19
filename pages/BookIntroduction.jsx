@@ -7,7 +7,6 @@ import Title from "../utils/pageTitle";
 import Time from "../utils/banglaDateFormatter";
 import { baseUrl } from "../constants/env.constants";
 
-// API URL
 const API_URL = `${baseUrl}/book/`;
 
 const fetchBooks = async () => {
@@ -15,74 +14,124 @@ const fetchBooks = async () => {
   return data;
 };
 
+const cx = (...classes) => classes.filter(Boolean).join(" ");
+
+const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
+
+const primaryBtn = cx(
+  "inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium shadow-sm transition",
+  "bg-slate-900 text-white hover:bg-slate-800",
+  "dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+  "disabled:pointer-events-none disabled:opacity-60"
+);
+
 const BookCard = ({ book }) => {
   const { bookImage, bookTitle, bookCreatedAt, bookDescription } = book;
 
   return (
-    <div className="relative flex bg-white dark:bg-slate-800 flex-col my-6 w-full max-w-sm mx-auto shadow-md hover:shadow-xl transition-shadow duration-300">
-      <div className="w-full h-64 text-white">
+    <article
+      className={cx(
+        "group flex h-full flex-col overflow-hidden rounded-3xl border",
+        "border-slate-200/70 bg-white shadow-sm transition duration-200",
+        "hover:-translate-y-0.5 hover:shadow-md",
+        "dark:border-slate-800 dark:bg-slate-950"
+      )}
+    >
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
         <img
-          src={bookImage}
+          src={bookImage || "/placeholder-book.jpg"}
           alt={bookTitle}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           loading="lazy"
+          onError={(e) => {
+            e.currentTarget.src = "/placeholder-book.jpg";
+          }}
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
       </div>
-      <div className="p-4">
-        <h6 className="mb-8 text-slate-800 dark:text-slate-200 text-2xl font-semibold">
+
+      <div className="flex flex-1 flex-col p-5 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           {bookTitle}
-        </h6>
-        <p className="mb-4 dark:text-slate-200 whitespace-nowrap">
-          <span className="text-[#078870]">উবায়দুল্লাহ তাসনিম</span> ⬤{" "}
+        </h3>
+
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          <span className="font-medium text-emerald-700 dark:text-emerald-400">
+            উবায়দুল্লাহ তাসনিম
+          </span>{" "}
+          <span className="mx-2 text-slate-300 dark:text-slate-700">•</span>
           {Time(bookCreatedAt)}
         </p>
-        <p className="mb-4 dark:text-slate-200">
-          {bookDescription.slice(0, 100)}.....
+
+        {/* content behavior unchanged: still slice + "....." */}
+        <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300 text-justify">
+          {bookDescription?.slice(0, 100)}.....
         </p>
+
+        <div className="mt-6">
+          <Link to={`/books/${book.id}`} className={primaryBtn}>
+            পুরোটা পড়ুন
+          </Link>
+        </div>
       </div>
-      <div className="px-4 pb-4 pt-0 mt-2">
-        <Link
-          to={`/books/${book.id}`}
-          className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300"
-          type="button"
-        >
-          পুরোটা পড়ুন
-        </Link>
-      </div>
-    </div>
+    </article>
   );
 };
 
 export const BookIntroduction = () => {
-  const {
-    data: books,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: books, isLoading, isError } = useQuery({
     queryKey: ["books"],
     queryFn: fetchBooks,
   });
 
   return (
-    <div className="container px-2 max-w-screen-xl mx-auto py-5">
+    <main
+      className={cx(
+        "py-10 md:py-14 min-h-screen",
+        "bg-slate-50/60 text-slate-900",
+        "dark:bg-slate-950 dark:text-slate-50"
+      )}
+    >
       <Title key="BookIntroduction" title="বই পরিচিতি" />
 
-      <h1 className="dark:text-slate-50 text-3xl text-center py-10">
-        উবায়দুল্লাহ তাসনিম এর সমস্ত বই
-      </h1>
-      <hr className="mt-4 mb-10 dark:border-slate-50" />
+      <div className={container}>
+        <header className="text-center">
+          <div className="inline-flex items-center justify-center rounded-2xl border px-4 py-2 text-sm font-semibold tracking-tight bg-white/70 backdrop-blur shadow-sm border-slate-200/70 dark:bg-slate-950/60 dark:border-slate-800">
+            বই পরিচিতি
+          </div>
 
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : isError ? (
-        <ErrorMessage />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {books?.map((book) => (
-            <BookCard key={book.id} book={book} />
-          ))}
+          <h1 className="mt-5 text-2xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+            উবায়দুল্লাহ তাসনিম এর সমস্ত বই
+          </h1>
+
+          <p className="mx-auto mt-3 max-w-2xl text-sm md:text-base leading-6 text-slate-600 dark:text-slate-300">
+            লেখকের প্রকাশিত বইগুলোর সংক্ষিপ্ত পরিচিতি ও বিস্তারিত তথ্য এখানে পাবেন।
+          </p>
+
+          <div className="mx-auto mt-6 h-px w-28 bg-slate-200 dark:bg-slate-800" />
+        </header>
+
+        <div className="mt-10">
+          {isLoading ? (
+            <div className="py-12 flex justify-center">
+              <LoadingSpinner />
+            </div>
+          ) : isError ? (
+            <div className="py-12">
+              <ErrorMessage />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {books?.map((book) => (
+                <BookCard key={book.id} book={book} />
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
+
+        <div className="h-6" />
+      </div>
+    </main>
   );
 };

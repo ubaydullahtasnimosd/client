@@ -6,6 +6,8 @@ import { LoadingSpinner } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import Title from "../utils/pageTitle";
 
+const cx = (...classes) => classes.filter(Boolean).join(" ");
+
 export const Articles = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["articles"],
@@ -15,9 +17,26 @@ export const Articles = () => {
     },
   });
 
+  const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
+
+  const cardBase = cx(
+    "group flex flex-col overflow-hidden rounded-3xl border",
+    "border-slate-200/70 bg-white shadow-sm transition duration-200",
+    "hover:-translate-y-0.5 hover:shadow-md",
+    "dark:border-slate-800 dark:bg-slate-950"
+  );
+
+  const primaryBtn = cx(
+    "inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium shadow-sm transition",
+    "bg-slate-900 text-white hover:bg-slate-800",
+    "dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+    "disabled:pointer-events-none disabled:opacity-60"
+  );
+
   if (isLoading) {
     return (
-      <div className="py-10 text-center">
+      <div className="py-12 text-center">
         <LoadingSpinner />
       </div>
     );
@@ -25,58 +44,84 @@ export const Articles = () => {
 
   if (isError) {
     return (
-      <div className="py-10 text-center">
+      <div className="py-12 text-center">
         <ErrorMessage />
       </div>
     );
   }
 
   return (
-    <div className="py-10">
+    <main
+      className={cx(
+        "py-10 md:py-14 min-h-screen",
+        "bg-slate-50/60 text-slate-900",
+        "dark:bg-slate-950 dark:text-slate-50"
+      )}
+    >
       <Title title="লেখা ও প্রবন্ধ" />
-      <div className="container mx-auto px-4 max-w-screen-xl">
-        <h1 className="text-3xl text-center mb-10 text-gray-800 dark:text-white">
-          প্রবন্ধ-নিবন্ধ
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div className={container}>
+        {/* Page Header */}
+        <header className="text-center">
+          <div className="inline-flex items-center justify-center rounded-2xl border px-4 py-2 text-sm font-semibold tracking-tight bg-white/70 backdrop-blur shadow-sm border-slate-200/70 dark:bg-slate-950/60 dark:border-slate-800">
+            প্রবন্ধ-নিবন্ধ
+          </div>
+
+          <h1 className="mt-5 text-2xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+            আমার লেখা ও প্রবন্ধসমূহ
+          </h1>
+
+          <p className="mx-auto mt-3 max-w-2xl text-sm md:text-base leading-6 text-slate-600 dark:text-slate-300">
+            এখানে নিয়মিত নতুন লেখা যুক্ত হয়। আপনার পছন্দের লেখাটি বেছে নিয়ে পুরোটা পড়ুন।
+          </p>
+
+          <div className="mx-auto mt-6 h-px w-28 bg-slate-200 dark:bg-slate-800" />
+        </header>
+
+        {/* Grid */}
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {data?.map((article) => (
-            <div
-              key={article.id}
-              className="dark:border-slate-500 p-6 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
-            >
-              <img
-                className="h-52 object-cover"
-                src={article.articlesEssaysImg}
-                alt={article.articlesEssaysName}
-              />
-              <h2 className="text-xl mb-2 mt-5 text-gray-900 dark:text-white">
-                {article.articlesEssaysName}
-              </h2>
-
-              <p className="text-gray-500 dark:text-gray-300 mb-4 text-sm">
-                {article.articlesEssaysAuthor} •{" "}
-                {new Date(article.articlesEssaysCreateAt).toLocaleDateString(
-                  "bn-BD"
-                )}
-              </p>
-
-              <div className="whitespace-pre-line break-words text-justify text-gray-700 dark:text-gray-200 leading-relaxed line-clamp-4 mb-4">
-                {article.articlesEssaysDescription}
+            <article key={article.id} className={cardBase}>
+              {/* Image */}
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+                <img
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  src={article.articlesEssaysImg}
+                  alt={article.articlesEssaysName}
+                  loading="lazy"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
               </div>
 
-              <div className="mt-auto">
-                <Link
-                  to={`/articles/${article.id}`}
-                  className="rounded-md bg-slate-800 dark:bg-slate-200 py-2 px-4 border border-transparent text-center text-sm text-white dark:text-slate-800 transition-all shadow-md hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:bg-slate-700 dark:hover:bg-slate-300"
-                  type="button"
-                >
-                  পুরোটা পড়ুন
-                </Link>
+              {/* Content */}
+              <div className="flex flex-1 flex-col p-5 md:p-6">
+                <h2 className="text-lg md:text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+                  {article.articlesEssaysName}
+                </h2>
+
+                <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                  {article.articlesEssaysAuthor} •{" "}
+                  {new Date(article.articlesEssaysCreateAt).toLocaleDateString("bn-BD")}
+                </p>
+
+                <div className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300 whitespace-pre-line break-words text-justify line-clamp-4">
+                  {article.articlesEssaysDescription}
+                </div>
+
+                {/* CTA */}
+                <div className="mt-6">
+                  <Link to={`/articles/${article.id}`} className={primaryBtn}>
+                    পুরোটা পড়ুন
+                  </Link>
+                </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
+
+        {/* Bottom spacing */}
+        <div className="h-6" />
       </div>
-    </div>
+    </main>
   );
 };

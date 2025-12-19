@@ -1,5 +1,7 @@
 import { FaArrowUp } from "react-icons/fa";
 
+const cx = (...classes) => classes.filter(Boolean).join(" ");
+
 export const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({
@@ -9,20 +11,35 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="relative p-10 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-      <div className="max-w-screen-xl mx-auto p-4 text-center">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+    <footer
+      className={cx(
+        "relative border-t py-10",
+        "border-slate-200/70 bg-white",
+        "dark:border-slate-800/70 dark:bg-slate-950"
+      )}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Copyright &copy; {new Date().getFullYear()} - by{" "}
-          <span className="font-bold">উবায়দুল্লাহ তাসনিম</span>
+          <span className="font-semibold text-slate-700 dark:text-slate-200">
+            উবায়দুল্লাহ তাসনিম
+          </span>
         </p>
       </div>
 
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 shadow-lg z-50"
         aria-label="Scroll to top"
+        className={cx(
+          "fixed bottom-6 right-6 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full",
+          "bg-white text-slate-700 shadow-lg ring-1 ring-slate-900/10",
+          "transition duration-200 hover:-translate-y-0.5 hover:shadow-xl",
+          "active:translate-y-0 active:shadow-lg",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+          "dark:bg-slate-900 dark:text-slate-100 dark:ring-white/10"
+        )}
       >
-        <FaArrowUp className="text-xl font-bold" />
+        <FaArrowUp className="text-base" />
       </button>
     </footer>
   );

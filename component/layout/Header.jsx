@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import logoImg from "/logo.jpg";
-import axios from "axios";
 import { baseUrl } from "../../constants/env.constants";
+import logoImg from "/logo.jpg";
+
+const cx = (...classes) => classes.filter(Boolean).join(" ");
 
 const navLinks = [
   { path: "/", label: "হোম" },
@@ -19,6 +21,7 @@ const navLinks = [
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return (
@@ -26,26 +29,61 @@ export const Header = () => {
       (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
     );
   });
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [noResults, setNoResults] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
 
+  const searchWrapRef = useRef(null);
+  const mobileDrawerRef = useRef(null);
+
   useEffect(() => {
     setMenuOpen(false);
-  }, [location]);
+  }, [location.pathname]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
     localStorage.setItem("theme", darkMode ? "dark" : "light");
-    document.body.style.overflow = menuOpen ? "hidden" : "auto";
+  }, [darkMode]);
 
+  // lock body scroll for mobile drawer
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [darkMode, menuOpen]);
+  }, [menuOpen]);
+
+  // Close on ESC
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        setShowSearch(false);
+        setSearchResults([]);
+        setNoResults(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Close search dropdown when clicking outside
+  useEffect(() => {
+    const onDown = (e) => {
+      if (!searchWrapRef.current) return;
+      if (!searchWrapRef.current.contains(e.target)) {
+        setSearchResults([]);
+        setNoResults(false);
+      }
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, []);
 
   const toggleSearch = () => {
     setShowSearch((prev) => !prev);
@@ -58,6 +96,9 @@ export const Header = () => {
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
     setShowSearch(false);
+    setSearchQuery("");
+    setSearchResults([]);
+    setNoResults(false);
   };
 
   const handleSearch = async (e) => {
@@ -72,12 +113,15 @@ export const Header = () => {
         `${baseUrl}/book/?search=${searchQuery}`
       );
       if (response.data.length === 0) {
+        setSearchResults([]);
         setNoResults(true);
       } else {
         setSearchResults(response.data);
+        setNoResults(false);
       }
     } catch (error) {
       console.error("Search error:", error);
+      setSearchResults([]);
       setNoResults(true);
     } finally {
       setIsSearching(false);
@@ -89,53 +133,83 @@ export const Header = () => {
     setSearchQuery("");
     setSearchResults([]);
     setShowSearch(false);
+    setNoResults(false);
   };
 
-  const SearchInput = () => (
-    <div className="relative p-2 w-full max-w-md">
-      <form onSubmit={handleSearch}>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <AiOutlineSearch className="h-4 w-4 text-gray-400 dark:text-gray-500" />
-          </div>
-          <input
-            autoFocus
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="block w-full p-5 pl-10 py-3 border border-gray-300 rounded-md leading-5 bg-[#f5f5f5] placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white sm:text-sm"
-            placeholder="বইয়ের নাম সার্চ করুন"
-            aria-label="Search"
-          />
-          {isSearching && (
-            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 dark:border-gray-200"></div>
-            </div>
-          )}
+  const navLinkClass = ({ isActive }) =>
+    cx(
+      "relative inline-flex items-center px-1 py-2 text-sm font-medium transition",
+      "text-slate-700 hover:text-slate-900",
+      "dark:text-slate-200 dark:hover:text-white",
+      isActive &&
+        cx(
+          "text-slate-900 dark:text-white",
+          "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full",
+          "after:bg-emerald-600 dark:after:bg-emerald-400"
+        )
+    );
+
+  const SearchInput = ({ autoFocus = false }) => (
+    <div ref={searchWrapRef} className="relative w-full max-w-md">
+      <form onSubmit={handleSearch} className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
         </div>
+
+        <input
+          autoFocus={autoFocus}
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className={cx(
+            "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
+            "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
+            "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+            "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+          )}
+          placeholder="বইয়ের নাম সার্চ করুন"
+          aria-label="Search"
+        />
+
+        {isSearching && (
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+          </div>
+        )}
       </form>
 
       {(searchResults.length > 0 || noResults) && (
-        <div className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md max-h-60 overflow-auto">
+        <div
+          className={cx(
+            "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
+            "border-slate-200 bg-white",
+            "dark:border-slate-800 dark:bg-slate-950"
+          )}
+        >
           {searchResults.length > 0 ? (
-            <ul>
+            <ul className="max-h-72 overflow-auto py-1">
               {searchResults.map((book) => (
                 <li
                   key={book.id}
-                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                  className={cx(
+                    "cursor-pointer px-4 py-3 transition",
+                    "hover:bg-slate-50 dark:hover:bg-slate-900"
+                  )}
                   onClick={() => handleBookSelect(book.id)}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <div className="font-medium text-gray-900 dark:text-white">
+                  <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                     {book.bookTitle}
                   </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                     {book.author}
                   </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <div className="px-4 py-2 text-gray-700 dark:text-gray-300">
+            <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">
               কোনো বই পাওয়া যায়নি
             </div>
           )}
@@ -144,91 +218,201 @@ export const Header = () => {
     </div>
   );
 
-  return (
-    <header className="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 sticky top-0 z-50">
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="flex items-center justify-between py-4">
-          <div className="flex items-center">
-            <button
-              onClick={toggleMenu}
-              className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:outline-none"
-              aria-expanded={menuOpen}
-              aria-label="Toggle menu"
-            >
-              {menuOpen ? <HiX className="w-6 h-6" /> : <HiMenuAlt3 className="w-6 h-6" />}
-            </button>
+  const MobileDrawer = useMemo(() => {
+    if (!menuOpen) return null;
 
-            <NavLink
-              to="/"
-              className="flex-shrink-0 flex items-center ml-2 lg:ml-0"
-            >
+    return (
+      <>
+        {/* Backdrop */}
+        <button
+          aria-label="Close menu"
+          onClick={() => setMenuOpen(false)}
+          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
+        />
+
+        {/* Drawer */}
+        <aside
+          ref={mobileDrawerRef}
+          className={cx(
+            "fixed left-0 top-0 z-50 h-full w-[78%] max-w-xs lg:hidden",
+            "border-r border-slate-200 bg-white shadow-2xl",
+            "dark:border-slate-800 dark:bg-slate-950"
+          )}
+        >
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4 dark:border-slate-800">
+            <div className="flex items-center gap-3">
               <img
                 src={logoImg}
-                className="rounded-full w-16 h-16 object-cover border-4 border-slate-200 dark:border-slate-600 shadow-lg"
+                className="h-10 w-10 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
                 alt="Website Logo"
                 loading="lazy"
               />
+              <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                মেনু
+              </div>
+            </div>
+
+            <button
+              onClick={() => setMenuOpen(false)}
+              className={cx(
+                "inline-flex h-9 w-9 items-center justify-center rounded-lg transition",
+                "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+              )}
+              aria-label="Close"
+            >
+              <HiX className="h-5 w-5" />
+            </button>
+          </div>
+
+          <div className="px-4 py-4">
+            <div className="mb-4">
+              <SearchInput />
+            </div>
+
+            <nav className="space-y-1">
+              {navLinks.map(({ path, label }) => (
+                <NavLink
+                  key={path}
+                  to={path}
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    cx(
+                      "flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
+                      "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+                      "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
+                      isActive &&
+                        "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
+                    )
+                  }
+                >
+                  <span>{label}</span>
+                  <span className="text-slate-300 dark:text-slate-700">›</span>
+                </NavLink>
+              ))}
+            </nav>
+
+            <div className="mt-6">
+              <button
+                onClick={() => setDarkMode((v) => !v)}
+                className={cx(
+                  "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
+                  "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
+                  "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-900"
+                )}
+              >
+                <span>{darkMode ? "লাইট মোড" : "ডার্ক মোড"}</span>
+                {darkMode ? (
+                  <BsSun className="h-4 w-4" />
+                ) : (
+                  <BsMoon className="h-4 w-4" />
+                )}
+              </button>
+            </div>
+          </div>
+        </aside>
+      </>
+    );
+  }, [menuOpen, darkMode]);
+
+  return (
+    <header
+      className={cx(
+        "sticky top-0 z-50 w-full",
+        "border-b border-slate-200 bg-white",
+        "dark:border-slate-800 dark:bg-slate-950"
+      )}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Left */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleMenu}
+              className={cx(
+                "lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
+                "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+              )}
+              aria-expanded={menuOpen}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? (
+                <HiX className="h-6 w-6" />
+              ) : (
+                <HiMenuAlt3 className="h-6 w-6" />
+              )}
+            </button>
+
+            <NavLink to="/" className="flex items-center gap-3">
+              <img
+                src={logoImg}
+                className="h-11 w-11 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
+                alt="Website Logo"
+                loading="lazy"
+              />
+              <span className="hidden sm:inline-block text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+                উবায়দুল্লাহ তাসনিম
+              </span>
             </NavLink>
           </div>
 
-          <nav className="hidden lg:flex lg:items-center lg:space-x-8 lg:ml-10">
+          {/* Center nav */}
+          <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map(({ path, label }) => (
-              <NavLink
-                key={path}
-                to={path}
-                className="navLink"
-              >
+              <NavLink key={path} to={path} className={navLinkClass}>
                 {label}
               </NavLink>
             ))}
           </nav>
 
-          <div className="flex items-center space-x-4">
-            <div className="relative hidden lg:block">
+          {/* Right */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="hidden lg:block">
               <SearchInput />
             </div>
 
             <button
               onClick={toggleSearch}
-              className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:outline-none"
+              className={cx(
+                "lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
+                "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+              )}
               aria-label="Search"
             >
               <AiOutlineSearch className="h-5 w-5" />
             </button>
 
             <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:outline-none"
-              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              onClick={() => setDarkMode((v) => !v)}
+              className={cx(
+                "inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
+                "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+              )}
+              aria-label={
+                darkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
-              {darkMode ? <BsSun className="h-5 w-5" /> : <BsMoon className="h-5 w-5" />}
+              {darkMode ? (
+                <BsSun className="h-5 w-5" />
+              ) : (
+                <BsMoon className="h-5 w-5" />
+              )}
             </button>
           </div>
         </div>
 
+        {/* Mobile search area */}
         {showSearch && (
-          <div className="lg:hidden pb-3">
-            <SearchInput />
+          <div className="pb-4 lg:hidden">
+            <SearchInput autoFocus />
           </div>
         )}
       </div>
 
-      {menuOpen && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 mt-20 overflow-y-auto w-64">
-          <div className="px-4 pt-2 pb-3 space-y-1">
-            {navLinks.map(({ path, label }) => (
-              <NavLink
-                key={path}
-                to={path}
-                className="block px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </NavLink>
-            ))}
-          </div>
-        </div>
-      )}
+      {MobileDrawer}
     </header>
   );
 };
