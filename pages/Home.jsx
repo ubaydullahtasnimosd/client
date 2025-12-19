@@ -10,7 +10,7 @@ import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 import VisitCount from "./VisitCount";
-import heroImg from "/Banner.png";
+import heroImg from "/Banner1.png";
 import Logo from "/logo.jpg";
 
 // API URLs
