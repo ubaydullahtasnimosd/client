@@ -10,8 +10,8 @@ import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 import VisitCount from "./VisitCount";
-import heroImg from "/Banner1.png";
-import Logo from "/logo.jpg";
+import heroImg from "/banner.webp";
+import Logo from "/logo1.webp";
 
 // API URLs
 const BOOK_API_URL = `${baseUrl}/book/`;

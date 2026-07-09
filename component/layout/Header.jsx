@@ -5,7 +5,7 @@ import { BsMoon, BsSun } from "react-icons/bs";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { baseUrl } from "../../constants/env.constants";
-import logoImg from "/logo.jpg";
+import logoImg from "/logo1.webp";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
@@ -142,11 +142,11 @@ export const Header = () => {
       "text-slate-700 hover:text-slate-900",
       "dark:text-slate-200 dark:hover:text-white",
       isActive &&
-        cx(
-          "text-slate-900 dark:text-white",
-          "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full",
-          "after:bg-emerald-600 dark:after:bg-emerald-400"
-        )
+      cx(
+        "text-slate-900 dark:text-white",
+        "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full",
+        "after:bg-emerald-600 dark:after:bg-emerald-400"
+      )
     );
 
   const SearchInput = ({ autoFocus = false }) => (
@@ -243,7 +243,7 @@ export const Header = () => {
             <div className="flex items-center gap-3">
               <img
                 src={logoImg}
-                className="h-10 w-10 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
+                className="h-12 w-12 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
                 alt="Website Logo"
                 loading="lazy"
               />
@@ -282,7 +282,7 @@ export const Header = () => {
                       "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
                       "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
                       isActive &&
-                        "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
+                      "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
                     )
                   }
                 >
@@ -343,15 +343,31 @@ export const Header = () => {
                 <HiMenuAlt3 className="h-6 w-6" />
               )}
             </button>
-
-            <NavLink to="/" className="flex items-center gap-3">
+            <NavLink to="/" className="flex items-center gap-2">
               <img
                 src={logoImg}
-                className="h-11 w-11 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
                 alt="Website Logo"
                 loading="lazy"
+                className="
+                h-16
+                w-16
+                rounded-full
+                object-cover
+                shadow-sm
+              "
               />
-              <span className="hidden sm:inline-block text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+
+              <span
+                className="
+      hidden
+      sm:block
+      text-base
+      font-bold
+      tracking-tight
+      text-slate-900
+      dark:text-slate-100
+    "
+              >
                 উবায়দুল্লাহ তাসনিম
               </span>
             </NavLink>

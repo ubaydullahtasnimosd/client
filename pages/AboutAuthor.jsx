@@ -5,7 +5,7 @@ import { LoadingSpinner } from "../component/layout/Loading";
 import { Media } from "../component/layout/Media";
 import { baseUrl } from "../constants/env.constants";
 import Title from "../utils/pageTitle";
-import author from "/author.jpg";
+import author from "/author1.webp";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
