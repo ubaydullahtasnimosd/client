@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
@@ -84,7 +84,7 @@ const VisitCount = () => {
           )}
         >
           <div className="flex items-center justify-center gap-3">
-            <LoadingSpinner size="small" />
+            <Loading size="small" />
             <span className="text-sm text-slate-500 dark:text-slate-400">
               Loading...
             </span>

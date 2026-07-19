@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+import { EmptyState } from "../component/layout/EmptyState";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
@@ -10,8 +12,12 @@ const cx = (...classes) => classes.filter(Boolean).join(" ");
 const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
 
 export const Miscellaneous = () => {
-  const { data, isLoading, isError } = useQuery({
+  const [searchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category");
+
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["miscellaneous"],
+    enabled: !selectedCategory,
     queryFn: async () => {
       const response = await axios.get(`${baseUrl}/miscellaneous/`);
       return response.data;
@@ -30,7 +36,7 @@ export const Miscellaneous = () => {
         <Title title="বিবিধ" />
         <div className={container}>
           <div className="py-12 text-center">
-            <LoadingSpinner />
+            <Loading />
           </div>
         </div>
       </main>
@@ -49,7 +55,7 @@ export const Miscellaneous = () => {
         <Title title="বিবিধ" />
         <div className={container}>
           <div className="py-12 text-center">
-            <ErrorMessage />
+            <ErrorMessage message={error?.message} onRetry={refetch} />
           </div>
         </div>
       </main>
@@ -84,9 +90,13 @@ export const Miscellaneous = () => {
           <div className="mx-auto mt-6 h-px w-24 bg-slate-200 dark:bg-slate-800" />
         </header>
 
-        {/* Grid */}
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {data?.map((item) => (
+        {selectedCategory || !data?.length ? (
+          <div className="mt-10">
+            <EmptyState />
+          </div>
+        ) : (
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {data.map((item) => (
             <article
               key={item.id}
               className={cx(
@@ -122,8 +132,9 @@ export const Miscellaneous = () => {
                 </p>
               </div>
             </article>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Bottom spacing */}
         <div className="h-6" />

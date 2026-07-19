@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
@@ -29,6 +29,7 @@ export const UserReview = () => {
     data: reviews,
     isLoading: reviewsLoading,
     error: reviewsError,
+    refetch: refetchReviews,
   } = useQuery({
     queryKey: ["readerReviews"],
     queryFn: fetchReviews,
@@ -38,6 +39,7 @@ export const UserReview = () => {
     data: images,
     isLoading: imagesLoading,
     error: imagesError,
+    refetch: refetchImages,
   } = useQuery({
     queryKey: ["reviewImages"],
     queryFn: fetchReviewImages,
@@ -114,11 +116,11 @@ export const UserReview = () => {
           <div className="mt-10 space-y-6">
             {reviewsLoading && (
               <div className="py-8 flex justify-center">
-                <LoadingSpinner />
+                <Loading />
               </div>
             )}
 
-            {reviewsError && <ErrorMessage />}
+            {reviewsError && <ErrorMessage message={reviewsError.message} onRetry={refetchReviews} />}
 
             {reviews?.map((review) => (
               <article
@@ -167,11 +169,11 @@ export const UserReview = () => {
           <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {imagesLoading && (
               <div className="col-span-full py-8 flex justify-center">
-                <LoadingSpinner />
+                <Loading />
               </div>
             )}
 
-            {imagesError && <ErrorMessage />}
+            {imagesError && <ErrorMessage message={imagesError.message} onRetry={refetchImages} />}
 
             {images?.map((image) => (
               <article

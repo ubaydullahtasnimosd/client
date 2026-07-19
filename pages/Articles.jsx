@@ -1,16 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { EmptyState } from "../component/layout/EmptyState";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import Title from "../utils/pageTitle";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
 export const Articles = () => {
-  const { data, isLoading, isError } = useQuery({
+  const [searchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category");
+
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["articles"],
+    enabled: !selectedCategory,
     queryFn: async () => {
       const response = await axios.get(`${baseUrl}/articles_essays/`);
       return response.data;
@@ -37,7 +42,7 @@ export const Articles = () => {
   if (isLoading) {
     return (
       <div className="py-12 text-center">
-        <LoadingSpinner />
+        <Loading />
       </div>
     );
   }
@@ -45,7 +50,7 @@ export const Articles = () => {
   if (isError) {
     return (
       <div className="py-12 text-center">
-        <ErrorMessage />
+        <ErrorMessage message={error?.message} onRetry={refetch} />
       </div>
     );
   }
@@ -78,9 +83,13 @@ export const Articles = () => {
           <div className="mx-auto mt-6 h-px w-28 bg-slate-200 dark:bg-slate-800" />
         </header>
 
-        {/* Grid */}
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data?.map((article) => (
+        {selectedCategory || !data?.length ? (
+          <div className="mt-10">
+            <EmptyState />
+          </div>
+        ) : (
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {data.map((article) => (
             <article key={article.id} className={cardBase}>
               {/* Image */}
               <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
@@ -116,8 +125,9 @@ export const Articles = () => {
                 </div>
               </div>
             </article>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Bottom spacing */}
         <div className="h-6" />

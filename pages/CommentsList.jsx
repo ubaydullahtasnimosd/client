@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 
@@ -224,7 +224,7 @@ export const CommentsList = ({ content_type, object_id }) => {
   if (isLoading) {
     return (
       <div className="text-center py-8">
-        <LoadingSpinner />
+        <Loading />
       </div>
     );
   }

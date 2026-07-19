@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import Title from "../utils/pageTitle";
 import Time from "../utils/banglaDateFormatter";
 import { baseUrl } from "../constants/env.constants";
@@ -80,7 +80,7 @@ const BookCard = ({ book }) => {
 };
 
 export const BookIntroduction = () => {
-  const { data: books, isLoading, isError } = useQuery({
+  const { data: books, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["books"],
     queryFn: fetchBooks,
   });
@@ -115,11 +115,11 @@ export const BookIntroduction = () => {
         <div className="mt-10">
           {isLoading ? (
             <div className="py-12 flex justify-center">
-              <LoadingSpinner />
+              <Loading />
             </div>
           ) : isError ? (
             <div className="py-12">
-              <ErrorMessage />
+              <ErrorMessage message={error?.message} onRetry={refetch} />
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

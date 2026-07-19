@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import Title from "../utils/pageTitle";
 import logo from "/logo.jpg";
 import Time from "../utils/banglaDateFormatter";
@@ -30,7 +30,7 @@ export const BookDetails = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: book, isLoading, isError } = useQuery({
+  const { data: book, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["book", id],
     queryFn: () => fetchBookDetails(id),
   });
@@ -58,14 +58,14 @@ export const BookDetails = () => {
   if (isLoading) {
     return (
       <div className="py-12 text-center">
-        <LoadingSpinner />
+        <Loading />
       </div>
     );
   }
   if (isError) {
     return (
       <div className="py-12 text-center">
-        <ErrorMessage />
+        <ErrorMessage message={error?.message} onRetry={refetch} />
       </div>
     );
   }

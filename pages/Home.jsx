@@ -4,14 +4,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import { Media } from "../component/layout/Media";
 import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 import VisitCount from "./VisitCount";
 import heroImg from "/banner.webp";
-import Logo from "/logo1.webp";
+import Logo from "/logo2.jpg";
 
 // API URLs
 const BOOK_API_URL = `${baseUrl}/book/`;
@@ -350,7 +350,7 @@ export const EmailSubscribe = () => {
 
 // Main Component
 export const Home = () => {
-  const { data: books, isLoading, isError } = useQuery({
+  const { data: books, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["books"],
     queryFn: fetchBooks,
   });
@@ -363,13 +363,13 @@ export const Home = () => {
       {isLoading ? (
         <SectionShell className="pt-0">
           <div className="py-10">
-            <LoadingSpinner />
+            <Loading />
           </div>
         </SectionShell>
       ) : isError ? (
         <SectionShell className="pt-0">
           <div className="py-10">
-            <ErrorMessage />
+            <ErrorMessage message={error?.message} onRetry={refetch} />
           </div>
         </SectionShell>
       ) : (

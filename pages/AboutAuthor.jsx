@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
-import { LoadingSpinner } from "../component/layout/Loading";
+import { Loading } from "../component/layout/Loading";
 import { Media } from "../component/layout/Media";
 import { baseUrl } from "../constants/env.constants";
 import Title from "../utils/pageTitle";
-import author from "/author1.webp";
+import author from "/author1.jpg";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
@@ -20,7 +20,7 @@ const Section = ({ children, className = "" }) => (
 );
 
 export const AboutAuthor = () => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["aboutAuthor"],
     queryFn: async () => {
       const response = await axios.get(`${baseUrl}/about_author/`);
@@ -89,11 +89,11 @@ export const AboutAuthor = () => {
         <Container>
           {isLoading ? (
             <div className="py-12 flex justify-center">
-              <LoadingSpinner />
+              <Loading />
             </div>
           ) : error ? (
             <div className="py-12">
-              <ErrorMessage />
+              <ErrorMessage message={error?.message} onRetry={refetch} />
             </div>
           ) : authorData ? (
             <div className="space-y-10">
