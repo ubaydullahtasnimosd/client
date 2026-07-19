@@ -8,15 +8,22 @@ export const ErrorMessage = ({
   onRetry,
   className = "",
 }) => {
+  const technicalMessages = /network error|request failed|failed to fetch|timeout/i;
+  const displayMessage = technicalMessages.test(message)
+    ? "সাময়িক সমস্যার কারণে তথ্য দেখানো যাচ্ছে না। অনুগ্রহ করে আবার চেষ্টা করুন।"
+    : message;
+
   return (
     <div
       className={cx(
         "mx-auto flex max-w-md flex-col items-center justify-center rounded-2xl border border-rose-200 bg-rose-50/50 p-6 text-center shadow-sm dark:border-rose-950/40 dark:bg-rose-950/10 animate-fade-in",
         className
       )}
+      role="alert"
+      aria-live="assertive"
     >
       <div className="mb-4 rounded-full bg-rose-100 p-3.5 text-rose-600 dark:bg-rose-900/35 dark:text-rose-400">
-        <ExclamationTriangleIcon className="h-7 w-7 animate-pulse" />
+        <ExclamationTriangleIcon className="h-7 w-7" aria-hidden="true" />
       </div>
 
       <h3 className="text-base font-semibold tracking-tight text-rose-800 dark:text-rose-300">
@@ -24,7 +31,7 @@ export const ErrorMessage = ({
       </h3>
 
       <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-        {message}
+        {displayMessage}
       </p>
 
       {onRetry ? (

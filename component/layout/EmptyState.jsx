@@ -3,8 +3,15 @@ export const EmptyState = ({
   message = "এই পেজের কনটেন্ট পরে যুক্ত করা হবে।",
 }) => {
   return (
-    <div className="mx-auto flex max-w-xl flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70 px-6 py-12 text-center shadow-sm dark:border-slate-700 dark:bg-slate-950/60">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl font-semibold text-slate-500 dark:bg-slate-900 dark:text-slate-400">
+    <div
+      className="mx-auto flex max-w-xl flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70 px-6 py-12 text-center shadow-sm dark:border-slate-700 dark:bg-slate-950/60"
+      role="status"
+      aria-live="polite"
+    >
+      <div
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl font-semibold text-slate-500 dark:bg-slate-900 dark:text-slate-400"
+        aria-hidden="true"
+      >
         !
       </div>
 

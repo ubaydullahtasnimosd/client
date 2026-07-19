@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { baseUrl } from "../constants/env.constants";
@@ -12,6 +12,10 @@ export const CommentModal = ({
   object_id,
   content_type = "book",
 }) => {
+  const dialogRef = useRef(null);
+  const nameInputRef = useRef(null);
+  const previouslyFocusedRef = useRef(null);
+  const isPendingRef = useRef(false);
   const [commentData, setCommentData] = useState({
     userName: "",
     userMessage: "",
@@ -36,14 +40,19 @@ export const CommentModal = ({
         });
         return response.data;
       } catch (error) {
-        throw new Error(error.response?.data?.message || "Failed to post comment");
+        throw new Error(
+          error.response?.data?.message ||
+            "মন্তব্য জমা দেওয়া যায়নি। আবার চেষ্টা করুন।"
+        );
       }
     },
     onSuccess: () => {
-      toast.success("Comment posted successfully");
+      toast.success("মন্তব্য সফলভাবে জমা হয়েছে");
       setCommentData({ userName: "", userMessage: "", parent_comment: null });
       setIsModalOpen(false);
-      queryClient.invalidateQueries(["comments", content_type, object_id]);
+      queryClient.invalidateQueries({
+        queryKey: ["comments", content_type, object_id],
+      });
     },
     onError: (error) => {
       toast.error(error.message);
@@ -57,16 +66,66 @@ export const CommentModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!commentData.userName || !commentData.userMessage) {
-      toast.error("Please fill all fields");
+    if (!commentData.userName.trim() || !commentData.userMessage.trim()) {
+      toast.error("নাম ও মন্তব্য দুটিই লিখুন");
       return;
     }
     createComment(commentData);
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setCommentData({ userName: "", userMessage: "", parent_comment: null });
+  }, [setIsModalOpen]);
+
+  isPendingRef.current = isPending;
+
+  useEffect(() => {
+    if (!isModalOpen) return undefined;
+
+    previouslyFocusedRef.current = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusTimer = window.setTimeout(() => nameInputRef.current?.focus(), 0);
+    const handleEscape = (event) => {
+      if (event.key === "Escape" && !isPendingRef.current) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocusedRef.current?.focus?.();
+    };
+  }, [closeModal, isModalOpen]);
+
+  const handleDialogKeyDown = (event) => {
+    if (event.key !== "Tab" || !dialogRef.current) return;
+
+    const focusableElements = dialogRef.current.querySelectorAll(
+      'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (!firstElement) {
+      event.preventDefault();
+      dialogRef.current.focus();
+      return;
+    }
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement?.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement?.focus();
+    }
   };
 
   if (!isModalOpen) return null;
@@ -100,13 +159,20 @@ export const CommentModal = ({
       {/* Backdrop */}
       <button
         type="button"
-        aria-label="Close modal overlay"
+        aria-label="মন্তব্যের ডায়ালগ বন্ধ করুন"
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={closeModal}
       />
 
       {/* Modal */}
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="comment-dialog-title"
+        aria-describedby="comment-dialog-description"
+        onKeyDown={handleDialogKeyDown}
+        tabIndex={-1}
         className={cx(
           "relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border shadow-2xl",
           "border-slate-200 bg-white",
@@ -118,10 +184,10 @@ export const CommentModal = ({
         <div className="p-6 md:p-7">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-100">
+              <h3 id="comment-dialog-title" className="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-100">
                 নতুন মন্তব্য করুন
               </h3>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              <p id="comment-dialog-description" className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 আপনার মতামত লিখে জমা দিন
               </p>
             </div>
@@ -135,8 +201,8 @@ export const CommentModal = ({
               )}
               disabled={isPending}
               type="button"
-              aria-label="Close modal"
-              title="Close"
+              aria-label="মন্তব্যের ডায়ালগ বন্ধ করুন"
+              title="বন্ধ করুন"
             >
               ✕
             </button>
@@ -145,7 +211,11 @@ export const CommentModal = ({
           <div className="mt-5 h-px w-full bg-slate-200 dark:bg-slate-800" />
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <form
+            onSubmit={handleSubmit}
+            className="mt-6 space-y-4"
+            aria-busy={isPending}
+          >
             <div>
               <label
                 htmlFor="userName"
@@ -155,6 +225,7 @@ export const CommentModal = ({
               </label>
               <input
                 type="text"
+                ref={nameInputRef}
                 id="userName"
                 name="userName"
                 value={commentData.userName}

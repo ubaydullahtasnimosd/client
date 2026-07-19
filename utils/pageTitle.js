@@ -2,7 +2,8 @@ import { useEffect } from "react";
 
 const PageTitle = ({ title, description }) => {
   useEffect(() => {
-    document.title = title;
+    const brandName = "উবায়দুল্লাহ তাসনিম";
+    document.title = title === brandName ? brandName : `${title} | ${brandName}`;
 
     if (description) {
       let metaDescription = document.querySelector("meta[name='description']");

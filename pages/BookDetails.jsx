@@ -19,11 +19,11 @@ const fetchBookDetails = async (id) => {
   return data;
 };
 
-const fetchCommentCount = async (content_type, object_id) => {
+const fetchComments = async (content_type, object_id) => {
   const { data } = await axios.get(
     `${baseUrl}/comment/content/${content_type}/${object_id}/comments/`
   );
-  return data.length;
+  return data;
 };
 
 export const BookDetails = () => {
@@ -35,11 +35,12 @@ export const BookDetails = () => {
     queryFn: () => fetchBookDetails(id),
   });
 
-  const { data: commentCount } = useQuery({
-    queryKey: ["commentCount", "book", id],
-    queryFn: () => fetchCommentCount("book", id),
-    initialData: 0,
+  const { data: comments = [] } = useQuery({
+    queryKey: ["comments", "book", id],
+    queryFn: () => fetchComments("book", id),
   });
+
+  const commentCount = comments.length;
 
   const primaryBtn = cx(
     "inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium shadow-sm transition",
@@ -90,13 +91,16 @@ export const BookDetails = () => {
 
         <div className="mx-auto max-w-4xl">
           {/* Breadcrumb */}
-          <div className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+          <nav
+            className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300"
+            aria-label="পেজের অবস্থান"
+          >
             <Link className={accentLink} to="/books">
               আমার বইগুলো
             </Link>
             <span className="text-slate-300 dark:text-slate-700">/</span>
             <span className="truncate max-w-[70%]">{book?.bookTitle}</span>
-          </div>
+          </nav>
 
           <article
             className={cx(
@@ -108,10 +112,13 @@ export const BookDetails = () => {
             {/* Cover */}
             <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden bg-slate-100 dark:bg-slate-900">
               <img
-                src={book?.bookImage || "/placeholder-book.jpg"}
-                alt={book?.bookTitle || "Book Cover"}
+                src={book?.bookImage || "/logo2.jpg"}
+                alt={book?.bookTitle || "বইয়ের প্রচ্ছদ"}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                onError={(event) => {
+                  event.currentTarget.src = "/logo2.jpg";
+                }}
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-transparent" />
             </div>
@@ -144,7 +151,7 @@ export const BookDetails = () => {
                 <span className="text-slate-300 dark:text-slate-700">•</span>
 
                 <span className="text-slate-600 dark:text-slate-300">
-                  {commentCount} COMMENTS
+                  {commentCount} মন্তব্য
                 </span>
               </div>
 

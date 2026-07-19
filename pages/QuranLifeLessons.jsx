@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { EmptyState } from "../component/layout/EmptyState";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
+import { shortFormatDate } from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
@@ -86,35 +88,29 @@ export const QuranLifeLessons = () => {
 
         {!data?.length ? (
           <div className="mt-10">
-            <div className="mx-auto flex max-w-xl flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70 px-6 py-12 text-center shadow-sm dark:border-slate-700 dark:bg-slate-950/60">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl font-semibold text-slate-500 dark:bg-slate-900 dark:text-slate-400">
-                !
-              </div>
-              <h2 className="mt-5 text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100">
-                কোনো ডাটা পাওয়া যায়নি
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                এই পেজের কনটেন্ট পরে যুক্ত করা হবে।
-              </p>
-            </div>
+            <EmptyState message="এখনও কুরআন থেকে কোনো জীবনপাঠ প্রকাশ করা হয়নি।" />
           </div>
         ) : (
           <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {data.map((lesson) => (
               <article key={lesson.id} className={cardBase}>
                 {/* Image */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+                <Link
+                  to={`/islam/quran-life-lessons/${lesson.id}`}
+                  className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-500/40 dark:bg-slate-900"
+                  aria-label={`${lesson.quranLessonName} পড়ুন`}
+                >
                   <img
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                    src={lesson.quranLessonImg}
+                    src={lesson.quranLessonImg || "/logo2.jpg"}
                     alt={lesson.quranLessonName}
                     loading="lazy"
-                    onError={(e) => {
-                      e.target.src = "/logo2.jpg";
+                    onError={(event) => {
+                      event.currentTarget.src = "/logo2.jpg";
                     }}
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
-                </div>
+                </Link>
 
                 {/* Content */}
                 <div className="flex flex-1 flex-col p-5 md:p-6">
@@ -124,7 +120,7 @@ export const QuranLifeLessons = () => {
 
                   <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                     {lesson.quranLessonAuthor} •{" "}
-                    {new Date(lesson.quranLessonCreateAt).toLocaleDateString("bn-BD")}
+                    {shortFormatDate(lesson.quranLessonCreateAt)}
                   </p>
 
                   <div className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300 whitespace-pre-line break-words text-justify line-clamp-4">
@@ -132,7 +128,7 @@ export const QuranLifeLessons = () => {
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-6">
+                  <div className="mt-auto pt-6">
                     <Link to={`/islam/quran-life-lessons/${lesson.id}`} className={primaryBtn}>
                       পুরোটা পড়ুন
                     </Link>

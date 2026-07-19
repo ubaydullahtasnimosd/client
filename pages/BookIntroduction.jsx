@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { EmptyState } from "../component/layout/EmptyState";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
 import Title from "../utils/pageTitle";
@@ -38,18 +39,22 @@ const BookCard = ({ book }) => {
         "dark:border-slate-800 dark:bg-slate-950"
       )}
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+      <Link
+        to={`/books/${book.id}`}
+        className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-500/40 dark:bg-slate-900"
+        aria-label={`${bookTitle} সম্পর্কে পড়ুন`}
+      >
         <img
-          src={bookImage || "/placeholder-book.jpg"}
+          src={bookImage || "/logo2.jpg"}
           alt={bookTitle}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           loading="lazy"
           onError={(e) => {
-            e.currentTarget.src = "/placeholder-book.jpg";
+            e.currentTarget.src = "/logo2.jpg";
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
-      </div>
+      </Link>
 
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <h3 className="text-lg md:text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
@@ -69,7 +74,7 @@ const BookCard = ({ book }) => {
           {bookDescription?.slice(0, 100)}.....
         </p>
 
-        <div className="mt-6">
+        <div className="mt-auto pt-6">
           <Link to={`/books/${book.id}`} className={primaryBtn}>
             পুরোটা পড়ুন
           </Link>
@@ -121,6 +126,8 @@ export const BookIntroduction = () => {
             <div className="py-12">
               <ErrorMessage message={error?.message} onRetry={refetch} />
             </div>
+          ) : !books?.length ? (
+            <EmptyState message="এখনও কোনো বইয়ের পরিচিতি প্রকাশ করা হয়নি।" />
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {books?.map((book) => (

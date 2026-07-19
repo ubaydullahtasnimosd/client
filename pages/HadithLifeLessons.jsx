@@ -5,6 +5,7 @@ import { EmptyState } from "../component/layout/EmptyState";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
+import { shortFormatDate } from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
@@ -114,9 +115,7 @@ export const HadithLifeLessons = () => {
 
                   <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                     {lesson.hadithLessonAuthor} •{" "}
-                    {new Date(lesson.hadithLessonCreateAt).toLocaleDateString(
-                      "bn-BD"
-                    )}
+                    {shortFormatDate(lesson.hadithLessonCreateAt)}
                   </p>
 
                   <p className="mt-3 line-clamp-4 whitespace-pre-line break-words text-justify text-sm leading-6 text-slate-700 dark:text-slate-300">
@@ -142,4 +141,3 @@ export const HadithLifeLessons = () => {
     </main>
   );
 };
-

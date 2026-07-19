@@ -24,16 +24,17 @@ export const QuranLifeLessonsDetails = () => {
     },
   });
 
-  const { data: commentCount } = useQuery({
-    queryKey: ["commentCount", "quran_life_lessons", id],
+  const { data: comments = [] } = useQuery({
+    queryKey: ["comments", "quran_life_lessons", id],
     queryFn: async () => {
       const { data } = await axios.get(
         `${baseUrl}/comment/content/quran_life_lessons/${id}/comments/`
       );
-      return data.length;
+      return data;
     },
-    initialData: 0,
   });
+
+  const commentCount = comments.length;
 
   const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
 
@@ -94,13 +95,16 @@ export const QuranLifeLessonsDetails = () => {
 
         <div className="mx-auto max-w-4xl">
           {/* Breadcrumb */}
-          <div className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+          <nav
+            className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300"
+            aria-label="পেজের অবস্থান"
+          >
             <Link className={linkBase} to="/islam/quran-life-lessons">
               কুরআন থেকে জীবনের পাঠ
             </Link>
             <span className="text-slate-300 dark:text-slate-700">/</span>
             <span className="truncate max-w-[70%]">{lesson?.quranLessonName}</span>
-          </div>
+          </nav>
 
           {/* Details Card */}
           <article
@@ -146,7 +150,7 @@ export const QuranLifeLessonsDetails = () => {
               <span className="text-slate-300 dark:text-slate-700">•</span>
 
               <span className="text-slate-600 dark:text-slate-300">
-                {commentCount} COMMENTS
+                {commentCount} মন্তব্য
               </span>
             </div>
 

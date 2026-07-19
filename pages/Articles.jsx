@@ -5,6 +5,7 @@ import { EmptyState } from "../component/layout/EmptyState";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
+import { shortFormatDate } from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
@@ -92,15 +93,22 @@ export const Articles = () => {
             {data.map((article) => (
             <article key={article.id} className={cardBase}>
               {/* Image */}
-              <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+              <Link
+                to={`/articles/${article.id}`}
+                className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-500/40 dark:bg-slate-900"
+                aria-label={`${article.articlesEssaysName} পড়ুন`}
+              >
                 <img
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  src={article.articlesEssaysImg}
+                  src={article.articlesEssaysImg || "/logo2.jpg"}
                   alt={article.articlesEssaysName}
                   loading="lazy"
+                  onError={(event) => {
+                    event.currentTarget.src = "/logo2.jpg";
+                  }}
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
-              </div>
+              </Link>
 
               {/* Content */}
               <div className="flex flex-1 flex-col p-5 md:p-6">
@@ -110,7 +118,7 @@ export const Articles = () => {
 
                 <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                   {article.articlesEssaysAuthor} •{" "}
-                  {new Date(article.articlesEssaysCreateAt).toLocaleDateString("bn-BD")}
+                  {shortFormatDate(article.articlesEssaysCreateAt)}
                 </p>
 
                 <div className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300 whitespace-pre-line break-words text-justify line-clamp-4">
@@ -118,7 +126,7 @@ export const Articles = () => {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-6">
+                <div className="mt-auto pt-6">
                   <Link to={`/articles/${article.id}`} className={primaryBtn}>
                     পুরোটা পড়ুন
                   </Link>

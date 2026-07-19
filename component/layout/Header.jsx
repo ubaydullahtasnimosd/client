@@ -140,15 +140,16 @@ export const Header = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!searchQuery.trim()) return;
+    const normalizedQuery = searchQuery.trim();
+    if (!normalizedQuery) return;
 
     setIsSearching(true);
     setNoResults(false);
 
     try {
-      const response = await axios.get(
-        `${baseUrl}/book/?search=${searchQuery}`
-      );
+      const response = await axios.get(`${baseUrl}/book/`, {
+        params: { search: normalizedQuery },
+      });
       if (response.data.length === 0) {
         setSearchResults([]);
         setNoResults(true);
@@ -208,9 +209,14 @@ export const Header = () => {
     return item.children?.some((child) => matchesPath(child.path)) ?? false;
   }, [location.pathname]);
 
-  const SearchInput = ({ autoFocus = false }) => (
+  const SearchInput = ({ autoFocus = false, idPrefix }) => (
     <div ref={searchWrapRef} className="relative w-full max-w-md">
-      <form onSubmit={handleSearch} className="relative">
+      <form
+        onSubmit={handleSearch}
+        className="relative"
+        role="search"
+        aria-label="বই অনুসন্ধান"
+      >
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
         </div>
@@ -220,6 +226,8 @@ export const Header = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          name="book-search"
+          autoComplete="off"
           className={cx(
             "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
             "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
@@ -227,18 +235,26 @@ export const Header = () => {
             "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
           )}
           placeholder="বইয়ের নাম সার্চ করুন"
-          aria-label="Search"
+          aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
+          aria-controls={`${idPrefix}-results`}
+          aria-expanded={searchResults.length > 0 || noResults}
+          aria-busy={isSearching}
         />
 
         {isSearching && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+            <div
+              className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 motion-reduce:animate-none dark:border-slate-700 dark:border-t-slate-200"
+              role="status"
+              aria-label="অনুসন্ধান করা হচ্ছে"
+            />
           </div>
         )}
       </form>
 
       {(searchResults.length > 0 || noResults) && (
         <div
+          id={`${idPrefix}-results`}
           className={cx(
             "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
             "border-slate-200 bg-white",
@@ -246,29 +262,34 @@ export const Header = () => {
           )}
         >
           {searchResults.length > 0 ? (
-            <ul className="max-h-72 overflow-auto py-1">
+            <ul className="max-h-72 overflow-auto py-1" aria-label="অনুসন্ধানের ফলাফল">
               {searchResults.map((book) => (
-                <li
-                  key={book.id}
-                  className={cx(
-                    "cursor-pointer px-4 py-3 transition",
-                    "hover:bg-slate-50 dark:hover:bg-slate-900"
-                  )}
-                  onClick={() => handleBookSelect(book.id)}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                    {book.bookTitle}
-                  </div>
-                  <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
-                    {book.author}
-                  </div>
+                <li key={book.id}>
+                  <button
+                    type="button"
+                    className={cx(
+                      "w-full px-4 py-3 text-left transition",
+                      "hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none",
+                      "dark:hover:bg-slate-900 dark:focus-visible:bg-slate-900"
+                    )}
+                    onClick={() => handleBookSelect(book.id)}
+                  >
+                    <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                      {book.bookTitle}
+                    </span>
+                    <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">
+                      {book.author}
+                    </span>
+                  </button>
                 </li>
               ))}
             </ul>
           ) : (
-            <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">
+            <div
+              className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300"
+              role="status"
+              aria-live="polite"
+            >
               কোনো বই পাওয়া যায়নি
             </div>
           )}
@@ -284,13 +305,14 @@ export const Header = () => {
       <>
         {/* Backdrop */}
         <button
-          aria-label="Close menu"
+          aria-label="মেনু বন্ধ করুন"
           onClick={() => setMenuOpen(false)}
           className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
         />
 
         {/* Drawer */}
         <aside
+          id="mobile-navigation"
           ref={mobileDrawerRef}
           className={cx(
             "fixed left-0 top-0 z-50 h-full w-[78%] max-w-xs lg:hidden",
@@ -303,7 +325,7 @@ export const Header = () => {
               <img
                 src={logoImg}
                 className="h-12 w-12 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
-                alt="Website Logo"
+                alt="উবায়দুল্লাহ তাসনিম"
                 loading="lazy"
               />
               <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
@@ -318,7 +340,7 @@ export const Header = () => {
                 "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
                 "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
               )}
-              aria-label="Close"
+              aria-label="মেনু বন্ধ করুন"
             >
               <HiX className="h-5 w-5" />
             </button>
@@ -326,7 +348,7 @@ export const Header = () => {
 
           <div className="px-4 py-4">
             <div className="mb-4">
-              <SearchInput />
+              <SearchInput idPrefix="drawer-book-search" />
             </div>
 
             <nav className="space-y-1">
@@ -354,6 +376,7 @@ export const Header = () => {
                             "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
                         )}
                         aria-expanded={isOpen}
+                        aria-haspopup="true"
                       >
                         <span>{item.label}</span>
                         <HiChevronDown
@@ -458,7 +481,8 @@ export const Header = () => {
                 "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
               )}
               aria-expanded={menuOpen}
-              aria-label="Toggle menu"
+              aria-controls="mobile-navigation"
+              aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}
             >
               {menuOpen ? (
                 <HiX className="h-6 w-6" />
@@ -510,6 +534,7 @@ export const Header = () => {
                       }
                       className={dropdownButtonClass(isItemActive(item))}
                       aria-expanded={isOpen}
+                      aria-haspopup="true"
                     >
                       {item.label}
                       <HiChevronDown
@@ -563,7 +588,7 @@ export const Header = () => {
           {/* Right */}
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="hidden lg:block">
-              <SearchInput />
+              <SearchInput idPrefix="desktop-book-search" />
             </div>
 
             <button
@@ -573,7 +598,9 @@ export const Header = () => {
                 "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
                 "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
               )}
-              aria-label="Search"
+              aria-label={showSearch ? "অনুসন্ধান বন্ধ করুন" : "বই অনুসন্ধান করুন"}
+              aria-expanded={showSearch}
+              aria-controls="mobile-book-search"
             >
               <AiOutlineSearch className="h-5 w-5" />
             </button>
@@ -586,7 +613,7 @@ export const Header = () => {
                 "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
               )}
               aria-label={
-                darkMode ? "Switch to light mode" : "Switch to dark mode"
+                darkMode ? "লাইট মোড চালু করুন" : "ডার্ক মোড চালু করুন"
               }
             >
               {darkMode ? (
@@ -600,8 +627,8 @@ export const Header = () => {
 
         {/* Mobile search area */}
         {showSearch && (
-          <div className="pb-4 lg:hidden">
-            <SearchInput autoFocus />
+          <div id="mobile-book-search" className="pb-4 lg:hidden">
+            <SearchInput autoFocus idPrefix="mobile-book-search-input" />
           </div>
         )}
       </div>

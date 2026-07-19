@@ -6,6 +6,7 @@ import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import { miscellaneousContentConfigs } from "../constants/miscellaneousContent.constants";
+import { shortFormatDate } from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
@@ -119,7 +120,7 @@ export const MiscellaneousContentPage = ({ category }) => {
 
                   <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                     {item.contentAuthor} •{" "}
-                    {new Date(item.contentCreateAt).toLocaleDateString("bn-BD")}
+                    {shortFormatDate(item.contentCreateAt)}
                   </p>
 
                   <p className="mt-3 line-clamp-4 whitespace-pre-line break-words text-justify text-sm leading-6 text-slate-700 dark:text-slate-300">
@@ -145,4 +146,3 @@ export const MiscellaneousContentPage = ({ category }) => {
     </main>
   );
 };
-

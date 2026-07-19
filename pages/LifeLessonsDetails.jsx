@@ -92,7 +92,7 @@ export const LifeLessonsDetails = () => {
         <div className="mx-auto max-w-4xl">
           <nav
             className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300"
-            aria-label="Breadcrumb"
+            aria-label="পেজের অবস্থান"
           >
             <Link className={linkBase} to="/islam/life-lessons">
               জীবন থেকে নেওয়া শিক্ষা
@@ -173,4 +173,3 @@ export const LifeLessonsDetails = () => {
     </main>
   );
 };
-

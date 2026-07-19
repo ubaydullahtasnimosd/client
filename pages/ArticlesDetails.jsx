@@ -25,16 +25,17 @@ export const ArticlesDetails = () => {
     },
   });
 
-  const { data: commentCount } = useQuery({
-    queryKey: ["commentCount", "articles_essays", id],
+  const { data: comments = [] } = useQuery({
+    queryKey: ["comments", "articles_essays", id],
     queryFn: async () => {
       const { data } = await axios.get(
         `${baseUrl}/comment/content/articles_essays/${id}/comments/`
       );
-      return data.length;
+      return data;
     },
-    initialData: 0,
   });
+
+  const commentCount = comments.length;
 
   const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
 
@@ -89,13 +90,16 @@ export const ArticlesDetails = () => {
 
         <div className="mx-auto max-w-4xl">
           {/* Breadcrumb */}
-          <div className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+          <nav
+            className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300"
+            aria-label="পেজের অবস্থান"
+          >
             <Link className={linkBase} to="/articles">
               প্রবন্ধ-নিবন্ধ
             </Link>
             <span className="text-slate-300 dark:text-slate-700">/</span>
             <span className="truncate max-w-[70%]">{article?.articlesEssaysName}</span>
-          </div>
+          </nav>
 
           {/* Article Card */}
           <article
@@ -112,6 +116,9 @@ export const ArticlesDetails = () => {
                 src={article?.articlesEssaysImg}
                 alt={article?.articlesEssaysName}
                 loading="lazy"
+                onError={(event) => {
+                  event.currentTarget.src = "/logo2.jpg";
+                }}
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-transparent" />
             </div>
@@ -144,7 +151,7 @@ export const ArticlesDetails = () => {
               <span className="text-slate-300 dark:text-slate-700">•</span>
 
               <span className="text-slate-600 dark:text-slate-300">
-                {commentCount} COMMENTS
+                {commentCount} মন্তব্য
               </span>
             </div>
 

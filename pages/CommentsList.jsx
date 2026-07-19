@@ -26,7 +26,7 @@ export const CommentsList = ({ content_type, object_id }) => {
         );
         return data;
       } catch (error) {
-        throw new Error("Failed to fetch comments", error);
+        throw new Error("মন্তব্যগুলো লোড করা যায়নি", { cause: error });
       }
     },
   });
@@ -47,13 +47,18 @@ export const CommentsList = ({ content_type, object_id }) => {
         });
         return response.data;
       } catch (error) {
-        throw new Error(error.response?.data?.message || "Failed to post reply");
+        throw new Error(
+          error.response?.data?.message ||
+            "উত্তর জমা দেওয়া যায়নি। আবার চেষ্টা করুন।"
+        );
       }
     },
     onSuccess: () => {
-      toast.success("Reply posted successfully");
+      toast.success("উত্তর সফলভাবে জমা হয়েছে");
       setReplyData({ userName: "", userMessage: "", parent_comment: null });
-      queryClient.invalidateQueries(["comments", content_type, object_id]);
+      queryClient.invalidateQueries({
+        queryKey: ["comments", content_type, object_id],
+      });
     },
     onError: (error) => {
       toast.error(error.message);
@@ -67,8 +72,8 @@ export const CommentsList = ({ content_type, object_id }) => {
 
   const handleReplySubmit = (e, parentId) => {
     e.preventDefault();
-    if (!replyData.userName || !replyData.userMessage) {
-      toast.error("Please fill all fields");
+    if (!replyData.userName.trim() || !replyData.userMessage.trim()) {
+      toast.error("নাম ও উত্তর দুটিই লিখুন");
       return;
     }
     createReply({ ...replyData, parent_comment: parentId });
@@ -116,7 +121,7 @@ export const CommentsList = ({ content_type, object_id }) => {
     const initial = (comment.userName || "?").trim().charAt(0) || "?";
 
     return (
-      <div className={cx("mt-5", level > 0 ? "ml-6 md:ml-10" : "")}>
+      <div className={cx("mt-5", level > 0 ? "ml-4 sm:ml-6 md:ml-10" : "")}>
         {/* thread line */}
         {level > 0 && (
           <div className="mb-3 -ml-3 md:-ml-6">
@@ -159,7 +164,7 @@ export const CommentsList = ({ content_type, object_id }) => {
               type="button"
               disabled={isPending}
             >
-              Reply
+              উত্তর দিন
             </button>
           </div>
 
@@ -180,16 +185,19 @@ export const CommentsList = ({ content_type, object_id }) => {
                   value={replyData.userName}
                   onChange={handleReplyInputChange}
                   placeholder="Your name"
+                  aria-label="আপনার নাম"
                   className={inputBase}
                   required
                   disabled={isPending}
+                  autoFocus
                 />
 
                 <textarea
                   name="userMessage"
                   value={replyData.userMessage}
                   onChange={handleReplyInputChange}
-                  placeholder="Your reply"
+                  placeholder="আপনার উত্তর"
+                  aria-label="আপনার উত্তর"
                   rows="3"
                   className={inputBase}
                   required
@@ -198,10 +206,10 @@ export const CommentsList = ({ content_type, object_id }) => {
 
                 <div className="flex flex-wrap gap-2">
                   <button type="submit" className={primaryBtn} disabled={isPending}>
-                    {isPending ? "Posting..." : "Submit Reply"}
+                    {isPending ? "জমা হচ্ছে..." : "উত্তর জমা দিন"}
                   </button>
                   <button type="button" onClick={cancelReply} className={ghostBtn} disabled={isPending}>
-                    Cancel
+                    বাতিল
                   </button>
                 </div>
               </div>
@@ -231,19 +239,29 @@ export const CommentsList = ({ content_type, object_id }) => {
 
   if (isError) {
     return (
-      <p className="text-slate-500 dark:text-slate-400 text-center py-8">
-        Error loading comments
+      <p
+        className="py-8 text-center text-slate-500 dark:text-slate-400"
+        role="alert"
+      >
+        মন্তব্যগুলো লোড করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।
       </p>
     );
   }
 
   if (!comments || comments.length === 0) {
     return (
-      <p className="text-slate-500 dark:text-slate-400 text-center py-8">
-        এখনও কোন মন্তব্য নেই। মন্তব্যকারী প্রথম হন!
+      <p
+        className="py-8 text-center text-slate-500 dark:text-slate-400"
+        role="status"
+      >
+        এখনও কোনো মন্তব্য নেই। প্রথম মন্তব্যটি আপনি করতে পারেন।
       </p>
     );
   }
 
-  return <div>{comments.map((c) => <CommentCard key={c.id} comment={c} />)}</div>;
+  return (
+    <div aria-live="polite">
+      {comments.map((c) => <CommentCard key={c.id} comment={c} />)}
+    </div>
+  );
 };

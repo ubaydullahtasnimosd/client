@@ -8,7 +8,21 @@ body {
   @apply dark:bg-gray-900;
   font-family: 'Hind', 'Kalpurush', sans-serif;
   scroll-behavior: smooth;
-  cursor: context-menu;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .navMenu {
