@@ -96,9 +96,9 @@ export const Miscellaneous = () => {
           </div>
         ) : (
           <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {data.map((item) => (
+            {data.map((item, index) => (
             <article
-              key={item.id}
+              key={item._id || item.id || index}
               className={cx(
                 "group overflow-hidden rounded-3xl border shadow-sm transition duration-200",
                 "border-slate-200/70 bg-white hover:-translate-y-0.5 hover:shadow-md",

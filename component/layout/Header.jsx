@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { HiChevronDown, HiMenuAlt3, HiX } from "react-icons/hi";
@@ -11,7 +11,7 @@ const cx = (...classes) => classes.filter(Boolean).join(" ");
 
 const navItems = [
   { path: "/", label: "হোম" },
-  { path: "/about", label: "পরিচয়" },
+  { path: "/about", label: "পরিচয়" },
   { path: "/articles", label: "প্রবন্ধ-নিবন্ধ" },
   {
     key: "islam",
@@ -27,7 +27,7 @@ const navItems = [
       },
       {
         path: "/islam/life-lessons",
-        label: "জীবন থেকে নেওয়া শিক্ষা",
+        label: "জীবন থেকে নেওয়া শিক্ষা",
       },
     ],
   },
@@ -108,11 +108,19 @@ export const Header = () => {
   // Close floating menus when clicking outside
   useEffect(() => {
     const onDown = (e) => {
+      // We have multiple search wraps now (desktop, mobile), but this ref might only point to the last one.
+      // A better approach is to close search results on escape, or when clicking outside.
+      // For now, keep the existing logic.
       if (searchWrapRef.current && !searchWrapRef.current.contains(e.target)) {
         setSearchResults([]);
         setNoResults(false);
       }
-      if (desktopNavRef.current && !desktopNavRef.current.contains(e.target)) {
+
+      const isOutsideDesktopNav = desktopNavRef.current && !desktopNavRef.current.contains(e.target);
+      const isOutsideMobileDrawer = mobileDrawerRef.current && !mobileDrawerRef.current.contains(e.target);
+
+      // If clicked outside BOTH desktop nav and mobile drawer, close the dropdown
+      if (isOutsideDesktopNav && isOutsideMobileDrawer) {
         setOpenDropdown(null);
       }
     };
@@ -209,257 +217,6 @@ export const Header = () => {
     return item.children?.some((child) => matchesPath(child.path)) ?? false;
   }, [location.pathname]);
 
-  const SearchInput = ({ autoFocus = false, idPrefix }) => (
-    <div ref={searchWrapRef} className="relative w-full max-w-md">
-      <form
-        onSubmit={handleSearch}
-        className="relative"
-        role="search"
-        aria-label="বই অনুসন্ধান"
-      >
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
-        </div>
-
-        <input
-          autoFocus={autoFocus}
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          name="book-search"
-          autoComplete="off"
-          className={cx(
-            "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
-            "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
-            "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
-            "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
-          )}
-          placeholder="বইয়ের নাম সার্চ করুন"
-          aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
-          aria-controls={`${idPrefix}-results`}
-          aria-expanded={searchResults.length > 0 || noResults}
-          aria-busy={isSearching}
-        />
-
-        {isSearching && (
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <div
-              className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 motion-reduce:animate-none dark:border-slate-700 dark:border-t-slate-200"
-              role="status"
-              aria-label="অনুসন্ধান করা হচ্ছে"
-            />
-          </div>
-        )}
-      </form>
-
-      {(searchResults.length > 0 || noResults) && (
-        <div
-          id={`${idPrefix}-results`}
-          className={cx(
-            "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
-            "border-slate-200 bg-white",
-            "dark:border-slate-800 dark:bg-slate-950"
-          )}
-        >
-          {searchResults.length > 0 ? (
-            <ul className="max-h-72 overflow-auto py-1" aria-label="অনুসন্ধানের ফলাফল">
-              {searchResults.map((book) => (
-                <li key={book.id}>
-                  <button
-                    type="button"
-                    className={cx(
-                      "w-full px-4 py-3 text-left transition",
-                      "hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none",
-                      "dark:hover:bg-slate-900 dark:focus-visible:bg-slate-900"
-                    )}
-                    onClick={() => handleBookSelect(book.id)}
-                  >
-                    <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      {book.bookTitle}
-                    </span>
-                    <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">
-                      {book.author}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div
-              className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300"
-              role="status"
-              aria-live="polite"
-            >
-              কোনো বই পাওয়া যায়নি
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-
-  const MobileDrawer = useMemo(() => {
-    if (!menuOpen) return null;
-
-    return (
-      <>
-        {/* Backdrop */}
-        <button
-          aria-label="মেনু বন্ধ করুন"
-          onClick={() => setMenuOpen(false)}
-          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
-        />
-
-        {/* Drawer */}
-        <aside
-          id="mobile-navigation"
-          ref={mobileDrawerRef}
-          className={cx(
-            "fixed left-0 top-0 z-50 h-full w-[78%] max-w-xs lg:hidden",
-            "border-r border-slate-200 bg-white shadow-2xl",
-            "dark:border-slate-800 dark:bg-slate-950"
-          )}
-        >
-          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4 dark:border-slate-800">
-            <div className="flex items-center gap-3">
-              <img
-                src={logoImg}
-                className="h-12 w-12 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
-                alt="উবায়দুল্লাহ তাসনিম"
-                loading="lazy"
-              />
-              <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                মেনু
-              </div>
-            </div>
-
-            <button
-              onClick={() => setMenuOpen(false)}
-              className={cx(
-                "inline-flex h-9 w-9 items-center justify-center rounded-lg transition",
-                "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
-                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
-              )}
-              aria-label="মেনু বন্ধ করুন"
-            >
-              <HiX className="h-5 w-5" />
-            </button>
-          </div>
-
-          <div className="px-4 py-4">
-            <div className="mb-4">
-              <SearchInput idPrefix="drawer-book-search" />
-            </div>
-
-            <nav className="space-y-1">
-              {navItems.map((item) => {
-                const itemKey = item.key || item.path;
-                const hasChildren = Boolean(item.children?.length);
-                const isOpen = openDropdown === itemKey;
-                const isActive = isItemActive(item);
-
-                if (hasChildren) {
-                  return (
-                    <div key={itemKey}>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setOpenDropdown((current) =>
-                            current === itemKey ? null : itemKey
-                          )
-                        }
-                        className={cx(
-                          "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
-                          "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
-                          "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
-                          isActive &&
-                            "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
-                        )}
-                        aria-expanded={isOpen}
-                        aria-haspopup="true"
-                      >
-                        <span>{item.label}</span>
-                        <HiChevronDown
-                          className={cx(
-                            "h-4 w-4 transition",
-                            isOpen && "rotate-180"
-                          )}
-                        />
-                      </button>
-
-                      {isOpen && (
-                        <div className="mt-1 space-y-1 rounded-xl bg-slate-50 p-2 dark:bg-slate-900/70">
-                          {item.children.map((child) => (
-                            <NavLink
-                              key={child.path}
-                              to={child.path}
-                              onClick={() => {
-                                setMenuOpen(false);
-                                setOpenDropdown(null);
-                              }}
-                              className={({ isActive }) =>
-                                cx(
-                                  "flex items-center rounded-lg px-4 py-2.5 text-sm font-medium transition",
-                                  "text-slate-600 hover:bg-white hover:text-slate-900",
-                                  "dark:text-slate-300 dark:hover:bg-slate-950 dark:hover:text-white",
-                                  isActive &&
-                                    "bg-white text-emerald-800 shadow-sm dark:bg-slate-950 dark:text-emerald-300"
-                                )
-                              }
-                            >
-                              {child.label}
-                            </NavLink>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
-
-                return (
-                  <NavLink
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => setMenuOpen(false)}
-                    className={({ isActive }) =>
-                      cx(
-                        "flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
-                        "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
-                        "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
-                        isActive &&
-                          "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
-                      )
-                    }
-                  >
-                    <span>{item.label}</span>
-                    <span className="text-slate-300 dark:text-slate-700">›</span>
-                  </NavLink>
-                );
-              })}
-            </nav>
-
-            <div className="mt-6">
-              <button
-                onClick={() => setDarkMode((v) => !v)}
-                className={cx(
-                  "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
-                  "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
-                  "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-900"
-                )}
-              >
-                <span>{darkMode ? "লাইট মোড" : "ডার্ক মোড"}</span>
-                {darkMode ? (
-                  <BsSun className="h-4 w-4" />
-                ) : (
-                  <BsMoon className="h-4 w-4" />
-                )}
-              </button>
-            </div>
-          </div>
-        </aside>
-      </>
-    );
-  }, [menuOpen, darkMode, openDropdown, isItemActive]);
 
   return (
     <header
@@ -494,7 +251,7 @@ export const Header = () => {
               <span className="flex h-[72px] w-[72px] shrink-0 items-center justify-center overflow-hidden rounded-full">
                 <img
                   src={logoImg}
-                  alt="উবায়দুল্লাহ তাসনিম"
+                  alt="উবায়দুল্লাহ তাসনিম"
                   loading="lazy"
                   className="h-full w-full scale-[1.28] object-cover"
                 />
@@ -588,7 +345,64 @@ export const Header = () => {
           {/* Right */}
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="hidden lg:block">
-              <SearchInput idPrefix="desktop-book-search" />
+              <div ref={searchWrapRef} className="relative w-full max-w-md">
+                <form onSubmit={handleSearch} className="relative" role="search" aria-label="বই অনুসন্ধান">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    name="book-search"
+                    autoComplete="off"
+                    className={cx(
+                      "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
+                      "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
+                      "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+                      "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                    )}
+                    placeholder="বইয়ের নাম সার্চ করুন"
+                    aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
+                  />
+                  {isSearching && (
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+                    </div>
+                  )}
+                </form>
+                {(searchResults.length > 0 || noResults) && (
+                  <div className={cx(
+                    "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
+                    "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+                  )}>
+                    {searchResults.length > 0 ? (
+                      <ul className="max-h-72 overflow-auto py-1" aria-label="অনুসন্ধানের ফলাফল">
+                        {searchResults.map((book) => (
+                          <li key={book.id}>
+                            <button
+                              type="button"
+                              className={cx(
+                                "w-full px-4 py-3 text-left transition",
+                                "hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none",
+                                "dark:hover:bg-slate-900 dark:focus-visible:bg-slate-900"
+                              )}
+                              onClick={() => handleBookSelect(book.id)}
+                            >
+                              <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">{book.bookTitle}</span>
+                              <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">{book.author}</span>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300" role="status" aria-live="polite">
+                        কোনো বই পাওয়া যায়নি
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             <button
@@ -628,12 +442,271 @@ export const Header = () => {
         {/* Mobile search area */}
         {showSearch && (
           <div id="mobile-book-search" className="pb-4 lg:hidden">
-            <SearchInput autoFocus idPrefix="mobile-book-search-input" />
+            <div ref={searchWrapRef} className="relative w-full max-w-md">
+              <form onSubmit={handleSearch} className="relative" role="search" aria-label="বই অনুসন্ধান">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+                </div>
+                <input
+                  autoFocus
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  name="book-search"
+                  autoComplete="off"
+                  className={cx(
+                    "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
+                    "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
+                    "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+                    "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                  )}
+                  placeholder="বইয়ের নাম সার্চ করুন"
+                  aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
+                />
+                {isSearching && (
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+                  </div>
+                )}
+              </form>
+              {(searchResults.length > 0 || noResults) && (
+                <div className={cx(
+                  "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
+                  "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+                )}>
+                  {searchResults.length > 0 ? (
+                    <ul className="max-h-72 overflow-auto py-1" aria-label="অনুসন্ধানের ফলাফল">
+                      {searchResults.map((book) => (
+                        <li key={book.id}>
+                          <button
+                            type="button"
+                            className={cx(
+                              "w-full px-4 py-3 text-left transition",
+                              "hover:bg-slate-50 dark:hover:bg-slate-900"
+                            )}
+                            onClick={() => handleBookSelect(book.id)}
+                          >
+                            <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">{book.bookTitle}</span>
+                            <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">{book.author}</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300" role="status" aria-live="polite">
+                      কোনো বই পাওয়া যায়নি
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
 
-      {MobileDrawer}
+      {/* Mobile drawer — inline JSX to avoid remount on state change */}
+      {menuOpen && (
+        <>
+          {/* Backdrop */}
+          <button
+            aria-label="মেনু বন্ধ করুন"
+            onClick={() => setMenuOpen(false)}
+            className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
+          />
+
+          {/* Drawer */}
+          <aside
+            id="mobile-navigation"
+            ref={mobileDrawerRef}
+            className={cx(
+              "fixed left-0 top-0 z-50 h-full w-[78%] max-w-xs lg:hidden",
+              "border-r border-slate-200 bg-white shadow-2xl",
+              "dark:border-slate-800 dark:bg-slate-950"
+            )}
+          >
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4 dark:border-slate-800">
+              <div className="flex items-center gap-3">
+                <img
+                  src={logoImg}
+                  className="h-12 w-12 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
+                  alt="উবায়দুল্লাহ তাসনিম"
+                  loading="lazy"
+                />
+                <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  মেনু
+                </div>
+              </div>
+
+              <button
+                onClick={() => setMenuOpen(false)}
+                className={cx(
+                  "inline-flex h-9 w-9 items-center justify-center rounded-lg transition",
+                  "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                  "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+                )}
+                aria-label="মেনু বন্ধ করুন"
+              >
+                <HiX className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="overflow-y-auto px-4 py-4" style={{ maxHeight: 'calc(100vh - 72px)' }}>
+              <div className="mb-4">
+                <div ref={searchWrapRef} className="relative w-full max-w-md">
+                  <form onSubmit={handleSearch} className="relative" role="search" aria-label="বই অনুসন্ধান">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+                    </div>
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      name="book-search"
+                      autoComplete="off"
+                      className={cx(
+                        "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
+                        "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
+                        "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+                        "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                      )}
+                      placeholder="বইয়ের নাম সার্চ করুন"
+                      aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
+                    />
+                    {isSearching && (
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+                      </div>
+                    )}
+                  </form>
+                  {(searchResults.length > 0 || noResults) && (
+                    <div className={cx(
+                      "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
+                      "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+                    )}>
+                      {searchResults.length > 0 ? (
+                        <ul className="max-h-72 overflow-auto py-1">
+                          {searchResults.map((book) => (
+                            <li key={book.id}>
+                              <button
+                                type="button"
+                                className={cx(
+                                  "w-full px-4 py-3 text-left transition",
+                                  "hover:bg-slate-50 dark:hover:bg-slate-900"
+                                )}
+                                onClick={() => handleBookSelect(book.id)}
+                              >
+                                <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">{book.bookTitle}</span>
+                                <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">{book.author}</span>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">কোনো বই পাওয়া যায়নি</div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <nav className="space-y-1">
+                {navItems.map((item) => {
+                  const itemKey = item.key || item.path;
+                  const hasChildren = Boolean(item.children?.length);
+                  const isOpen = openDropdown === itemKey;
+                  const isActive = isItemActive(item);
+
+                  if (hasChildren) {
+                    return (
+                      <div key={itemKey}>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOpenDropdown((current) =>
+                              current === itemKey ? null : itemKey
+                            )
+                          }
+                          className={cx(
+                            "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
+                            "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+                            "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
+                            isActive &&
+                              "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
+                          )}
+                          aria-expanded={isOpen}
+                          aria-haspopup="true"
+                        >
+                          <span>{item.label}</span>
+                          <HiChevronDown className={cx("h-4 w-4 transition", isOpen && "rotate-180")} />
+                        </button>
+
+                        {isOpen && (
+                          <div className="mt-1 space-y-1 rounded-xl bg-slate-50 p-2 dark:bg-slate-900/70">
+                            {item.children.map((child) => (
+                              <NavLink
+                                key={child.path}
+                                to={child.path}
+                                onClick={() => {
+                                  setMenuOpen(false);
+                                  setOpenDropdown(null);
+                                }}
+                                className={({ isActive }) =>
+                                  cx(
+                                    "flex items-center rounded-lg px-4 py-2.5 text-sm font-medium transition",
+                                    "text-slate-600 hover:bg-white hover:text-slate-900",
+                                    "dark:text-slate-300 dark:hover:bg-slate-950 dark:hover:text-white",
+                                    isActive && "bg-white text-emerald-800 shadow-sm dark:bg-slate-950 dark:text-emerald-300"
+                                  )
+                                }
+                              >
+                                {child.label}
+                              </NavLink>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setMenuOpen(false)}
+                      className={({ isActive }) =>
+                        cx(
+                          "flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
+                          "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+                          "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
+                          isActive &&
+                            "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
+                        )
+                      }
+                    >
+                      <span>{item.label}</span>
+                      <span className="text-slate-300 dark:text-slate-700">›</span>
+                    </NavLink>
+                  );
+                })}
+              </nav>
+
+              <div className="mt-6">
+                <button
+                  onClick={() => setDarkMode((v) => !v)}
+                  className={cx(
+                    "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
+                    "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
+                    "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-900"
+                  )}
+                >
+                  <span>{darkMode ? "লাইট মোড" : "ডার্ক মোড"}</span>
+                  {darkMode ? <BsSun className="h-4 w-4" /> : <BsMoon className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+          </aside>
+        </>
+      )}
     </header>
   );
 };
