@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { FiClock, FiVideo } from "react-icons/fi";
 import { useSearchParams } from "react-router-dom";
 import { EmptyState } from "../component/layout/EmptyState";
@@ -108,7 +108,7 @@ export const Miscellaneous = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title="ভিডিও গ্যালারি — মাওলানা উবায়দুল্লাহ তাসনিম" />
+      <Title title="ভিডিও গ্যালারি — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: VIDEO GALLERY WITH UNIFIED SECTION SHELL & HEADER */}
       <SectionShell id="videos" className="bg-[#f5f5f5] dark:bg-[#0f1117]">

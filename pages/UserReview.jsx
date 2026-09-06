@@ -95,7 +95,7 @@ export const UserReview = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title="পাঠক রিভিউ ও প্রতিক্রিয়া — মাওলানা উবায়দুল্লাহ তাসনিম" />
+      <Title title="পাঠক রিভিউ ও প্রতিক্রিয়া — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: USER REVIEWS WITH UNIFIED SECTION SHELL & HEADER */}
       <SectionShell id="reviews" className="bg-[#f5f5f5] dark:bg-[#0f1117]">

@@ -67,7 +67,7 @@ export const QuranLifeLessonsDetails = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title={`${lesson?.quranLessonName || "কুরআন থেকে জীবনের পাঠ"} — মাওলানা উবায়দুল্লাহ তাসনিম`} />
+      <Title title={`${lesson?.quranLessonName || "কুরআন থেকে জীবনের পাঠ"} — উবায়দুল্লাহ তাসনিম`} />
 
       {/* SECTION: DETAILS WITH UNIFIED SECTION SHELL */}
       <SectionShell id="quran-lesson-detail">
@@ -139,7 +139,7 @@ export const QuranLifeLessonsDetails = () => {
                       to="/about"
                       className="font-semibold text-slate-800 hover:text-[#E5A93C] dark:text-slate-200 dark:hover:text-[#E5A93C] transition-colors"
                     >
-                      {lesson?.quranLessonAuthor || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                      {lesson?.quranLessonAuthor || "উবায়দুল্লাহ তাসনিম"}
                     </Link>
                   </div>
 

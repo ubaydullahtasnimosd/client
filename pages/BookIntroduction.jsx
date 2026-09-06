@@ -102,7 +102,7 @@ const BookCard = ({ book }) => {
 
         <p className="mt-2 text-xs sm:text-sm text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
           <span className="font-medium text-stone-700 dark:text-stone-300">
-            {book.author || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+            {book.author || "উবায়দুল্লাহ তাসনিম"}
           </span>
           <span>•</span>
           <span>{Time(bookCreatedAt)}</span>
@@ -233,7 +233,7 @@ export const BookIntroduction = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title key="BookIntroduction" title="বই পরিচিতি — মাওলানা উবায়দুল্লাহ তাসনিম" />
+      <Title key="BookIntroduction" title="বই পরিচিতি — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: BOOKS SHOWCASE WITH UNIFIED SECTION SHELL & HEADER */}
       <SectionShell id="books" className="bg-[#f5f5f5] dark:bg-[#0f1117]">

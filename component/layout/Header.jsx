@@ -2,6 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsMoon, BsSun } from "react-icons/bs";
+import { FiCheck, FiShare2 } from "react-icons/fi";
 import { HiChevronDown, HiMenuAlt3, HiX } from "react-icons/hi";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { baseUrl } from "../../constants/env.constants";
@@ -71,6 +72,49 @@ export const Header = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [noResults, setNoResults] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShareOrCopy = async () => {
+    const shareUrl = "https://ubaydullah-tasnim.vercel.app/";
+    const shareTitle = "উবায়দুল্লাহ তাসনিম";
+    const shareText = "উবায়দুল্লাহ তাসনিম এর অফিশিয়াল ওয়েবসাইট। লেখক ও অনুবাদক।";
+
+    // 1. Copy to clipboard
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = shareUrl;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (err) {
+      console.error("Clipboard error:", err);
+    }
+
+    // 2. Open native Web Share on mobile if supported
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl,
+        });
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.error("Share error:", err);
+        }
+      }
+    }
+  };
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -412,6 +456,25 @@ export const Header = () => {
               </div>
             </div>
 
+            {/* Mobile Share / Copy Link Button - Mobile ONLY (lg:hidden) */}
+            <button
+              onClick={handleShareOrCopy}
+              className={cx(
+                "lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
+                copied
+                  ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+              )}
+              aria-label="ওয়েবসাইট লিংক কপি বা শেয়ার করুন"
+              title="ওয়েবসাইট লিংক কপি করুন"
+            >
+              {copied ? (
+                <FiCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              ) : (
+                <FiShare2 className="h-5 w-5" />
+              )}
+            </button>
+
             <button
               onClick={toggleSearch}
               className={cx(
@@ -613,6 +676,29 @@ export const Header = () => {
                 </div>
               </div>
 
+              {/* Mobile Drawer Share & Copy Link Option - Mobile ONLY */}
+              <div className="mb-3">
+                <button
+                  type="button"
+                  onClick={handleShareOrCopy}
+                  className="w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold bg-[#fcf8f0] text-stone-900 border border-[#E5A93C]/40 transition active:scale-[0.98] dark:bg-slate-900 dark:text-stone-100 dark:border-stone-800"
+                >
+                  <span className="flex items-center gap-2.5">
+                    {copied ? (
+                      <FiCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    ) : (
+                      <FiShare2 className="h-4 w-4 text-[#E5A93C]" />
+                    )}
+                    <span>
+                      {copied ? "ওয়েবসাইট লিংক কপি হয়েছে!" : "ওয়েবসাইট লিংক শেয়ার / কপি"}
+                    </span>
+                  </span>
+                  <span className="text-xs bg-[#E5A93C] text-stone-950 px-2.5 py-1 rounded-lg font-bold shadow-xs">
+                    {copied ? "কপিকৃত" : "কপি"}
+                  </span>
+                </button>
+              </div>
+
               <nav className="space-y-1">
                 {navItems.map((item) => {
                   const itemKey = item.key || item.path;
@@ -712,6 +798,14 @@ export const Header = () => {
             </div>
           </aside>
         </>
+      )}
+
+      {/* Floating notification for mobile link copy */}
+      {copied && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] lg:hidden flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900/95 text-white text-xs sm:text-sm font-medium shadow-2xl backdrop-blur border border-slate-700/60 animate-bounce">
+          <FiCheck className="h-4 w-4 text-emerald-400" />
+          <span>ওয়েবসাইট লিংক কপি হয়েছে!</span>
+        </div>
       )}
     </header>
   );

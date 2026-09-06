@@ -62,7 +62,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
   if (isLoading) {
     return (
       <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
-        <Title title="বিস্তারিত তথ্য — মাওলানা উবায়দুল্লাহ তাসনিম" />
+        <Title title="বিস্তারিত তথ্য — উবায়দুল্লাহ তাসনিম" />
         <div className="max-w-xl mx-auto px-4">
           <Loading />
         </div>
@@ -82,7 +82,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title={`${item?.contentName || config.title} — মাওলানা উবায়দুল্লাহ তাসনিম`} />
+      <Title title={`${item?.contentName || config.title} — উবায়দুল্লাহ তাসনিম`} />
 
       {/* SECTION: DETAILS WITH UNIFIED SECTION SHELL */}
       <SectionShell id={`miscellaneous-${config.slug}-detail`}>
@@ -154,7 +154,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
                       to="/about"
                       className="font-semibold text-slate-800 hover:text-[#E5A93C] dark:text-slate-200 dark:hover:text-[#E5A93C] transition-colors"
                     >
-                      {item?.contentAuthor || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                      {item?.contentAuthor || "উবায়দুল্লাহ তাসনিম"}
                     </Link>
                   </div>
 

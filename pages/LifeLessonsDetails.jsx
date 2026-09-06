@@ -52,7 +52,7 @@ export const LifeLessonsDetails = () => {
   if (isLoading) {
     return (
       <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
-        <Title title="বিস্তারিত তথ্য — মাওলানা উবায়দুল্লাহ তাসনিম" />
+        <Title title="বিস্তারিত তথ্য — উবায়দুল্লাহ তাসনিম" />
         <div className="max-w-xl mx-auto px-4">
           <Loading />
         </div>
@@ -72,7 +72,7 @@ export const LifeLessonsDetails = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title={`${lesson?.lifeLessonName || "জীবন থেকে নেওয়া শিক্ষা"} — মাওলানা উবায়দুল্লাহ তাসনিম`} />
+      <Title title={`${lesson?.lifeLessonName || "জীবন থেকে নেওয়া শিক্ষা"} — উবায়দুল্লাহ তাসনিম`} />
 
       {/* SECTION: DETAILS WITH UNIFIED SECTION SHELL */}
       <SectionShell id="life-lesson-detail">
@@ -144,7 +144,7 @@ export const LifeLessonsDetails = () => {
                       to="/about"
                       className="font-semibold text-slate-800 hover:text-[#E5A93C] dark:text-slate-200 dark:hover:text-[#E5A93C] transition-colors"
                     >
-                      {lesson?.lifeLessonAuthor || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                      {lesson?.lifeLessonAuthor || "উবায়দুল্লাহ তাসনিম"}
                     </Link>
                   </div>
 

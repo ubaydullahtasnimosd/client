@@ -164,7 +164,7 @@ export const Articles = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title="লেখা ও প্রবন্ধ — মাওলানা উবায়দুল্লাহ তাসনিম" />
+      <Title title="লেখা ও প্রবন্ধ — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: ARTICLES LISTING WITH UNIFIED SECTION SHELL & HEADER */}
       <SectionShell id="articles" className="bg-[#f5f5f5] dark:bg-[#0f1117]">

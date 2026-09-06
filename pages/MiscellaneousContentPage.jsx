@@ -105,7 +105,7 @@ export const MiscellaneousContentPage = ({ category }) => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title={`${config.title} — মাওলানা উবায়দুল্লাহ তাসনিম`} />
+      <Title title={`${config.title} — উবায়দুল্লাহ তাসনিম`} />
 
       {/* SECTION: MISCELLANEOUS CONTENT WITH UNIFIED SECTION SHELL & HEADER */}
       <SectionShell id={`miscellaneous-${config.slug}`} className="bg-[#f5f5f5] dark:bg-[#0f1117]">
@@ -161,7 +161,7 @@ export const MiscellaneousContentPage = ({ category }) => {
                     {/* Metadata Row */}
                     <div className="mt-2.5 flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
                       <span className="font-medium text-stone-700 dark:text-stone-300">
-                        {item.contentAuthor || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                        {item.contentAuthor || "উবায়দুল্লাহ তাসনিম"}
                       </span>
                       <span>•</span>
                       <span className="flex items-center gap-1">

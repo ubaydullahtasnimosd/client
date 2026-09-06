@@ -95,7 +95,7 @@ export const ReadersLove = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title="পাঠকের ভালোবাসা — মাওলানা উবায়দুল্লাহ তাসনিম" />
+      <Title title="পাঠকের ভালোবাসা — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: READERS LOVE WITH UNIFIED SECTION SHELL & HEADER */}
       <SectionShell id="readers-love" className="bg-[#f5f5f5] dark:bg-[#0f1117]">

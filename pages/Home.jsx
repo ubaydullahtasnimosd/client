@@ -286,7 +286,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
                   <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
                     by{" "}
                     <span className="font-medium text-stone-700 dark:text-stone-300">
-                      {book.author || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                      {book.author || "উবায়দুল্লাহ তাসনিম"}
                     </span>
                   </p>
                 </div>

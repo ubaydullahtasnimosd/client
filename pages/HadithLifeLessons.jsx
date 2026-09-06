@@ -95,7 +95,7 @@ export const HadithLifeLessons = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
-      <Title title="হাদিস থেকে জীবনের পাঠ — মাওলানা উবায়দুল্লাহ তাসনিম" />
+      <Title title="হাদিস থেকে জীবনের পাঠ — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: HADITH LIFE LESSONS WITH UNIFIED SECTION SHELL & HEADER */}
       <SectionShell id="hadith-lessons" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
@@ -151,7 +151,7 @@ export const HadithLifeLessons = () => {
                     {/* Metadata Row */}
                     <div className="mt-2.5 flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
                       <span className="font-medium text-stone-700 dark:text-stone-300">
-                        {lesson.hadithLessonAuthor || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                        {lesson.hadithLessonAuthor || "উবায়দুল্লাহ তাসনিম"}
                       </span>
                       <span>•</span>
                       <span className="flex items-center gap-1">

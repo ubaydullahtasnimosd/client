@@ -79,7 +79,7 @@ export const BookDetails = () => {
     <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
       <Title
         key="BookDetails"
-        title={`${book?.bookTitle || "বইয়ের বিস্তারিত"} — মাওলানা উবায়দুল্লাহ তাসনিম`}
+        title={`${book?.bookTitle || "বইয়ের বিস্তারিত"} — উবায়দুল্লাহ তাসনিম`}
       />
 
       {/* SECTION: BOOK DETAILS WITH UNIFIED SECTION SHELL */}
@@ -152,7 +152,7 @@ export const BookDetails = () => {
                       to="/about"
                       className="font-semibold text-slate-800 hover:text-[#E5A93C] dark:text-slate-200 dark:hover:text-[#E5A93C] transition-colors"
                     >
-                      {book?.author || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                      {book?.author || "উবায়দুল্লাহ তাসনিম"}
                     </Link>
                   </div>
 
