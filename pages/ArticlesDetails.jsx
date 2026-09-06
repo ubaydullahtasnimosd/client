@@ -8,6 +8,7 @@ import { Loading } from "../component/layout/Loading";
 import { baseUrl } from "../constants/env.constants";
 import { CommentModal } from "../pages/CommentModal";
 import { CommentsList } from "../pages/CommentsList";
+import { SocialMedia } from "../components/layout/SocialMedia";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
@@ -175,6 +176,8 @@ export const ArticlesDetails = () => {
                     <FiMessageSquare className="h-4 w-4" />
                     <span>মন্তব্য করুন</span>
                   </button>
+
+                  <SocialMedia title={article?.articlesEssaysName} />
 
                   <Link
                     to="/articles"

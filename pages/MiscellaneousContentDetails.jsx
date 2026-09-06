@@ -9,6 +9,7 @@ import { baseUrl } from "../constants/env.constants";
 import { miscellaneousContentConfigs } from "../constants/miscellaneousContent.constants";
 import { CommentModal } from "./CommentModal";
 import { CommentsList } from "./CommentsList";
+import { SocialMedia } from "../components/layout/SocialMedia";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
@@ -181,6 +182,8 @@ export const MiscellaneousContentDetails = ({ category }) => {
                     <FiMessageSquare className="h-4 w-4" />
                     <span>মন্তব্য করুন</span>
                   </button>
+
+                  <SocialMedia title={item?.contentName || config.title} />
 
                   <Link
                     to={`/miscellaneous/${config.slug}`}
