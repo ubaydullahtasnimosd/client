@@ -12,6 +12,7 @@ import { MiscellaneousContentPage } from "../pages/MiscellaneousContentPage";
 import { MiscellaneousContentDetails } from "../pages/MiscellaneousContentDetails";
 import { VerificationPage } from "../pages/VerificationPage";
 import { UserReview } from "../pages/UserReview";
+import { ReadersLove } from "../pages/ReadersLove";
 import { QuranLifeLessons } from "../pages/QuranLifeLessons";
 import { QuranLifeLessonsDetails } from "../pages/QuranLifeLessonsDetails";
 import { HadithLifeLessons } from "../pages/HadithLifeLessons";
@@ -127,7 +128,27 @@ const router = createBrowserRouter([
       {
         path: "/UserReview",
         element: <UserReview />,
-      }
+      },
+      {
+        path: "/user-review",
+        element: <Navigate to="/UserReview" replace />,
+      },
+      {
+        path: "/user_review",
+        element: <Navigate to="/UserReview" replace />,
+      },
+      {
+        path: "/readers-love",
+        element: <ReadersLove />,
+      },
+      {
+        path: "/readers_love",
+        element: <Navigate to="/readers-love" replace />,
+      },
+      {
+        path: "/readerslove",
+        element: <Navigate to="/readers-love" replace />,
+      },
     ],
   },
 ]);

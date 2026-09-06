@@ -5,7 +5,7 @@ import { BsMoon, BsSun } from "react-icons/bs";
 import { HiChevronDown, HiMenuAlt3, HiX } from "react-icons/hi";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { baseUrl } from "../../constants/env.constants";
-import logoImg from "/logo2.jpg";
+const logoImg = "/logo.webp";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
@@ -33,7 +33,7 @@ const navItems = [
   },
   {
     key: "miscellaneous",
-    label: "বিবিধ",
+    label: "জীবন ও জগৎ",
     children: [
       { path: "/miscellaneous/video", label: "ভিডিও" },
       { path: "/miscellaneous/culture", label: "কালচার, সংস্কৃতি" },
@@ -44,7 +44,14 @@ const navItems = [
     ],
   },
   { path: "/books", label: "বই পরিচিতি" },
-  { path: "/UserReview", label: "পাঠক রিভিউ" },
+  {
+    key: "readers",
+    label: "পাঠক রিভিউ",
+    children: [
+      { path: "/UserReview", label: "পাঠক রিভিউ" },
+      { path: "/readers-love", label: "পাঠকের ভালোবাসা" },
+    ],
+  },
 ];
 
 export const Header = () => {
@@ -52,7 +59,7 @@ export const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const [darkMode, setDarkMode] = useState(() => {
+  const [darkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return (
       savedTheme === "dark" ||
@@ -71,6 +78,26 @@ export const Header = () => {
   const searchWrapRef = useRef(null);
   const mobileDrawerRef = useRef(null);
   const desktopNavRef = useRef(null);
+  const dropdownTimeoutRef = useRef({});
+
+  const handleDropdownEnter = (key) => {
+    if (dropdownTimeoutRef.current[key]) {
+      clearTimeout(dropdownTimeoutRef.current[key]);
+    }
+    setOpenDropdown(key);
+  };
+
+  const handleDropdownLeave = (key) => {
+    dropdownTimeoutRef.current[key] = setTimeout(() => {
+      setOpenDropdown((current) => (current === key ? null : current));
+    }, 180);
+  };
+
+  useEffect(() => {
+    return () => {
+      Object.values(dropdownTimeoutRef.current).forEach(clearTimeout);
+    };
+  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -191,7 +218,7 @@ export const Header = () => {
       cx(
         "text-slate-900 dark:text-white",
         "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full",
-        "after:bg-emerald-600 dark:after:bg-emerald-400"
+        "after:bg-[#E5A93C]"
       )
     );
 
@@ -204,7 +231,7 @@ export const Header = () => {
         cx(
           "text-slate-900 dark:text-white",
           "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full",
-          "after:bg-emerald-600 dark:after:bg-emerald-400"
+          "after:bg-[#E5A93C]"
         )
     );
 
@@ -222,55 +249,26 @@ export const Header = () => {
     <header
       className={cx(
         "sticky top-0 z-50 w-full",
-        "border-b border-slate-200 bg-white",
-        "dark:border-slate-800 dark:bg-slate-950"
+        "border-b border-slate-200/80 bg-white shadow-xs",
+        "dark:border-slate-800 dark:bg-slate-950 dark:shadow-none"
       )}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          {/* Left */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggleMenu}
-              className={cx(
-                "lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
-                "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
-                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
-              )}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-navigation"
-              aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}
-            >
-              {menuOpen ? (
-                <HiX className="h-6 w-6" />
-              ) : (
-                <HiMenuAlt3 className="h-6 w-6" />
-              )}
-            </button>
-            <NavLink to="/" className="flex items-center gap-2">
-              <span className="flex h-[72px] w-[72px] shrink-0 items-center justify-center overflow-hidden rounded-full">
-                <img
-                  src={logoImg}
-                  alt="উবায়দুল্লাহ তাসনিম"
-                  loading="lazy"
-                  className="h-full w-full scale-[1.28] object-cover"
-                />
-              </span>
-
-              <span
-                className="
-      hidden
-      sm:block
-      text-base
-      font-bold
-      tracking-tight
-      text-slate-900
-      dark:text-slate-100
-    "
-              >
-              </span>
-            </NavLink>
-          </div>
+        <div className="flex h-20 sm:h-24 items-center justify-between">
+          {/* Left: Prominent Logo & Brand */}
+          <NavLink to="/" className="flex items-center gap-3">
+            <span className="flex h-13 w-13 sm:h-16 sm:w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#0f1117] border border-stone-200/80 shadow-xs dark:border-stone-800">
+              <img
+                src={logoImg}
+                alt="উবায়দুল্লাহ তাসনিম"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </span>
+            <span className="block text-base sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+              উবায়দুল্লাহ তাসনিম
+            </span>
+          </NavLink>
 
           {/* Center nav */}
           <nav ref={desktopNavRef} className="hidden lg:flex items-center gap-8">
@@ -281,7 +279,12 @@ export const Header = () => {
 
               if (hasChildren) {
                 return (
-                  <div key={itemKey} className="relative">
+                  <div
+                    key={itemKey}
+                    className="relative py-2"
+                    onMouseEnter={() => handleDropdownEnter(itemKey)}
+                    onMouseLeave={() => handleDropdownLeave(itemKey)}
+                  >
                     <button
                       type="button"
                       onClick={() =>
@@ -293,43 +296,47 @@ export const Header = () => {
                       aria-expanded={isOpen}
                       aria-haspopup="true"
                     >
-                      {item.label}
+                      <span>{item.label}</span>
                       <HiChevronDown
                         className={cx(
-                          "h-4 w-4 transition",
-                          isOpen && "rotate-180"
+                          "h-4 w-4 transition-transform duration-300",
+                          isOpen && "rotate-180 text-[#E5A93C]"
                         )}
                       />
                     </button>
 
-                    {isOpen && (
-                      <div
-                        className={cx(
-                          "absolute left-1/2 top-full z-50 mt-3 w-64 -translate-x-1/2 overflow-hidden rounded-xl border py-2 shadow-lg",
-                          "border-slate-200 bg-white",
-                          "dark:border-slate-800 dark:bg-slate-950"
-                        )}
-                      >
-                        {item.children.map((child) => (
-                          <NavLink
-                            key={child.path}
-                            to={child.path}
-                            onClick={() => setOpenDropdown(null)}
-                            className={({ isActive }) =>
-                              cx(
-                                "block px-4 py-3 text-sm font-medium transition",
-                                "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
-                                "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
-                                isActive &&
-                                  "bg-emerald-50 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-300"
-                              )
-                            }
-                          >
-                            {child.label}
-                          </NavLink>
-                        ))}
-                      </div>
-                    )}
+                    {/* Smooth Animated Desktop Dropdown */}
+                    <div
+                      className={cx(
+                        "absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 overflow-hidden rounded-xl border py-2 shadow-xl",
+                        "border-slate-200/90 bg-white/98 backdrop-blur-md",
+                        "dark:border-slate-800 dark:bg-slate-950/98",
+                        "before:absolute before:-top-3 before:left-0 before:right-0 before:h-3",
+                        "transition-all duration-200 ease-out origin-top",
+                        isOpen
+                          ? "opacity-100 translate-y-1 pointer-events-auto visible scale-100"
+                          : "opacity-0 translate-y-2 pointer-events-none invisible scale-95"
+                      )}
+                    >
+                      {item.children.map((child) => (
+                        <NavLink
+                          key={child.path}
+                          to={child.path}
+                          onClick={() => setOpenDropdown(null)}
+                          className={({ isActive }) =>
+                            cx(
+                              "block px-4 py-2.5 text-sm font-medium transition-all duration-150",
+                              "text-slate-700 hover:bg-[#fcf8f0] hover:text-[#d6982b] hover:translate-x-1",
+                              "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-[#E5A93C]",
+                              isActive &&
+                                "bg-[#fcf8f0] text-[#d6982b] font-semibold dark:bg-[#E5A93C]/15 dark:text-[#E5A93C]"
+                            )
+                          }
+                        >
+                          {child.label}
+                        </NavLink>
+                      ))}
+                    </div>
                   </div>
                 );
               }
@@ -359,7 +366,7 @@ export const Header = () => {
                     className={cx(
                       "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
                       "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
-                      "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+                      "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
                       "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
                     )}
                     placeholder="বইয়ের নাম সার্চ করুন"
@@ -419,22 +426,19 @@ export const Header = () => {
               <AiOutlineSearch className="h-5 w-5" />
             </button>
 
+            {/* Mobile Menu Button - Circular Dark Button matching tahmidulmaula.com */}
             <button
-              onClick={() => setDarkMode((v) => !v)}
+              onClick={toggleMenu}
               className={cx(
-                "inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
-                "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
-                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+                "lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full transition shadow-md",
+                "bg-[#121624] text-white hover:bg-black active:scale-95",
+                "dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
               )}
-              aria-label={
-                darkMode ? "লাইট মোড চালু করুন" : "ডার্ক মোড চালু করুন"
-              }
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+              aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}
             >
-              {darkMode ? (
-                <BsSun className="h-5 w-5" />
-              ) : (
-                <BsMoon className="h-5 w-5" />
-              )}
+              {menuOpen ? <HiX className="h-5 w-5" /> : <HiMenuAlt3 className="h-5 w-5" />}
             </button>
           </div>
         </div>
@@ -457,7 +461,7 @@ export const Header = () => {
                   className={cx(
                     "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
                     "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
-                    "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+                    "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
                     "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
                   )}
                   placeholder="বইয়ের নাম সার্চ করুন"
@@ -566,7 +570,7 @@ export const Header = () => {
                       className={cx(
                         "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
                         "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
-                        "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+                        "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
                         "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
                       )}
                       placeholder="বইয়ের নাম সার্চ করুন"
@@ -618,7 +622,7 @@ export const Header = () => {
 
                   if (hasChildren) {
                     return (
-                      <div key={itemKey}>
+                      <div key={itemKey} className="overflow-hidden">
                         <button
                           type="button"
                           onClick={() =>
@@ -627,43 +631,59 @@ export const Header = () => {
                             )
                           }
                           className={cx(
-                            "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
+                            "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition duration-200",
                             "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
                             "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
                             isActive &&
-                              "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
+                              "bg-[#fcf8f0] text-stone-950 font-semibold ring-1 ring-[#E5A93C]/40 dark:bg-[#E5A93C]/15 dark:text-[#E5A93C] dark:ring-[#E5A93C]/30"
                           )}
                           aria-expanded={isOpen}
                           aria-haspopup="true"
                         >
                           <span>{item.label}</span>
-                          <HiChevronDown className={cx("h-4 w-4 transition", isOpen && "rotate-180")} />
+                          <HiChevronDown
+                            className={cx(
+                              "h-4 w-4 transition-transform duration-300 ease-in-out",
+                              isOpen && "rotate-180 text-[#E5A93C]"
+                            )}
+                          />
                         </button>
 
-                        {isOpen && (
-                          <div className="mt-1 space-y-1 rounded-xl bg-slate-50 p-2 dark:bg-slate-900/70">
-                            {item.children.map((child) => (
-                              <NavLink
-                                key={child.path}
-                                to={child.path}
-                                onClick={() => {
-                                  setMenuOpen(false);
-                                  setOpenDropdown(null);
-                                }}
-                                className={({ isActive }) =>
-                                  cx(
-                                    "flex items-center rounded-lg px-4 py-2.5 text-sm font-medium transition",
-                                    "text-slate-600 hover:bg-white hover:text-slate-900",
-                                    "dark:text-slate-300 dark:hover:bg-slate-950 dark:hover:text-white",
-                                    isActive && "bg-white text-emerald-800 shadow-sm dark:bg-slate-950 dark:text-emerald-300"
-                                  )
-                                }
-                              >
-                                {child.label}
-                              </NavLink>
-                            ))}
+                        {/* Mobile Smooth Accordion using CSS Grid Transition */}
+                        <div
+                          className={cx(
+                            "grid transition-all duration-300 ease-in-out overflow-hidden",
+                            isOpen
+                              ? "grid-rows-[1fr] opacity-100 mt-1"
+                              : "grid-rows-[0fr] opacity-0 mt-0"
+                          )}
+                        >
+                          <div className="overflow-hidden">
+                            <div className="space-y-1 rounded-xl bg-stone-50/80 p-2 dark:bg-slate-900/70 border border-stone-200/50 dark:border-slate-800">
+                              {item.children.map((child) => (
+                                <NavLink
+                                  key={child.path}
+                                  to={child.path}
+                                  onClick={() => {
+                                    setMenuOpen(false);
+                                    setOpenDropdown(null);
+                                  }}
+                                  className={({ isActive }) =>
+                                    cx(
+                                      "flex items-center rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-150",
+                                      "text-slate-600 hover:bg-white hover:text-slate-900 hover:translate-x-1",
+                                      "dark:text-slate-300 dark:hover:bg-slate-950 dark:hover:text-white",
+                                      isActive &&
+                                        "bg-white text-[#d6982b] font-semibold shadow-xs dark:bg-slate-950 dark:text-[#E5A93C]"
+                                    )
+                                  }
+                                >
+                                  {child.label}
+                                </NavLink>
+                              ))}
+                            </div>
                           </div>
-                        )}
+                        </div>
                       </div>
                     );
                   }
@@ -679,30 +699,16 @@ export const Header = () => {
                           "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
                           "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
                           isActive &&
-                            "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
+                            "bg-[#fcf8f0] text-stone-950 font-semibold ring-1 ring-[#E5A93C]/40 dark:bg-[#E5A93C]/15 dark:text-[#E5A93C] dark:ring-[#E5A93C]/30"
                         )
                       }
                     >
                       <span>{item.label}</span>
-                      <span className="text-slate-300 dark:text-slate-700">›</span>
+                      <span className={cx("text-sm transition-colors", isActive ? "text-[#E5A93C] font-bold" : "text-slate-300 dark:text-slate-700")}>›</span>
                     </NavLink>
                   );
                 })}
               </nav>
-
-              <div className="mt-6">
-                <button
-                  onClick={() => setDarkMode((v) => !v)}
-                  className={cx(
-                    "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
-                    "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
-                    "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-900"
-                  )}
-                >
-                  <span>{darkMode ? "লাইট মোড" : "ডার্ক মোড"}</span>
-                  {darkMode ? <BsSun className="h-4 w-4" /> : <BsMoon className="h-4 w-4" />}
-                </button>
-              </div>
             </div>
           </aside>
         </>

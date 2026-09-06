@@ -144,8 +144,8 @@ const VisitCount = () => {
                   />
                 </svg>
               </div>
-              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping" />
-              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5 rounded-full bg-[#CCA764]/100 animate-ping" />
+              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5 rounded-full bg-[#CCA764]/100" />
             </div>
 
             <div>
@@ -164,7 +164,7 @@ const VisitCount = () => {
               <p className="text-3xl md:text-4xl font-bold text-indigo-700 dark:text-indigo-300">
                 {data?.count?.toLocaleString() ?? "---"}
               </p>
-              <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+              <span className="text-sm font-semibold text-emerald-600 dark:text-[#E5C378]">
                 +{percentageIncrease}%
               </span>
             </div>

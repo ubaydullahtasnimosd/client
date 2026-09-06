@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
@@ -9,9 +10,9 @@ import { Media } from "../component/layout/Media";
 import { baseUrl } from "../constants/env.constants";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
-import VisitCount from "./VisitCount";
-import heroImg from "/banner.webp";
-import Logo from "/logo2.jpg";
+
+const heroBg = "/hero-section2.webp";
+const Logo = "/logo.webp";
 
 // API URLs
 const BOOK_API_URL = `${baseUrl}/book/`;
@@ -36,157 +37,315 @@ const verifySubscription = async (token) => {
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
-const SectionShell = ({ children, className = "" }) => (
-  <section className={cx("py-14", className)}>
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+// Unified Section Container with strictly White & #f5f5f5 backgrounds
+const SectionShell = ({ children, className = "", id }) => (
+  <section id={id} className={cx("py-16 sm:py-20 lg:py-24", className)}>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+      {children}
+    </div>
   </section>
 );
 
-const BookCard = ({ book }) => {
-  const { bookImage, bookTitle, bookCreatedAt, bookDescription } = book;
-
-  return (
+// Consistent Section Header
+const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
+  <div
+    className={cx(
+      "mb-10 sm:mb-14",
+      align === "center"
+        ? "text-center max-w-2xl mx-auto"
+        : "text-left max-w-2xl",
+    )}
+  >
+    {badge && (
+      <span className="inline-block text-xs sm:text-sm font-semibold tracking-widest text-[#E5A93C] uppercase mb-2">
+        {badge}
+      </span>
+    )}
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+      {title}
+    </h2>
     <div
       className={cx(
-        "group relative flex flex-col overflow-hidden rounded-2xl border",
-        "border-slate-200/70 bg-white shadow-sm transition duration-200",
-        "hover:-translate-y-0.5 hover:shadow-md",
-        "dark:border-slate-800 dark:bg-slate-950",
-        "focus-within:ring-2 focus-within:ring-emerald-500/30"
+        "mt-3 h-0.5 w-16 bg-[#E5A93C]",
+        align === "center" && "mx-auto",
       )}
-    >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
-        <img
-          src={bookImage || Logo}
-          alt={bookTitle}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-          onError={(e) => {
-            e.target.src = Logo;
-          }}
-          loading="lazy"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/5 to-transparent dark:from-black/20" />
-      </div>
+    />
+    {subtitle && (
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+        {subtitle}
+      </p>
+    )}
+  </div>
+);
 
-      <div className="flex flex-1 flex-col p-5">
-        <h6 className="text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100">
-          {bookTitle}
-        </h6>
+// 1. Hero Section - Flawless mobile & desktop responsiveness matching tahmidulmaula.com
+const HeroSection = () => (
+  <section className="relative w-full overflow-hidden bg-[#0c0e14] min-h-[calc(100vh-80px)] sm:min-h-[calc(100vh-96px)] py-10 sm:py-20 lg:py-28 flex items-center">
+    {/* Background Image - Artfully positioned on mobile to prevent calligraphy collision with text */}
+    <div className="absolute inset-0 z-0">
+      <img
+        src={heroBg}
+        alt="উবায়দুল্লাহ তাসনিম"
+        className="h-full w-full object-cover object-center"
+      />
+      {/* Crystal-clear background scrim: bright and visible across left, bottom and center */}
+      <div className="absolute inset-0 bg-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent" />
+    </div>
 
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-          <span className="font-medium text-emerald-700 dark:text-emerald-400">
-            উবায়দুল্লাহ তাসনিম
-          </span>{" "}
-          <span className="mx-2 text-slate-300 dark:text-slate-700">•</span>
-          {Time(bookCreatedAt)}
+    {/* Content Container - Direct text without card box background, scaled for mobile and desktop */}
+    <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+      <div className="max-w-3xl text-left">
+        {/* Roles Subheading - White per user request */}
+        <p className="text-xs sm:text-sm font-semibold tracking-[0.22em] sm:tracking-[0.28em] text-white uppercase font-sans flex flex-wrap items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+          <span>লেখক</span>
+          <span className="text-white/80">•</span>
+          <span>অনুবাদক</span>
+          <span className="text-white/80">•</span>
+          <span>শিক্ষক</span>
         </p>
 
-        <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300 line-clamp-3">
-          {bookDescription}
+        {/* Main Name Heading - Golden/Champagne Typography matching tahmidulmaula.com */}
+        <h1 className="mt-3.5 sm:mt-5 text-4xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-bold tracking-tight text-[#E5A93C] font-['Noto_Serif_Bengali',_serif] leading-[1.16] sm:leading-[1.12] drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)]">
+          উবায়দুল্লাহ তাসনিম
+        </h1>
+
+        {/* Biography / Description */}
+        <p className="mt-4 sm:mt-7 text-base sm:text-lg md:text-xl text-white font-light leading-relaxed sm:leading-8 font-sans max-w-2xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+        লিখতে ভালোবাসেন। কলমের আঁচড়েই বলে যেতে চান স্বপ্ন ও সম্ভাবনার কথা, আলো এবং ভালোর কথা।
         </p>
 
-        <div className="mt-5">
+        {/* Action Buttons - Sharp Rectangular Styling matching tahmidulmaula.com */}
+        <div className="mt-7 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 w-full sm:w-auto max-w-md">
           <Link
-            to={`/books`}
-            className={cx(
-              "inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium",
-              "bg-slate-900 text-white shadow-sm transition",
-              "hover:bg-slate-800",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
-              "dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
-            )}
+            to="/about"
+            className="inline-flex items-center justify-center rounded-none border border-[#E5A93C] bg-[#E5A93C] px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-semibold text-stone-950 shadow-lg shadow-black/40 transition-all duration-200 hover:bg-[#d6982b] hover:border-[#d6982b] text-center"
           >
-            বিস্তারিত
+            পরিচিতি পড়ুন
+          </Link>
+          <Link
+            to="/books"
+            className="inline-flex items-center justify-center rounded-none border border-white/90 bg-black/40 backdrop-blur-xs px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-medium text-white shadow-lg shadow-black/40 transition-all duration-200 hover:bg-white hover:text-stone-950 text-center"
+          >
+            বই ও প্রকাশনাসমূহ
           </Link>
         </div>
       </div>
     </div>
-  );
-};
-
-const HeroSection = () => (
-  <section className="pt-6 sm:pt-10">
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div
-        className={cx(
-          "overflow-hidden rounded-2xl border shadow-sm",
-          "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
-        )}
-      >
-        <img
-          src={heroImg}
-          className="w-full object-cover"
-          alt="hero section"
-          loading="lazy"
-        />
-      </div>
-    </div>
   </section>
 );
 
-const PageHeader = () => (
-  <SectionShell className="py-10">
-    <Title key="Home" title="উবায়দুল্লাহ তাসনিম" />
-    <div className="text-center">
-      <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
-        উবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ
-      </h1>
-      <div className="mx-auto mt-4 h-px w-28 bg-slate-200 dark:bg-slate-800" />
-    </div>
-  </SectionShell>
-);
+// 2. Books Showcase Section - Exact tahmidulmaula.com UX: Smooth CSS transform slider, side-mounted arrows, 4-book layout, no price/cart
+const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(() => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth < 640) return 1;
+      if (window.innerWidth < 768) return 2;
+      if (window.innerWidth < 1024) return 3;
+    }
+    return 4;
+  });
+  const [touchStartX, setTouchStartX] = useState(null);
 
-const BookList = ({ books }) => (
-  <SectionShell className="pt-0">
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {books?.map((book) => (
-        <BookCard key={book.id} book={book} />
-      ))}
-    </div>
-  </SectionShell>
-);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1); // Exactly 1 book per view on mobile
+      } else if (window.innerWidth < 768) {
+        setItemsPerView(2);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(3);
+      } else {
+        setItemsPerView(4);
+      }
+    };
 
-const Profile = () => (
-  <SectionShell>
-    <div className="text-center">
-      <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
-        উবায়দুল্লাহ তাসনিম
-      </h1>
-      <div className="mx-auto mt-4 h-px w-28 bg-slate-200 dark:bg-slate-800" />
-    </div>
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-center md:gap-12">
-      <div className="w-full md:w-1/3 lg:w-1/4 flex justify-center">
-        <img
-          src={Logo}
-          alt="Profile Logo"
-          className={cx(
-            "h-48 w-48 md:h-64 md:w-64 rounded-full object-cover",
-            "ring-1 ring-slate-900/10 dark:ring-white/10",
-            "shadow-sm"
-          )}
-          loading="lazy"
-        />
+  const totalBooks = books?.length || 0;
+  const maxIndex = Math.max(0, Math.ceil(totalBooks - itemsPerView));
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  };
+
+  const isAtStart = currentIndex === 0;
+  const isAtEnd = currentIndex >= maxIndex;
+
+  return (
+    <SectionShell id="books" className="bg-white dark:bg-slate-950">
+      {/* Title - Bengali Heading */}
+      <div className="mb-8 sm:mb-10 text-left">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 font-['Noto_Serif_Bengali',_serif]">
+          উবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ
+        </h2>
+        <div className="mt-3 h-0.5 w-16 bg-[#E5A93C]" />
       </div>
 
-      <div className="w-full md:w-2/3 lg:w-3/4">
-        <p className="text-base md:text-lg leading-7 md:leading-10 lg:leading-10 text-slate-700 dark:text-slate-300 text-justify">
+      {isLoading ? (
+        <div className="py-16 flex justify-center">
+          <Loading />
+        </div>
+      ) : isError ? (
+        <div className="py-12">
+          <ErrorMessage message={error?.message} onRetry={refetch} />
+        </div>
+      ) : (
+        <div className="relative group/slider px-9 sm:px-14">
+          {/* Left Floating Navigation Arrow - Outside with gap to books */}
+          <button
+            type="button"
+            onClick={handlePrev}
+            disabled={isAtStart}
+            aria-label="পূর্ববর্তী বইসমূহ"
+            className={cx(
+              "absolute left-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200 rounded-none shadow-md",
+              isAtStart
+                ? "bg-[#F2ECE4]/70 text-stone-400 cursor-not-allowed opacity-50 dark:bg-stone-800/60 dark:text-stone-500"
+                : "bg-[#F2ECE4] text-stone-700 hover:bg-stone-300 cursor-pointer dark:bg-stone-800 dark:text-stone-200",
+            )}
+          >
+            <HiChevronLeft className="h-5 w-5" />
+          </button>
+
+          {/* Right Floating Navigation Arrow - Outside with gap to books (Gold Accent) */}
+          <button
+            type="button"
+            onClick={handleNext}
+            disabled={isAtEnd}
+            aria-label="পরবর্তী বইসমূহ"
+            className={cx(
+              "absolute right-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200 rounded-none shadow-md",
+              isAtEnd
+                ? "border border-stone-300 bg-stone-200 text-stone-400 cursor-not-allowed opacity-50 dark:border-stone-800 dark:bg-stone-800 dark:text-stone-500"
+                : "border border-[#E5A93C] bg-[#E5A93C] text-stone-950 hover:bg-[#d6982b] cursor-pointer",
+            )}
+          >
+            <HiChevronRight className="h-5 w-5" />
+          </button>
+
+          {/* Slider Track Viewport */}
+          <div
+            className="overflow-hidden w-full pb-4 pt-2"
+            onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+            onTouchEnd={(e) => {
+              if (touchStartX === null) return;
+              const diff = touchStartX - e.changedTouches[0].clientX;
+              if (diff > 45) handleNext();
+              if (diff < -45) handlePrev();
+              setTouchStartX(null);
+            }}
+          >
+            {/* Smooth CSS Transform Sliding Row */}
+            <div
+              className="flex transition-transform duration-500 ease-out -mx-2 sm:-mx-3"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+              }}
+            >
+              {books?.map((book) => (
+                <div
+                  key={book.id}
+                  className="shrink-0 px-2 sm:px-3 flex flex-col items-center text-center group/card"
+                  style={{ width: `${100 / itemsPerView}%` }}
+                >
+                  {/* Book Cover - Standalone cover linking directly to book details */}
+                  <Link
+                    to={`/books/${book.id}`}
+                    className="relative block w-full aspect-[1/1.42] max-w-[260px] overflow-hidden bg-stone-100 dark:bg-stone-900 shadow-md group-hover/card:shadow-xl transition-all duration-300 group-hover/card:-translate-y-1.5 border border-stone-200/60 dark:border-stone-800"
+                  >
+                    <img
+                      src={book.bookImage || Logo}
+                      alt={book.bookTitle}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover/card:scale-[1.02]"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.src = Logo;
+                      }}
+                    />
+                  </Link>
+
+                  {/* Book Title */}
+                  <Link
+                    to={`/books/${book.id}`}
+                    className="mt-4 text-sm sm:text-base font-semibold text-stone-900 dark:text-stone-100 line-clamp-2 leading-snug min-h-[2.5rem] px-1 hover:text-[#E5A93C] transition-colors"
+                  >
+                    {book.bookTitle}
+                  </Link>
+
+                  {/* Author Attribution */}
+                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                    by{" "}
+                    <span className="font-medium text-stone-700 dark:text-stone-300">
+                      {book.author || "মাওলানা উবায়দুল্লাহ তাসনিম"}
+                    </span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </SectionShell>
+  );
+};
+
+// 3. Profile Section - bg-[#f5f5f5]
+const ProfileSection = () => (
+  <SectionShell
+    id="about"
+    className="bg-[#f5f5f5] dark:bg-[#0f1117] border-y border-stone-200/60 dark:border-stone-800/60"
+  >
+    <SectionHeader badge="পরিচিতি" title="লেখক সম্পর্কে" align="left" />
+
+    <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-12 lg:gap-16">
+      <div className="w-full md:w-1/3 flex justify-center">
+        <div className="relative group">
+          <div className="absolute -inset-1 rounded-full bg-[#E5A93C]/30 blur-sm opacity-70 group-hover:opacity-100 transition duration-300" />
+          <img
+            src={Logo}
+            alt="উবায়দুল্লাহ তাসনিম"
+            className="relative h-44 w-44 sm:h-56 sm:w-56 md:h-64 md:w-64 rounded-full object-cover border-2 border-[#E5A93C] shadow-lg bg-slate-950"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div className="w-full md:w-2/3 text-left">
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+          উবায়দুল্লাহ তাসনিম
+        </h3>
+        <p className="mt-2 text-sm font-medium text-[#E5A93C]">
+          লেখক • অনুবাদক • শিক্ষক
+        </p>
+
+        <p className="mt-4 text-base md:text-lg leading-relaxed sm:leading-8 text-slate-700 dark:text-slate-300 text-justify">
           সামান্য একজন লেখক। লেখালিখি পেশা নয়, জীবনের মূল স্বপ্ন ও সাধনা। লেখেন,
           লিখতে ভালোবাসেন। কলমের আঁচড়েই বলে যেতে চান স্বপ্ন ও সম্ভাবনার কথা, আলো
           এবং ভালোর কথা। মানুষের মনের গহীনে আলো জ্বালাতে চান শব্দের মশাল দিয়ে।
           প্রতিটি লেখায় ফুটে ওঠে সমাজের প্রতি মমত্ববোধ ও মানবতার চিরন্তন বার্তা।
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-2 justify-center md:justify-start">
+        <div className="mt-6 flex flex-wrap gap-2.5">
           {["লেখক", "অনুবাদক", "শিক্ষক"].map((role) => (
             <span
               key={role}
               className={cx(
-                "inline-flex items-center rounded-full px-4 py-2 text-sm font-medium",
-                "bg-slate-100 text-slate-700 ring-1 ring-slate-200",
-                "dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-800"
+                "inline-flex items-center rounded-full px-4 py-1.5 text-xs sm:text-sm font-medium",
+                "bg-white text-slate-800 border border-slate-200 shadow-xs",
+                "dark:bg-slate-950 dark:text-slate-200 dark:border-slate-800",
               )}
             >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C] mr-2" />
               {role}
             </span>
           ))}
@@ -196,6 +355,7 @@ const Profile = () => (
   </SectionShell>
 );
 
+// 4. Email Subscribe Section - bg-[#f5f5f5]
 export const EmailSubscribe = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -204,7 +364,8 @@ export const EmailSubscribe = () => {
   const subscribeMutation = useMutation({
     mutationFn: subscribeEmail,
     onSuccess: () => {
-      const message = "সাবস্ক্রিপশন সফল! ভেরিফিকেশনের জন্য আপনার ইমেইল চেক করুন।";
+      const message =
+        "সাবস্ক্রিপশন সফল! ভেরিফিকেশনের জন্য আপনার ইমেইল চেক করুন।";
       toast.success(message);
       setSuccessMessage(message);
       setName("");
@@ -212,7 +373,8 @@ export const EmailSubscribe = () => {
     },
     onError: (error) => {
       toast.error(
-        error.response?.data?.message || "সাবস্ক্রিপশন ব্যর্থ। আবার চেষ্টা করুন।"
+        error.response?.data?.message ||
+          "সাবস্ক্রিপশন ব্যর্থ। আবার চেষ্টা করুন।",
       );
     },
   });
@@ -229,7 +391,7 @@ export const EmailSubscribe = () => {
     },
     onError: (error) => {
       toast.error(
-        error.response?.data?.message || "ভেরিফিকেশন ব্যর্থ। আবার চেষ্টা করুন।"
+        error.response?.data?.message || "ভেরিফিকেশন ব্যর্থ। আবার চেষ্টা করুন।",
       );
     },
   });
@@ -245,36 +407,37 @@ export const EmailSubscribe = () => {
   };
 
   return (
-    <SectionShell>
+    <SectionShell id="newsletter" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
       <div
         className={cx(
-          "rounded-2xl border p-6 md:p-10",
-          "border-emerald-200/70 bg-emerald-50/60",
-          "dark:border-slate-800 dark:bg-slate-950"
+          "rounded-3xl border p-6 sm:p-10 md:p-12",
+          "border-[#E5A93C]/20 bg-[#fdfbf7] shadow-xs",
+          "dark:border-slate-800 dark:bg-slate-900/60",
         )}
       >
-        <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 text-center">
-          ই-মেইলে লেখা পেতে সাবস্ক্রাইব করুন
-        </h2>
-        <div className="mx-auto mt-4 h-px w-28 bg-emerald-200 dark:bg-slate-800" />
+        <SectionHeader
+          badge="নিউজলেটার"
+          title="ই-মেইলে নতুন লেখা পেতে সাবস্ক্রাইব করুন"
+          subtitle="নতুন বই, প্রবন্ধ ও চিন্তাশীল লেখার আপডেট সরাসরি আপনার ইনবক্সে পান"
+        />
 
         {successMessage && (
           <div
             className={cx(
-              "mx-auto mt-6 max-w-md rounded-xl border px-4 py-3 text-center text-sm",
-              "border-emerald-200 bg-white/70 text-emerald-800",
-              "dark:border-slate-800 dark:bg-slate-900/60 dark:text-emerald-300"
+              "mx-auto -mt-6 mb-8 max-w-md rounded-xl border px-4 py-3 text-center text-sm",
+              "border-[#E5A93C]/40 bg-[#E5A93C]/10 text-stone-900",
+              "dark:border-slate-800 dark:bg-slate-900 dark:text-[#E5A93C]",
             )}
           >
             {successMessage}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mx-auto mt-8 max-w-md space-y-4">
+        <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-4">
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5"
             >
               নাম*
             </label>
@@ -286,10 +449,10 @@ export const EmailSubscribe = () => {
               placeholder="আপনার সম্পূর্ণ নাম"
               required
               className={cx(
-                "h-11 w-full rounded-xl border px-4 text-sm shadow-sm",
+                "h-12 w-full rounded-xl border px-4 text-sm shadow-xs transition",
                 "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
-                "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
-                "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                "focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/40 focus:border-[#E5A93C]",
+                "dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500",
               )}
             />
           </div>
@@ -297,7 +460,7 @@ export const EmailSubscribe = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5"
             >
               ইমেইল*
             </label>
@@ -309,10 +472,10 @@ export const EmailSubscribe = () => {
               placeholder="আপনার ইমেইল ঠিকানা"
               required
               className={cx(
-                "h-11 w-full rounded-xl border px-4 text-sm shadow-sm",
+                "h-12 w-full rounded-xl border px-4 text-sm shadow-xs transition",
                 "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
-                "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
-                "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                "focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/40 focus:border-[#E5A93C]",
+                "dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500",
               )}
             />
           </div>
@@ -321,21 +484,23 @@ export const EmailSubscribe = () => {
             type="submit"
             disabled={subscribeMutation.isPending}
             className={cx(
-              "h-11 w-full rounded-xl text-sm font-medium text-white shadow-sm transition",
-              "bg-emerald-600 hover:bg-emerald-700",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
-              "disabled:opacity-70 disabled:cursor-not-allowed"
+              "h-12 w-full rounded-xl text-sm font-semibold shadow-md transition-all duration-200",
+              "bg-[#E5A93C] text-stone-950 hover:bg-[#d6982b]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
+              "disabled:opacity-70 disabled:cursor-not-allowed",
             )}
           >
-            {subscribeMutation.isPending ? "প্রক্রিয়াধীন..." : "সাবস্ক্রাইব"}
+            {subscribeMutation.isPending
+              ? "প্রক্রিয়াধীন..."
+              : "সাবস্ক্রাইব করুন"}
           </button>
         </form>
 
-        <p className="mt-8 text-sm text-slate-600 dark:text-slate-300 text-center">
+        <p className="mt-8 text-xs sm:text-sm text-slate-500 dark:text-slate-400 text-center">
           বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{" "}
           <a
             href="https://www.facebook.com/profile.php?id=100094697794310"
-            className="font-semibold text-emerald-700 dark:text-emerald-400 hover:underline"
+            className="font-semibold text-[#E5A93C] hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -348,36 +513,31 @@ export const EmailSubscribe = () => {
   );
 };
 
-// Main Component
+// Main Home Component
 export const Home = () => {
-  const { data: books, isLoading, isError, error, refetch } = useQuery({
+  const {
+    data: books,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["books"],
     queryFn: fetchBooks,
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-hidden">
+      <Title key="Home" title="উবায়দুল্লাহ তাসনিম" />
       <HeroSection />
-      <PageHeader />
-
-      {isLoading ? (
-        <SectionShell className="pt-0">
-          <div className="py-10">
-            <Loading />
-          </div>
-        </SectionShell>
-      ) : isError ? (
-        <SectionShell className="pt-0">
-          <div className="py-10">
-            <ErrorMessage message={error?.message} onRetry={refetch} />
-          </div>
-        </SectionShell>
-      ) : (
-        <BookList books={books} />
-      )}
-
-      <Profile />
-      <VisitCount />
+      <BookShowcase
+        books={books}
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+        refetch={refetch}
+      />
+      <ProfileSection />
       <Media />
       <EmailSubscribe />
     </div>

@@ -33,17 +33,23 @@ const socialLinks = [
   },
 ];
 
-export const Media = () => (
-  <section className="py-14">
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="text-center">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+export const Media = ({ className = "bg-white dark:bg-slate-950" }) => (
+  <section className={cx("py-16 sm:py-20 lg:py-24", className)}>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+      <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+        <span className="inline-block text-xs sm:text-sm font-semibold tracking-widest text-[#E5A93C] uppercase mb-2">
+          কানেক্ট থাকুন
+        </span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
           সোশ্যাল মিডিয়ায় ফলো করুন
-        </h1>
-        <div className="mx-auto mt-4 h-px w-24 bg-slate-200 dark:bg-slate-800" />
+        </h2>
+        <div className="mx-auto mt-4 h-0.5 w-16 bg-[#E5A93C]" />
+        <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          লেখক ও গবেষকের সাথে যুক্ত থাকতে এবং নিয়মিত নতুন আপডেট পেতে সোশ্যাল মিডিয়া প্রোফাইলগুলো অনুসরণ করুন
+        </p>
       </div>
 
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-4 md:gap-6">
+      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
         {socialLinks.map((item) => (
           <a
             key={item.href}
@@ -52,20 +58,18 @@ export const Media = () => (
             rel="noopener noreferrer"
             aria-label={item.label}
             className={cx(
-              "group inline-flex h-12 w-12 items-center justify-center rounded-full",
-              "border border-slate-200 bg-white shadow-sm",
-              "transition duration-200 hover:-translate-y-0.5 hover:shadow-md",
+              "group inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl",
+              "border border-slate-200/80 bg-white shadow-xs",
+              "transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/50",
               "active:translate-y-0",
               "dark:border-slate-800 dark:bg-slate-950",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40"
             )}
           >
-            <i className={cx(item.icon, "text-xl", item.color)} />
+            <i className={cx(item.icon, "text-xl transition-transform duration-200 group-hover:scale-110", item.color)} />
           </a>
         ))}
       </div>
-
-      <div className="mt-12 h-px w-full bg-slate-200 dark:bg-slate-800" />
     </div>
   </section>
 );

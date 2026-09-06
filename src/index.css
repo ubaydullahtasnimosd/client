@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700;800&family=Hind:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -30,9 +30,9 @@ body {
 }
 
 .navLink {
-  @apply block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500;
+  @apply block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#E5A93C] md:p-0 dark:text-white md:dark:hover:text-[#E5A93C];
 }
 
 .navLink.active {
-  @apply block py-2 px-3 text-white bg-green-700 rounded-sm md:bg-transparent md:text-green-700 md:p-0 md:dark:text-green-500;
+  @apply block py-2 px-3 text-stone-950 bg-[#E5A93C] rounded-sm md:bg-transparent md:text-[#E5A93C] md:p-0 md:dark:text-[#E5A93C];
 }

@@ -58,13 +58,13 @@ export const VerificationPage = () => {
     "inline-flex items-center justify-center rounded-xl px-6 py-2 text-sm font-medium transition shadow-sm",
     "bg-slate-900 text-white hover:bg-slate-800",
     "dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40"
   );
 
   const Badge = ({ variant = "info", children }) => {
     const styles =
       variant === "success"
-        ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-500/10 dark:text-emerald-200"
+        ? "border-[#CCA764]/30 bg-[#CCA764]/10 text-[#876527] dark:border-emerald-900/50 dark:bg-[#CCA764]/100/10 dark:text-[#F4D99B]"
         : variant === "error"
         ? "border-red-200 bg-red-50 text-red-800 dark:border-red-900/50 dark:bg-red-500/10 dark:text-red-200"
         : "border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-900/50 dark:bg-blue-500/10 dark:text-blue-200";

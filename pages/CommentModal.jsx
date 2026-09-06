@@ -134,15 +134,15 @@ export const CommentModal = ({
     "w-full rounded-2xl border px-4 py-3 text-sm shadow-sm",
     "border-slate-200 bg-white text-slate-900",
     "placeholder:text-slate-400",
-    "focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500/40",
+    "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
     "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
 
   const primaryBtn = cx(
     "inline-flex items-center justify-center rounded-2xl px-4 py-2.5 text-sm font-semibold shadow-sm transition",
-    "bg-emerald-600 text-white hover:bg-emerald-700",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+    "bg-[#CCA764] text-stone-950 font-semibold hover:bg-[#B8914C]",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
 
@@ -150,7 +150,7 @@ export const CommentModal = ({
     "inline-flex items-center justify-center rounded-2xl px-4 py-2.5 text-sm font-semibold transition",
     "bg-slate-100 text-slate-700 hover:bg-slate-200",
     "dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
 
@@ -197,7 +197,7 @@ export const CommentModal = ({
               className={cx(
                 "rounded-2xl p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700",
                 "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-slate-100",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40"
               )}
               disabled={isPending}
               type="button"
