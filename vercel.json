@@ -6,7 +6,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": "(facebookexternalhit|Facebot|Twitterbot|WhatsApp|TelegramBot)"
+          "value": "facebookexternalhit.*|Facebot.*|Twitterbot.*|WhatsApp.*|TelegramBot.*"
         }
       ],
       "destination": "/api/share-preview?contentType=book&id=:id"
@@ -17,7 +17,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": "(facebookexternalhit|Facebot|Twitterbot|WhatsApp|TelegramBot)"
+          "value": "facebookexternalhit.*|Facebot.*|Twitterbot.*|WhatsApp.*|TelegramBot.*"
         }
       ],
       "destination": "/api/share-preview?contentType=article&id=:id"

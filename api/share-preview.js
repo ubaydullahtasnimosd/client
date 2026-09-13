@@ -88,6 +88,7 @@ export default async function handler(request, response) {
 
     response.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
     response.setHeader("Content-Type", "text/html; charset=utf-8");
+    response.setHeader("X-Robots-Tag", "noindex, nofollow");
     response.status(200).send(
       html({
         ...preview,
