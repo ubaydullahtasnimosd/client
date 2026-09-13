@@ -91,14 +91,14 @@ export const CommentsList = ({ content_type, object_id }) => {
     "w-full rounded-2xl border px-4 py-3 text-sm shadow-sm",
     "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
     "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
-    "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500",
+    "   ",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
 
   const replyBtn = cx(
     "text-xs font-semibold underline underline-offset-4 transition-colors",
     "text-[#9E7839] hover:text-[#876527]",
-    "dark:text-[#E5C378] dark:hover:text-[#F4D99B]",
+    " ",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40 rounded"
   );
 
@@ -112,7 +112,7 @@ export const CommentsList = ({ content_type, object_id }) => {
   const ghostBtn = cx(
     "inline-flex items-center justify-center rounded-2xl px-3.5 py-2 text-sm font-semibold transition",
     "bg-slate-100 text-slate-700 hover:bg-slate-200",
-    "dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
+    "  ",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
@@ -125,7 +125,7 @@ export const CommentsList = ({ content_type, object_id }) => {
         {/* thread line */}
         {level > 0 && (
           <div className="mb-3 -ml-3 md:-ml-6">
-            <div className="h-px w-full bg-slate-200 dark:bg-slate-800" />
+            <div className="h-px w-full bg-slate-200 " />
           </div>
         )}
 
@@ -133,7 +133,7 @@ export const CommentsList = ({ content_type, object_id }) => {
           className={cx(
             "rounded-3xl border p-5 shadow-sm",
             "border-slate-200/70 bg-white",
-            "dark:border-slate-800 dark:bg-slate-950"
+            " "
           )}
         >
           <div className="flex items-start justify-between gap-4">
@@ -142,17 +142,17 @@ export const CommentsList = ({ content_type, object_id }) => {
                 className={cx(
                   "h-10 w-10 rounded-full flex items-center justify-center font-bold",
                   "bg-[#CCA764]/15 text-[#876527]",
-                  "dark:bg-[#CCA764]/10 dark:text-[#F4D99B]"
+                  " "
                 )}
               >
                 {initial}
               </div>
 
               <div>
-                <h4 className="font-semibold text-slate-900 dark:text-slate-100">
+                <h4 className="font-semibold text-slate-900 ">
                   {comment.userName}
                 </h4>
-                <span className="text-xs text-slate-500 dark:text-slate-400">
+                <span className="text-xs text-slate-500 ">
                   {Time(comment.commentCreateAt)}
                 </span>
               </div>
@@ -168,7 +168,7 @@ export const CommentsList = ({ content_type, object_id }) => {
             </button>
           </div>
 
-          <p className="mt-3 text-slate-700 dark:text-slate-300 whitespace-pre-line leading-7">
+          <p className="mt-3 text-slate-700  whitespace-pre-line leading-7">
             {comment.userMessage}
           </p>
 
@@ -176,7 +176,7 @@ export const CommentsList = ({ content_type, object_id }) => {
           {replyData.parent_comment === comment.id && (
             <form
               onSubmit={(e) => handleReplySubmit(e, comment.id)}
-              className="mt-5 rounded-3xl border p-4 bg-slate-50/60 border-slate-200/70 dark:bg-slate-900/30 dark:border-slate-800"
+              className="mt-5 rounded-3xl border p-4 bg-slate-50/60 border-slate-200/70  "
             >
               <div className="space-y-3">
                 <input
@@ -240,7 +240,7 @@ export const CommentsList = ({ content_type, object_id }) => {
   if (isError) {
     return (
       <p
-        className="py-8 text-center text-slate-500 dark:text-slate-400"
+        className="py-8 text-center text-slate-500 "
         role="alert"
       >
         মন্তব্যগুলো লোড করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।
@@ -251,7 +251,7 @@ export const CommentsList = ({ content_type, object_id }) => {
   if (!comments || comments.length === 0) {
     return (
       <p
-        className="py-8 text-center text-slate-500 dark:text-slate-400"
+        className="py-8 text-center text-slate-500 "
         role="status"
       >
         এখনও কোনো মন্তব্য নেই। প্রথম মন্তব্যটি আপনি করতে পারেন।

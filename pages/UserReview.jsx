@@ -44,7 +44,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
         {badge}
       </span>
     )}
-    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
       {title}
     </h1>
     <div
@@ -54,7 +54,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
       )}
     />
     {subtitle && (
-      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 ">
         {subtitle}
       </p>
     )}
@@ -94,11 +94,11 @@ export const UserReview = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
+    <main className="min-h-screen bg-[#f5f5f5]  text-slate-900  overflow-x-hidden">
       <Title title="পাঠক রিভিউ ও প্রতিক্রিয়া — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: USER REVIEWS WITH UNIFIED SECTION SHELL & HEADER */}
-      <SectionShell id="reviews" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
+      <SectionShell id="reviews" className="bg-[#f5f5f5] ">
         <SectionHeader
           badge="পাঠক মতামত"
           title="পাঠক রিভিউ ও প্রতিক্রিয়া"
@@ -117,7 +117,7 @@ export const UserReview = () => {
               <ErrorMessage message={reviewsError.message} onRetry={refetchReviews} />
             </div>
           ) : !reviews?.length ? (
-            <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs dark:border-stone-800 dark:bg-slate-950">
+            <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
               <EmptyState message="এখনও কোনো পাঠক রিভিউ প্রকাশ করা হয়নি।" />
             </div>
           ) : (
@@ -129,11 +129,11 @@ export const UserReview = () => {
                     className={cx(
                       "rounded-3xl border p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between",
                       "border-stone-200/80 bg-white shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
-                      "dark:border-stone-800 dark:bg-slate-950",
+                      " ",
                     )}
                   >
                     <div>
-                      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-stone-100 dark:border-stone-800/80">
+                      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-stone-100 ">
                         <div className="flex items-center gap-3">
                           {/* Avatar initial badge */}
                           <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#E5A93C]/15 text-[#E5A93C] font-bold text-base flex items-center justify-center border border-[#E5A93C]/30 shrink-0">
@@ -141,10 +141,10 @@ export const UserReview = () => {
                           </div>
 
                           <div>
-                            <h3 className="font-bold text-base sm:text-lg text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+                            <h3 className="font-bold text-base sm:text-lg text-slate-900  font-['Noto_Serif_Bengali',_serif]">
                               {review.readersName}
                             </h3>
-                            <p className="text-xs text-stone-500 dark:text-stone-400 flex items-center gap-1 mt-0.5">
+                            <p className="text-xs text-stone-500  flex items-center gap-1 mt-0.5">
                               <FiCalendar className="h-3 w-3 text-[#E5A93C]" />
                               <span>{Time(review.readersReviewCreated)}</span>
                             </p>
@@ -153,7 +153,7 @@ export const UserReview = () => {
 
                         {/* Book Tag */}
                         {review.readersBookName && (
-                          <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-stone-100 text-stone-800 border border-stone-200/70 dark:bg-slate-900 dark:text-stone-200 dark:border-stone-800">
+                          <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-stone-100 text-stone-800 border border-stone-200/70   ">
                             <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
                             <span>{review.readersBookName}</span>
                           </div>
@@ -162,7 +162,7 @@ export const UserReview = () => {
 
                       {/* Review Text Body */}
                       <div className="mt-5">
-                        <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700 dark:text-slate-300 text-justify font-sans whitespace-pre-line">
+                        <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700  text-justify font-sans whitespace-pre-line">
                           {review.readersReview}
                         </p>
                       </div>

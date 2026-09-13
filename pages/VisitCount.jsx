@@ -80,12 +80,12 @@ const VisitCount = () => {
           className={cx(
             "rounded-3xl border p-6 md:p-8 shadow-sm",
             "border-slate-200/70 bg-white",
-            "dark:border-slate-800 dark:bg-slate-950"
+            " "
           )}
         >
           <div className="flex items-center justify-center gap-3">
             <Loading size="small" />
-            <span className="text-sm text-slate-500 dark:text-slate-400">
+            <span className="text-sm text-slate-500 ">
               Loading...
             </span>
           </div>
@@ -102,11 +102,11 @@ const VisitCount = () => {
           className={cx(
             "rounded-3xl border p-6 md:p-8 shadow-sm",
             "border-slate-200/70 bg-white",
-            "dark:border-slate-800 dark:bg-slate-950"
+            " "
           )}
         >
           <div className="flex items-center justify-center">
-            <span className="text-sm text-slate-500 dark:text-slate-400">
+            <span className="text-sm text-slate-500 ">
               Count unavailable
             </span>
           </div>
@@ -121,17 +121,17 @@ const VisitCount = () => {
         className={cx(
           "rounded-3xl border p-6 md:p-8 shadow-sm transition duration-200",
           "border-slate-200/70 bg-white hover:shadow-md",
-          "dark:border-slate-800 dark:bg-slate-950"
+          " "
         )}
       >
         <div className="flex flex-col items-center gap-5 sm:flex-row sm:justify-between">
           {/* Left: Icon + labels */}
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="rounded-2xl p-4 bg-indigo-100 dark:bg-indigo-900/40">
+              <div className="rounded-2xl p-4 bg-indigo-100 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-indigo-700 dark:text-indigo-300"
+                  className="h-6 w-6 text-indigo-700 "
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -149,10 +149,10 @@ const VisitCount = () => {
             </div>
 
             <div>
-              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+              <p className="text-sm font-semibold text-slate-600 ">
                 মোট ব্যাবহারকারী
               </p>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              <p className="mt-1 text-sm text-slate-500 ">
                 ওয়েবসাইট ভিজিট করার জন্য ধন্যবাদ
               </p>
             </div>
@@ -161,10 +161,10 @@ const VisitCount = () => {
           {/* Right: Count */}
           <div className="text-center sm:text-right">
             <div className="flex items-baseline justify-center sm:justify-end gap-2">
-              <p className="text-3xl md:text-4xl font-bold text-indigo-700 dark:text-indigo-300">
+              <p className="text-3xl md:text-4xl font-bold text-indigo-700 ">
                 {data?.count?.toLocaleString() ?? "---"}
               </p>
-              <span className="text-sm font-semibold text-emerald-600 dark:text-[#E5C378]">
+              <span className="text-sm font-semibold text-emerald-600 ">
                 +{percentageIncrease}%
               </span>
             </div>

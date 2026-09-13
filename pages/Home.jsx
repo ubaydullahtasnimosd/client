@@ -61,7 +61,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
         {badge}
       </span>
     )}
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
       {title}
     </h2>
     <div
@@ -71,7 +71,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
       )}
     />
     {subtitle && (
-      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 ">
         {subtitle}
       </p>
     )}
@@ -182,10 +182,10 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
   const isAtEnd = currentIndex >= maxIndex;
 
   return (
-    <SectionShell id="books" className="bg-white dark:bg-slate-950">
+    <SectionShell id="books" className="bg-white ">
       {/* Title - Bengali Heading */}
       <div className="mb-8 sm:mb-10 text-left">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 font-['Noto_Serif_Bengali',_serif]">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-stone-900  font-['Noto_Serif_Bengali',_serif]">
           উবায়দুল্লাহ তাসনিম এর লিখিত বই সমূহ
         </h2>
         <div className="mt-3 h-0.5 w-16 bg-[#E5A93C]" />
@@ -210,8 +210,8 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
             className={cx(
               "absolute left-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200 rounded-none shadow-md",
               isAtStart
-                ? "bg-[#F2ECE4]/70 text-stone-400 cursor-not-allowed opacity-50 dark:bg-stone-800/60 dark:text-stone-500"
-                : "bg-[#F2ECE4] text-stone-700 hover:bg-stone-300 cursor-pointer dark:bg-stone-800 dark:text-stone-200",
+                ? "bg-[#F2ECE4]/70 text-stone-400 cursor-not-allowed opacity-50  "
+                : "bg-[#F2ECE4] text-stone-700 hover:bg-stone-300 cursor-pointer  ",
             )}
           >
             <HiChevronLeft className="h-5 w-5" />
@@ -226,7 +226,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
             className={cx(
               "absolute right-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200 rounded-none shadow-md",
               isAtEnd
-                ? "border border-stone-300 bg-stone-200 text-stone-400 cursor-not-allowed opacity-50 dark:border-stone-800 dark:bg-stone-800 dark:text-stone-500"
+                ? "border border-stone-300 bg-stone-200 text-stone-400 cursor-not-allowed opacity-50   "
                 : "border border-[#E5A93C] bg-[#E5A93C] text-stone-950 hover:bg-[#d6982b] cursor-pointer",
             )}
           >
@@ -261,7 +261,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
                   {/* Book Cover - Standalone cover linking directly to book details */}
                   <Link
                     to={`/books/${book.id}`}
-                    className="relative block w-full aspect-[1/1.42] max-w-[260px] overflow-hidden bg-stone-100 dark:bg-stone-900 shadow-md group-hover/card:shadow-xl transition-all duration-300 group-hover/card:-translate-y-1.5 border border-stone-200/60 dark:border-stone-800"
+                    className="relative block w-full aspect-[1/1.42] max-w-[260px] overflow-hidden bg-stone-100  shadow-md group-hover/card:shadow-xl transition-all duration-300 group-hover/card:-translate-y-1.5 border border-stone-200/60 "
                   >
                     <img
                       src={book.bookImage || Logo}
@@ -277,15 +277,15 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
                   {/* Book Title */}
                   <Link
                     to={`/books/${book.id}`}
-                    className="mt-4 text-sm sm:text-base font-semibold text-stone-900 dark:text-stone-100 line-clamp-2 leading-snug min-h-[2.5rem] px-1 hover:text-[#E5A93C] transition-colors"
+                    className="mt-4 text-sm sm:text-base font-semibold text-stone-900  line-clamp-2 leading-snug min-h-[2.5rem] px-1 hover:text-[#E5A93C] transition-colors"
                   >
                     {book.bookTitle}
                   </Link>
 
                   {/* Author Attribution */}
-                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-500 ">
                     by{" "}
-                    <span className="font-medium text-stone-700 dark:text-stone-300">
+                    <span className="font-medium text-stone-700 ">
                       {book.author || "উবায়দুল্লাহ তাসনিম"}
                     </span>
                   </p>
@@ -303,7 +303,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
 const ProfileSection = () => (
   <SectionShell
     id="about"
-    className="bg-[#f5f5f5] dark:bg-[#0f1117] border-y border-stone-200/60 dark:border-stone-800/60"
+    className="bg-[#f5f5f5]  border-y border-stone-200/60 "
   >
     <SectionHeader badge="পরিচিতি" title="লেখক সম্পর্কে" align="left" />
 
@@ -321,14 +321,14 @@ const ProfileSection = () => (
       </div>
 
       <div className="w-full md:w-2/3 text-left">
-        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif]">
           উবায়দুল্লাহ তাসনিম
         </h3>
         <p className="mt-2 text-sm font-medium text-[#E5A93C]">
           লেখক • অনুবাদক • শিক্ষক
         </p>
 
-        <p className="mt-4 text-base md:text-lg leading-relaxed sm:leading-8 text-slate-700 dark:text-slate-300 text-justify">
+        <p className="mt-4 text-base md:text-lg leading-relaxed sm:leading-8 text-slate-700  text-justify">
           সামান্য একজন লেখক। লেখালিখি পেশা নয়, জীবনের মূল স্বপ্ন ও সাধনা। লেখেন,
           লিখতে ভালোবাসেন। কলমের আঁচড়েই বলে যেতে চান স্বপ্ন ও সম্ভাবনার কথা, আলো
           এবং ভালোর কথা। মানুষের মনের গহীনে আলো জ্বালাতে চান শব্দের মশাল দিয়ে।
@@ -342,7 +342,7 @@ const ProfileSection = () => (
               className={cx(
                 "inline-flex items-center rounded-full px-4 py-1.5 text-xs sm:text-sm font-medium",
                 "bg-white text-slate-800 border border-slate-200 shadow-xs",
-                "dark:bg-slate-950 dark:text-slate-200 dark:border-slate-800",
+                "  ",
               )}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C] mr-2" />
@@ -407,12 +407,12 @@ export const EmailSubscribe = () => {
   };
 
   return (
-    <SectionShell id="newsletter" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
+    <SectionShell id="newsletter" className="bg-[#f5f5f5] ">
       <div
         className={cx(
           "rounded-3xl border p-6 sm:p-10 md:p-12",
           "border-[#E5A93C]/20 bg-[#fdfbf7] shadow-xs",
-          "dark:border-slate-800 dark:bg-slate-900/60",
+          " ",
         )}
       >
         <SectionHeader
@@ -426,7 +426,7 @@ export const EmailSubscribe = () => {
             className={cx(
               "mx-auto -mt-6 mb-8 max-w-md rounded-xl border px-4 py-3 text-center text-sm",
               "border-[#E5A93C]/40 bg-[#E5A93C]/10 text-stone-900",
-              "dark:border-slate-800 dark:bg-slate-900 dark:text-[#E5A93C]",
+              "  ",
             )}
           >
             {successMessage}
@@ -437,7 +437,7 @@ export const EmailSubscribe = () => {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5"
+              className="block text-sm font-medium text-slate-700  mb-1.5"
             >
               নাম*
             </label>
@@ -452,7 +452,7 @@ export const EmailSubscribe = () => {
                 "h-12 w-full rounded-xl border px-4 text-sm shadow-xs transition",
                 "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
                 "focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/40 focus:border-[#E5A93C]",
-                "dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500",
+                "   ",
               )}
             />
           </div>
@@ -460,7 +460,7 @@ export const EmailSubscribe = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5"
+              className="block text-sm font-medium text-slate-700  mb-1.5"
             >
               ইমেইল*
             </label>
@@ -475,7 +475,7 @@ export const EmailSubscribe = () => {
                 "h-12 w-full rounded-xl border px-4 text-sm shadow-xs transition",
                 "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
                 "focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/40 focus:border-[#E5A93C]",
-                "dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500",
+                "   ",
               )}
             />
           </div>
@@ -496,7 +496,7 @@ export const EmailSubscribe = () => {
           </button>
         </form>
 
-        <p className="mt-8 text-xs sm:text-sm text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-8 text-xs sm:text-sm text-slate-500  text-center">
           বই সংক্রান্ত যে কোনো তথ্যের জন্য যোগাযোগ করুন{" "}
           <a
             href="https://www.facebook.com/profile.php?id=100094697794310"

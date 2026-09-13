@@ -19,14 +19,14 @@ export const Loading = ({ size = "large", fullScreen = false, className = "" }) 
         {/* Outer subtle ring track */}
         <div
           className={cx(
-            "absolute inset-0 rounded-full border-slate-200 dark:border-slate-800/80",
+            "absolute inset-0 rounded-full border-slate-200 ",
             isLarge ? "border-4" : "border-3"
           )}
         />
         {/* Spinning accent ring */}
         <div
           className={cx(
-            "absolute inset-0 animate-spin rounded-full border-t-[#CCA764] border-r-transparent border-b-[#CCA764] border-l-transparent motion-reduce:animate-none dark:border-t-[#CCA764] dark:border-b-[#CCA764]",
+            "absolute inset-0 animate-spin rounded-full border-t-[#CCA764] border-r-transparent border-b-[#CCA764] border-l-transparent motion-reduce:animate-none  ",
             isLarge ? "border-4" : "border-3"
           )}
         />
@@ -35,13 +35,13 @@ export const Loading = ({ size = "large", fullScreen = false, className = "" }) 
       {/* Loading text with animated bouncing dots */}
       {isLarge && (
         <div className="flex items-center space-x-1.5">
-          <span className="animate-pulse text-sm font-semibold tracking-wide text-slate-500 motion-reduce:animate-none dark:text-slate-400">
+          <span className="animate-pulse text-sm font-semibold tracking-wide text-slate-500 motion-reduce:animate-none ">
             লোড হচ্ছে, একটু অপেক্ষা করুন
           </span>
           <div className="flex space-x-1">
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none dark:bg-[#CCA764] [animation-delay:-0.3s]" />
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none dark:bg-[#CCA764] [animation-delay:-0.15s]" />
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none dark:bg-[#CCA764]" />
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none  [animation-delay:-0.3s]" />
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none  [animation-delay:-0.15s]" />
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none " />
           </div>
         </div>
       )}

@@ -38,7 +38,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
         {badge}
       </span>
     )}
-    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
       {title}
     </h1>
     <div
@@ -48,7 +48,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
       )}
     />
     {subtitle && (
-      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 ">
         {subtitle}
       </p>
     )}
@@ -77,7 +77,7 @@ export const QuranLifeLessons = () => {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24 flex justify-center items-center">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24 flex justify-center items-center">
         <Loading />
       </main>
     );
@@ -85,7 +85,7 @@ export const QuranLifeLessons = () => {
 
   if (isError) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24">
         <div className="max-w-xl mx-auto px-4">
           <ErrorMessage message={error?.message} onRetry={refetch} />
         </div>
@@ -94,11 +94,11 @@ export const QuranLifeLessons = () => {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
+    <main className="min-h-screen bg-[#f5f5f5]  text-slate-900  overflow-x-hidden">
       <Title title="কুরআন থেকে জীবনের পাঠ — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: QURAN LIFE LESSONS WITH UNIFIED SECTION SHELL & HEADER */}
-      <SectionShell id="quran-lessons" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
+      <SectionShell id="quran-lessons" className="bg-[#f5f5f5] ">
         <SectionHeader
           badge="ইসলামিক জীবনপাঠ"
           title="কুরআন থেকে জীবনের পাঠ"
@@ -107,7 +107,7 @@ export const QuranLifeLessons = () => {
         />
 
         {!data?.length ? (
-          <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs dark:border-stone-800 dark:bg-slate-950">
+          <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
             <EmptyState message="এখনও কুরআন থেকে কোনো জীবনপাঠ প্রকাশ করা হয়নি।" />
           </div>
         ) : (
@@ -119,13 +119,13 @@ export const QuranLifeLessons = () => {
                   className={cx(
                     "group flex flex-col overflow-hidden rounded-3xl border transition-all duration-300",
                     "border-stone-200/80 bg-white shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
-                    "dark:border-stone-800 dark:bg-slate-950",
+                    " ",
                   )}
                 >
                   {/* Card Image */}
                   <Link
                     to={`/islam/quran-life-lessons/${lesson.id}`}
-                    className="relative block w-full aspect-[16/10] overflow-hidden bg-stone-100 dark:bg-stone-900 border-b border-stone-200/60 dark:border-stone-800"
+                    className="relative block w-full aspect-[16/10] overflow-hidden bg-stone-100  border-b border-stone-200/60 "
                     aria-label={`${lesson.quranLessonName} পড়ুন`}
                   >
                     <img
@@ -143,14 +143,14 @@ export const QuranLifeLessons = () => {
                   <div className="flex flex-1 flex-col p-5 sm:p-6">
                     <Link
                       to={`/islam/quran-life-lessons/${lesson.id}`}
-                      className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif] line-clamp-2 leading-snug group-hover:text-[#E5A93C] transition-colors"
+                      className="text-lg sm:text-xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif] line-clamp-2 leading-snug group-hover:text-[#E5A93C] transition-colors"
                     >
                       {lesson.quranLessonName}
                     </Link>
 
                     {/* Metadata Row */}
-                    <div className="mt-2.5 flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
-                      <span className="font-medium text-stone-700 dark:text-stone-300">
+                    <div className="mt-2.5 flex items-center gap-1.5 text-xs text-stone-500 ">
+                      <span className="font-medium text-stone-700 ">
                         {lesson.quranLessonAuthor || "উবায়দুল্লাহ তাসনিম"}
                       </span>
                       <span>•</span>
@@ -161,7 +161,7 @@ export const QuranLifeLessons = () => {
                     </div>
 
                     {/* Description Excerpt */}
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 text-justify line-clamp-3">
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600  text-justify line-clamp-3">
                       {lesson.quranLessonDescription}
                     </p>
 

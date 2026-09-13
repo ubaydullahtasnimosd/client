@@ -45,29 +45,29 @@ export const VerificationPage = () => {
 
   const shell = cx(
     "min-h-screen flex items-center justify-center p-4",
-    "bg-slate-50/60 dark:bg-slate-950"
+    "bg-slate-50/60 "
   );
 
   const cardBase = cx(
     "w-full max-w-md rounded-3xl border p-8 text-center shadow-sm",
-    "bg-white dark:bg-slate-950",
-    "border-slate-200/70 dark:border-slate-800"
+    "bg-white ",
+    "border-slate-200/70 "
   );
 
   const btn = cx(
     "inline-flex items-center justify-center rounded-xl px-6 py-2 text-sm font-medium transition shadow-sm",
     "bg-slate-900 text-white hover:bg-slate-800",
-    "dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white",
+    "  ",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40"
   );
 
   const Badge = ({ variant = "info", children }) => {
     const styles =
       variant === "success"
-        ? "border-[#CCA764]/30 bg-[#CCA764]/10 text-[#876527] dark:border-emerald-900/50 dark:bg-[#CCA764]/100/10 dark:text-[#F4D99B]"
+        ? "border-[#CCA764]/30 bg-[#CCA764]/10 text-[#876527]   "
         : variant === "error"
-        ? "border-red-200 bg-red-50 text-red-800 dark:border-red-900/50 dark:bg-red-500/10 dark:text-red-200"
-        : "border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-900/50 dark:bg-blue-500/10 dark:text-blue-200";
+        ? "border-red-200 bg-red-50 text-red-800   "
+        : "border-blue-200 bg-blue-50 text-blue-800   ";
 
     return (
       <div
@@ -89,13 +89,13 @@ export const VerificationPage = () => {
             {verificationStatus === "success" ? "SUCCESS" : "ALREADY VERIFIED"}
           </Badge>
 
-          <h2 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-xl md:text-2xl font-semibold text-slate-900 ">
             {verificationStatus === "success"
               ? "সাবস্ক্রিপশন নিশ্চিত হয়েছে!"
               : "আপনি ইতিমধ্যেই সাবস্ক্রাইব করেছেন!"}
           </h2>
 
-          <p className="mt-4 text-slate-600 dark:text-slate-300 leading-7">
+          <p className="mt-4 text-slate-600  leading-7">
             {verificationStatus === "success"
               ? "আপনার সাবস্ক্রিপশন সফলভাবে নিশ্চিত করা হয়েছে। নতুন আপডেট পেতে আপনার ইমেইল চেক করুন।"
               : "আপনি ইতিমধ্যেই আমাদের সাবস্ক্রাইবার লিস্টে রয়েছেন। নতুন আপডেট পেতে আপনার ইমেইল চেক করুন।"}
@@ -115,11 +115,11 @@ export const VerificationPage = () => {
         <div className={cardBase}>
           <Badge variant="error">ERROR</Badge>
 
-          <h2 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-xl md:text-2xl font-semibold text-slate-900 ">
             ভেরিফিকেশন ব্যর্থ
           </h2>
 
-          <p className="mt-4 text-slate-600 dark:text-slate-300 leading-7">
+          <p className="mt-4 text-slate-600  leading-7">
             দুঃখিত, আপনার ভেরিফিকেশন প্রক্রিয়া সম্পন্ন হয়নি। অনুগ্রহ করে আবার চেষ্টা করুন।
           </p>
 
@@ -136,11 +136,11 @@ export const VerificationPage = () => {
       <div className={cardBase}>
         <Badge variant="info">VERIFYING</Badge>
 
-        <h2 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-100">
+        <h2 className="text-xl md:text-2xl font-semibold text-slate-900 ">
           ভেরিফিকেশন প্রক্রিয়াধীন...
         </h2>
 
-        <p className="mt-4 text-slate-600 dark:text-slate-300">
+        <p className="mt-4 text-slate-600 ">
           অনুগ্রহ করে অপেক্ষা করুন
         </p>
       </div>

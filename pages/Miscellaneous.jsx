@@ -37,7 +37,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
         {badge}
       </span>
     )}
-    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
       {title}
     </h1>
     <div
@@ -47,7 +47,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
       )}
     />
     {subtitle && (
-      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 ">
         {subtitle}
       </p>
     )}
@@ -90,7 +90,7 @@ export const Miscellaneous = () => {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24 flex justify-center items-center">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24 flex justify-center items-center">
         <Loading />
       </main>
     );
@@ -98,7 +98,7 @@ export const Miscellaneous = () => {
 
   if (isError) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24">
         <div className="max-w-xl mx-auto px-4">
           <ErrorMessage message={error?.message} onRetry={refetch} />
         </div>
@@ -107,11 +107,11 @@ export const Miscellaneous = () => {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
+    <main className="min-h-screen bg-[#f5f5f5]  text-slate-900  overflow-x-hidden">
       <Title title="ভিডিও গ্যালারি — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: VIDEO GALLERY WITH UNIFIED SECTION SHELL & HEADER */}
-      <SectionShell id="videos" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
+      <SectionShell id="videos" className="bg-[#f5f5f5] ">
         <SectionHeader
           badge="ভিডিও গ্যালারি"
           title="জীবন ও জগৎ — ভিডিওসমূহ"
@@ -142,11 +142,11 @@ export const Miscellaneous = () => {
                       "group flex flex-col overflow-hidden rounded-3xl border",
                       "border-stone-200/80 bg-white shadow-xs transition-all duration-300",
                       "hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
-                      "dark:border-stone-800 dark:bg-slate-950",
+                      " ",
                     )}
                   >
                     {/* Video Player Container - 16:9 Aspect Ratio Edge-to-Edge */}
-                    <div className="relative w-full aspect-video bg-black overflow-hidden border-b border-stone-200/60 dark:border-stone-800">
+                    <div className="relative w-full aspect-video bg-black overflow-hidden border-b border-stone-200/60 ">
                       {isDirect ? (
                         <video
                           src={item.misecllaneousVideo}
@@ -169,11 +169,11 @@ export const Miscellaneous = () => {
 
                     {/* Content Body */}
                     <div className="p-5 sm:p-6 flex flex-1 flex-col justify-between">
-                      <h2 className="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif] leading-snug group-hover:text-[#E5A93C] transition-colors line-clamp-2">
+                      <h2 className="text-base sm:text-lg font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif] leading-snug group-hover:text-[#E5A93C] transition-colors line-clamp-2">
                         {item.misecllaneousTitle}
                       </h2>
 
-                      <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800/80 flex items-center justify-between text-xs sm:text-sm text-stone-500 dark:text-stone-400">
+                      <div className="mt-4 pt-3 border-t border-stone-100  flex items-center justify-between text-xs sm:text-sm text-stone-500 ">
                         <div className="flex items-center gap-1.5">
                           <FiClock className="h-3.5 w-3.5 text-[#E5A93C]" />
                           <span>আপলোড: {Time(item.misecllaneousCreateAt)}</span>

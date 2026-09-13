@@ -135,7 +135,7 @@ export const CommentModal = ({
     "border-slate-200 bg-white text-slate-900",
     "placeholder:text-slate-400",
     "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
-    "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500",
+    "   ",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
 
@@ -149,7 +149,7 @@ export const CommentModal = ({
   const ghostBtn = cx(
     "inline-flex items-center justify-center rounded-2xl px-4 py-2.5 text-sm font-semibold transition",
     "bg-slate-100 text-slate-700 hover:bg-slate-200",
-    "dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
+    "  ",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
@@ -176,7 +176,7 @@ export const CommentModal = ({
         className={cx(
           "relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border shadow-2xl",
           "border-slate-200 bg-white",
-          "dark:border-slate-800 dark:bg-slate-950",
+          " ",
           "animate-[fadeIn_.15s_ease-out]"
         )}
       >
@@ -184,10 +184,10 @@ export const CommentModal = ({
         <div className="p-6 md:p-7">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 id="comment-dialog-title" className="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-100">
+              <h3 id="comment-dialog-title" className="text-lg md:text-xl font-semibold text-slate-900 ">
                 নতুন মন্তব্য করুন
               </h3>
-              <p id="comment-dialog-description" className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              <p id="comment-dialog-description" className="mt-1 text-sm text-slate-500 ">
                 আপনার মতামত লিখে জমা দিন
               </p>
             </div>
@@ -196,7 +196,7 @@ export const CommentModal = ({
               onClick={closeModal}
               className={cx(
                 "rounded-2xl p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700",
-                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-slate-100",
+                "  ",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40"
               )}
               disabled={isPending}
@@ -208,7 +208,7 @@ export const CommentModal = ({
             </button>
           </div>
 
-          <div className="mt-5 h-px w-full bg-slate-200 dark:bg-slate-800" />
+          <div className="mt-5 h-px w-full bg-slate-200 " />
 
           {/* Form */}
           <form
@@ -219,7 +219,7 @@ export const CommentModal = ({
             <div>
               <label
                 htmlFor="userName"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2"
+                className="block text-sm font-medium text-slate-700  mb-2"
               >
                 আপনার নাম
               </label>
@@ -239,7 +239,7 @@ export const CommentModal = ({
             <div>
               <label
                 htmlFor="userMessage"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2"
+                className="block text-sm font-medium text-slate-700  mb-2"
               >
                 মন্তব্য
               </label>

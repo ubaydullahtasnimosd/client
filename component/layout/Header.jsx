@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsMoon, BsSun } from "react-icons/bs";
 import { FiCheck, FiShare2 } from "react-icons/fi";
 import { HiChevronDown, HiMenuAlt3, HiX } from "react-icons/hi";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -59,14 +58,6 @@ export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  const [darkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return (
-      savedTheme === "dark" ||
-      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    );
-  });
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -147,11 +138,6 @@ export const Header = () => {
     setMenuOpen(false);
     setOpenDropdown(null);
   }, [location.pathname, location.search]);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
-  }, [darkMode]);
 
   // lock body scroll for mobile drawer
   useEffect(() => {
@@ -257,10 +243,10 @@ export const Header = () => {
     cx(
       "relative inline-flex items-center px-1 py-2 text-sm font-medium transition",
       "text-slate-700 hover:text-slate-900",
-      "dark:text-slate-200 dark:hover:text-white",
+      " ",
       isActive &&
       cx(
-        "text-slate-900 dark:text-white",
+        "text-slate-900 ",
         "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full",
         "after:bg-[#E5A93C]"
       )
@@ -270,10 +256,10 @@ export const Header = () => {
     cx(
       "relative inline-flex items-center gap-1 px-1 py-2 text-sm font-medium transition",
       "text-slate-700 hover:text-slate-900",
-      "dark:text-slate-200 dark:hover:text-white",
+      " ",
       isActive &&
         cx(
-          "text-slate-900 dark:text-white",
+          "text-slate-900 ",
           "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full",
           "after:bg-[#E5A93C]"
         )
@@ -294,14 +280,14 @@ export const Header = () => {
       className={cx(
         "sticky top-0 z-50 w-full",
         "border-b border-slate-200/80 bg-white shadow-xs",
-        "dark:border-slate-800 dark:bg-slate-950 dark:shadow-none"
+        "  "
       )}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 sm:h-24 items-center justify-between">
           {/* Left: Prominent Logo & Brand */}
           <NavLink to="/" className="flex items-center gap-3">
-            <span className="flex h-13 w-13 sm:h-16 sm:w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#0f1117] border border-stone-200/80 shadow-xs dark:border-stone-800">
+            <span className="flex h-13 w-13 sm:h-16 sm:w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#0f1117] border border-stone-200/80 shadow-xs ">
               <img
                 src={logoImg}
                 alt="উবায়দুল্লাহ তাসনিম"
@@ -309,7 +295,7 @@ export const Header = () => {
                 className="h-full w-full object-cover"
               />
             </span>
-            <span className="block text-base sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+            <span className="block text-base sm:text-xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
               উবায়দুল্লাহ তাসনিম
             </span>
           </NavLink>
@@ -354,7 +340,7 @@ export const Header = () => {
                       className={cx(
                         "absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 overflow-hidden rounded-xl border py-2 shadow-xl",
                         "border-slate-200/90 bg-white/98 backdrop-blur-md",
-                        "dark:border-slate-800 dark:bg-slate-950/98",
+                        " ",
                         "before:absolute before:-top-3 before:left-0 before:right-0 before:h-3",
                         "transition-all duration-200 ease-out origin-top",
                         isOpen
@@ -371,9 +357,9 @@ export const Header = () => {
                             cx(
                               "block px-4 py-2.5 text-sm font-medium transition-all duration-150",
                               "text-slate-700 hover:bg-[#fcf8f0] hover:text-[#d6982b] hover:translate-x-1",
-                              "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-[#E5A93C]",
+                              "  ",
                               isActive &&
-                                "bg-[#fcf8f0] text-[#d6982b] font-semibold dark:bg-[#E5A93C]/15 dark:text-[#E5A93C]"
+                                "bg-[#fcf8f0] text-[#d6982b] font-semibold  "
                             )
                           }
                         >
@@ -399,7 +385,7 @@ export const Header = () => {
               <div ref={searchWrapRef} className="relative w-full max-w-md">
                 <form onSubmit={handleSearch} className="relative" role="search" aria-label="বই অনুসন্ধান">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+                    <AiOutlineSearch className="h-4 w-4 text-slate-400 " />
                   </div>
                   <input
                     type="text"
@@ -411,21 +397,21 @@ export const Header = () => {
                       "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
                       "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
                       "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
-                      "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                      "   "
                     )}
                     placeholder="বইয়ের নাম সার্চ করুন"
                     aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
                   />
                   {isSearching && (
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800  " />
                     </div>
                   )}
                 </form>
                 {(searchResults.length > 0 || noResults) && (
                   <div className={cx(
                     "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
-                    "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+                    "border-slate-200 bg-white  "
                   )}>
                     {searchResults.length > 0 ? (
                       <ul className="max-h-72 overflow-auto py-1" aria-label="অনুসন্ধানের ফলাফল">
@@ -436,18 +422,18 @@ export const Header = () => {
                               className={cx(
                                 "w-full px-4 py-3 text-left transition",
                                 "hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none",
-                                "dark:hover:bg-slate-900 dark:focus-visible:bg-slate-900"
+                                " "
                               )}
                               onClick={() => handleBookSelect(book.id)}
                             >
-                              <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">{book.bookTitle}</span>
-                              <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">{book.author}</span>
+                              <span className="block text-sm font-semibold text-slate-900 ">{book.bookTitle}</span>
+                              <span className="mt-0.5 block text-xs text-slate-500 ">{book.author}</span>
                             </button>
                           </li>
                         ))}
                       </ul>
                     ) : (
-                      <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300" role="status" aria-live="polite">
+                      <div className="px-4 py-3 text-sm text-slate-600 " role="status" aria-live="polite">
                         কোনো বই পাওয়া যায়নি
                       </div>
                     )}
@@ -462,14 +448,14 @@ export const Header = () => {
               className={cx(
                 "lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
                 copied
-                  ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+                  ? "bg-emerald-50 text-emerald-600  "
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900   "
               )}
               aria-label="ওয়েবসাইট লিংক কপি বা শেয়ার করুন"
               title="ওয়েবসাইট লিংক কপি করুন"
             >
               {copied ? (
-                <FiCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <FiCheck className="h-5 w-5 text-emerald-600 " />
               ) : (
                 <FiShare2 className="h-5 w-5" />
               )}
@@ -480,7 +466,7 @@ export const Header = () => {
               className={cx(
                 "lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition",
                 "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
-                "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+                "  "
               )}
               aria-label={showSearch ? "অনুসন্ধান বন্ধ করুন" : "বই অনুসন্ধান করুন"}
               aria-expanded={showSearch}
@@ -489,13 +475,13 @@ export const Header = () => {
               <AiOutlineSearch className="h-5 w-5" />
             </button>
 
-            {/* Mobile Menu Button - Circular Dark Button matching tahmidulmaula.com */}
+            {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
               className={cx(
                 "lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full transition shadow-md",
                 "bg-[#121624] text-white hover:bg-black active:scale-95",
-                "dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
+                "  "
               )}
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
@@ -512,7 +498,7 @@ export const Header = () => {
             <div ref={searchWrapRef} className="relative w-full max-w-md">
               <form onSubmit={handleSearch} className="relative" role="search" aria-label="বই অনুসন্ধান">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+                  <AiOutlineSearch className="h-4 w-4 text-slate-400 " />
                 </div>
                 <input
                   autoFocus
@@ -525,21 +511,21 @@ export const Header = () => {
                     "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
                     "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
                     "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
-                    "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                    "   "
                   )}
                   placeholder="বইয়ের নাম সার্চ করুন"
                   aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
                 />
                 {isSearching && (
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800  " />
                   </div>
                 )}
               </form>
               {(searchResults.length > 0 || noResults) && (
                 <div className={cx(
                   "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
-                  "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+                  "border-slate-200 bg-white  "
                 )}>
                   {searchResults.length > 0 ? (
                     <ul className="max-h-72 overflow-auto py-1" aria-label="অনুসন্ধানের ফলাফল">
@@ -549,18 +535,18 @@ export const Header = () => {
                             type="button"
                             className={cx(
                               "w-full px-4 py-3 text-left transition",
-                              "hover:bg-slate-50 dark:hover:bg-slate-900"
+                              "hover:bg-slate-50 "
                             )}
                             onClick={() => handleBookSelect(book.id)}
                           >
-                            <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">{book.bookTitle}</span>
-                            <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">{book.author}</span>
+                            <span className="block text-sm font-semibold text-slate-900 ">{book.bookTitle}</span>
+                            <span className="mt-0.5 block text-xs text-slate-500 ">{book.author}</span>
                           </button>
                         </li>
                       ))}
                     </ul>
                   ) : (
-                    <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300" role="status" aria-live="polite">
+                    <div className="px-4 py-3 text-sm text-slate-600 " role="status" aria-live="polite">
                       কোনো বই পাওয়া যায়নি
                     </div>
                   )}
@@ -588,18 +574,18 @@ export const Header = () => {
             className={cx(
               "fixed left-0 top-0 z-50 h-full w-[78%] max-w-xs lg:hidden",
               "border-r border-slate-200 bg-white shadow-2xl",
-              "dark:border-slate-800 dark:bg-slate-950"
+              " "
             )}
           >
-            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4 dark:border-slate-800">
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4 ">
               <div className="flex items-center gap-3">
                 <img
                   src={logoImg}
-                  className="h-12 w-12 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
+                  className="h-12 w-12 rounded-full object-cover ring-1 ring-slate-900/10 "
                   alt="উবায়দুল্লাহ তাসনিম"
                   loading="lazy"
                 />
-                <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                <div className="text-sm font-semibold text-slate-900 ">
                   মেনু
                 </div>
               </div>
@@ -609,7 +595,7 @@ export const Header = () => {
                 className={cx(
                   "inline-flex h-9 w-9 items-center justify-center rounded-lg transition",
                   "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
-                  "dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+                  "  "
                 )}
                 aria-label="মেনু বন্ধ করুন"
               >
@@ -622,7 +608,7 @@ export const Header = () => {
                 <div ref={searchWrapRef} className="relative w-full max-w-md">
                   <form onSubmit={handleSearch} className="relative" role="search" aria-label="বই অনুসন্ধান">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                      <AiOutlineSearch className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+                      <AiOutlineSearch className="h-4 w-4 text-slate-400 " />
                     </div>
                     <input
                       type="text"
@@ -634,21 +620,21 @@ export const Header = () => {
                         "h-11 w-full rounded-xl border pl-10 pr-10 text-sm shadow-sm transition",
                         "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
                         "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
-                        "dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
+                        "   "
                       )}
                       placeholder="বইয়ের নাম সার্চ করুন"
                       aria-label="বইয়ের নাম দিয়ে অনুসন্ধান করুন"
                     />
                     {isSearching && (
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800 dark:border-slate-700 dark:border-t-slate-200" />
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-800  " />
                       </div>
                     )}
                   </form>
                   {(searchResults.length > 0 || noResults) && (
                     <div className={cx(
                       "absolute z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg",
-                      "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+                      "border-slate-200 bg-white  "
                     )}>
                       {searchResults.length > 0 ? (
                         <ul className="max-h-72 overflow-auto py-1">
@@ -658,18 +644,18 @@ export const Header = () => {
                                 type="button"
                                 className={cx(
                                   "w-full px-4 py-3 text-left transition",
-                                  "hover:bg-slate-50 dark:hover:bg-slate-900"
+                                  "hover:bg-slate-50 "
                                 )}
                                 onClick={() => handleBookSelect(book.id)}
                               >
-                                <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">{book.bookTitle}</span>
-                                <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">{book.author}</span>
+                                <span className="block text-sm font-semibold text-slate-900 ">{book.bookTitle}</span>
+                                <span className="mt-0.5 block text-xs text-slate-500 ">{book.author}</span>
                               </button>
                             </li>
                           ))}
                         </ul>
                       ) : (
-                        <div className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">কোনো বই পাওয়া যায়নি</div>
+                        <div className="px-4 py-3 text-sm text-slate-600 ">কোনো বই পাওয়া যায়নি</div>
                       )}
                     </div>
                   )}
@@ -681,11 +667,11 @@ export const Header = () => {
                 <button
                   type="button"
                   onClick={handleShareOrCopy}
-                  className="w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold bg-[#fcf8f0] text-stone-900 border border-[#E5A93C]/40 transition active:scale-[0.98] dark:bg-slate-900 dark:text-stone-100 dark:border-stone-800"
+                  className="w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold bg-[#fcf8f0] text-stone-900 border border-[#E5A93C]/40 transition active:scale-[0.98]   "
                 >
                   <span className="flex items-center gap-2.5">
                     {copied ? (
-                      <FiCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                      <FiCheck className="h-4 w-4 text-emerald-600 " />
                     ) : (
                       <FiShare2 className="h-4 w-4 text-[#E5A93C]" />
                     )}
@@ -719,9 +705,9 @@ export const Header = () => {
                           className={cx(
                             "flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition duration-200",
                             "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
-                            "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
+                            "  ",
                             isActive &&
-                              "bg-[#fcf8f0] text-stone-950 font-semibold ring-1 ring-[#E5A93C]/40 dark:bg-[#E5A93C]/15 dark:text-[#E5A93C] dark:ring-[#E5A93C]/30"
+                              "bg-[#fcf8f0] text-stone-950 font-semibold ring-1 ring-[#E5A93C]/40   "
                           )}
                           aria-expanded={isOpen}
                           aria-haspopup="true"
@@ -745,7 +731,7 @@ export const Header = () => {
                           )}
                         >
                           <div className="overflow-hidden">
-                            <div className="space-y-1 rounded-xl bg-stone-50/80 p-2 dark:bg-slate-900/70 border border-stone-200/50 dark:border-slate-800">
+                            <div className="space-y-1 rounded-xl bg-stone-50/80 p-2  border border-stone-200/50 ">
                               {item.children.map((child) => (
                                 <NavLink
                                   key={child.path}
@@ -758,9 +744,9 @@ export const Header = () => {
                                     cx(
                                       "flex items-center rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-150",
                                       "text-slate-600 hover:bg-white hover:text-slate-900 hover:translate-x-1",
-                                      "dark:text-slate-300 dark:hover:bg-slate-950 dark:hover:text-white",
+                                      "  ",
                                       isActive &&
-                                        "bg-white text-[#d6982b] font-semibold shadow-xs dark:bg-slate-950 dark:text-[#E5A93C]"
+                                        "bg-white text-[#d6982b] font-semibold shadow-xs  "
                                     )
                                   }
                                 >
@@ -783,14 +769,14 @@ export const Header = () => {
                         cx(
                           "flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
                           "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
-                          "dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white",
+                          "  ",
                           isActive &&
-                            "bg-[#fcf8f0] text-stone-950 font-semibold ring-1 ring-[#E5A93C]/40 dark:bg-[#E5A93C]/15 dark:text-[#E5A93C] dark:ring-[#E5A93C]/30"
+                            "bg-[#fcf8f0] text-stone-950 font-semibold ring-1 ring-[#E5A93C]/40   "
                         )
                       }
                     >
                       <span>{item.label}</span>
-                      <span className={cx("text-sm transition-colors", isActive ? "text-[#E5A93C] font-bold" : "text-slate-300 dark:text-slate-700")}>›</span>
+                      <span className={cx("text-sm transition-colors", isActive ? "text-[#E5A93C] font-bold" : "text-slate-300 ")}>›</span>
                     </NavLink>
                   );
                 })}

@@ -62,7 +62,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24">
         <Title title="বিস্তারিত তথ্য — উবায়দুল্লাহ তাসনিম" />
         <div className="max-w-xl mx-auto px-4">
           <Loading />
@@ -73,7 +73,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
 
   if (isError) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24">
         <div className="max-w-xl mx-auto px-4">
           <ErrorMessage message={error?.message} onRetry={refetch} />
         </div>
@@ -82,7 +82,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
+    <main className="min-h-screen bg-[#f5f5f5]  text-slate-900  overflow-x-hidden">
       <Title title={`${item?.contentName || config.title} — উবায়দুল্লাহ তাসনিম`} />
 
       {/* SECTION: DETAILS WITH UNIFIED SECTION SHELL */}
@@ -97,29 +97,29 @@ export const MiscellaneousContentDetails = ({ category }) => {
         <div className="w-full">
           {/* Top Breadcrumb Navigation */}
           <nav
-            className="mb-6 sm:mb-8 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-stone-600 dark:text-stone-400"
+            className="mb-6 sm:mb-8 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-stone-600 "
             aria-label="পেজের অবস্থান"
           >
             <Link
               to={`/miscellaneous/${config.slug}`}
-              className="inline-flex items-center gap-1.5 font-medium text-stone-700 hover:text-[#E5A93C] dark:text-stone-300 dark:hover:text-[#E5A93C] transition-colors"
+              className="inline-flex items-center gap-1.5 font-medium text-stone-700 hover:text-[#E5A93C]   transition-colors"
             >
               <FiArrowLeft className="h-4 w-4" />
               <span>{config.title}</span>
             </Link>
-            <span className="text-stone-300 dark:text-stone-700">/</span>
-            <span className="truncate max-w-[240px] sm:max-w-md font-semibold text-stone-900 dark:text-stone-100">
+            <span className="text-stone-300 ">/</span>
+            <span className="truncate max-w-[240px] sm:max-w-md font-semibold text-stone-900 ">
               {item?.contentName}
             </span>
           </nav>
 
           {/* Main Container Card */}
-          <article className="overflow-hidden rounded-3xl border border-stone-200/80 bg-white shadow-xs dark:border-stone-800 dark:bg-slate-950 p-6 sm:p-8 lg:p-10">
+          <article className="overflow-hidden rounded-3xl border border-stone-200/80 bg-white shadow-xs   p-6 sm:p-8 lg:p-10">
             {/* Top Showcase: Image (Left) + Title & Metadata (Right) */}
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-10">
               {/* Left Column: 100% Uncropped Image */}
               {item?.contentImg && (
-                <div className="w-full sm:w-[340px] lg:w-[380px] xl:w-[420px] shrink-0 rounded-2xl overflow-hidden bg-stone-50 dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 shadow-sm flex items-center justify-center p-3 sm:p-4">
+                <div className="w-full sm:w-[340px] lg:w-[380px] xl:w-[420px] shrink-0 rounded-2xl overflow-hidden bg-stone-50  border border-stone-200/80  shadow-sm flex items-center justify-center p-3 sm:p-4">
                   <img
                     src={item.contentImg}
                     alt={item.contentName}
@@ -135,7 +135,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
               {/* Right Column: Title, Author, Date & Action Buttons */}
               <div className="flex-1 flex flex-col justify-start w-full">
                 {/* Title with Noto Serif Bengali Typography */}
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif] leading-[1.28]">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif] leading-[1.28]">
                   {item?.contentName}
                 </h1>
 
@@ -143,7 +143,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
                 <div className="mt-4 h-0.5 w-16 bg-[#E5A93C]" />
 
                 {/* Author & Publication Metadata */}
-                <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-stone-600 dark:text-stone-400">
+                <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-stone-600 ">
                   <div className="flex items-center gap-2">
                     <img
                       className="h-8 w-8 rounded-full object-cover border-2 border-[#E5A93C] shadow-xs bg-slate-950"
@@ -153,20 +153,20 @@ export const MiscellaneousContentDetails = ({ category }) => {
                     />
                     <Link
                       to="/about"
-                      className="font-semibold text-slate-800 hover:text-[#E5A93C] dark:text-slate-200 dark:hover:text-[#E5A93C] transition-colors"
+                      className="font-semibold text-slate-800 hover:text-[#E5A93C]   transition-colors"
                     >
                       {item?.contentAuthor || "উবায়দুল্লাহ তাসনিম"}
                     </Link>
                   </div>
 
-                  <span className="text-stone-300 dark:text-stone-700">•</span>
+                  <span className="text-stone-300 ">•</span>
                   <span className="flex items-center gap-1">
                     <FiCalendar className="h-3.5 w-3.5 text-[#E5A93C]" />
                     <span>{Time(item?.contentCreateAt)}</span>
                   </span>
 
-                  <span className="text-stone-300 dark:text-stone-700">•</span>
-                  <span className="inline-flex items-center gap-1 font-medium text-stone-700 dark:text-stone-300">
+                  <span className="text-stone-300 ">•</span>
+                  <span className="inline-flex items-center gap-1 font-medium text-stone-700 ">
                     <FiMessageSquare className="h-3.5 w-3.5 text-[#E5A93C]" />
                     <span>{commentCount} মন্তব্য</span>
                   </span>
@@ -187,7 +187,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
 
                   <Link
                     to={`/miscellaneous/${config.slug}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-700 dark:bg-slate-900 dark:text-stone-200"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
                   >
                     <FiArrowLeft className="h-4 w-4" />
                     <span>সকল লেখাসমূহ</span>
@@ -197,18 +197,18 @@ export const MiscellaneousContentDetails = ({ category }) => {
             </div>
 
             {/* Divider */}
-            <div className="mt-8 sm:mt-10 h-px w-full bg-stone-100 dark:bg-stone-800/80" />
+            <div className="mt-8 sm:mt-10 h-px w-full bg-stone-100 " />
 
             {/* Body Text Content */}
-            <div className="mt-8 whitespace-pre-line break-words text-justify text-slate-700 dark:text-slate-300 leading-relaxed sm:leading-9 text-base sm:text-lg font-sans">
+            <div className="mt-8 whitespace-pre-line break-words text-justify text-slate-700  leading-relaxed sm:leading-9 text-base sm:text-lg font-sans">
               {item?.contentDescription}
             </div>
           </article>
 
           {/* Comments Section Card matching Site Consistency */}
           <div className="mt-10 sm:mt-14">
-            <div className="rounded-3xl border border-stone-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs dark:border-stone-800 dark:bg-slate-950">
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif] flex items-center gap-2">
+            <div className="rounded-3xl border border-stone-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs  ">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif] flex items-center gap-2">
                 <span>মন্তব্যসমূহ</span>
                 <span className="text-sm font-normal text-[#E5A93C]">
                   ({commentCount})

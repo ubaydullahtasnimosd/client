@@ -66,7 +66,7 @@ const FooterLink = ({ path, children }) => (
         "inline-flex py-1 text-sm leading-6 transition-colors",
         "text-slate-600 hover:text-[#d6982b]",
         "focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
-        "dark:text-slate-400 dark:hover:text-[#d6982b]",
+        " ",
       )}
     >
       {children}
@@ -97,7 +97,7 @@ export const Footer = () => {
       className={cx(
         "relative border-t",
         "border-slate-200 bg-white",
-        "dark:border-slate-800 dark:bg-slate-950",
+        " ",
       )}
     >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
@@ -112,15 +112,15 @@ export const Footer = () => {
               <img
                 src={logoImg}
                 alt="উবায়দুল্লাহ তাসনিম"
-                className="h-14 w-14 rounded-full object-cover ring-1 ring-slate-900/10 dark:ring-white/10"
+                className="h-14 w-14 rounded-full object-cover ring-1 ring-slate-900/10 "
                 loading="lazy"
               />
-              <span className="text-lg font-bold text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+              <span className="text-lg font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif]">
                 উবায়দুল্লাহ তাসনিম
               </span>
             </Link>
 
-            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-400">
+            <p className="mt-4 text-sm leading-7 text-slate-600 ">
               ইসলাম, জীবন, ইতিহাস, সংস্কৃতি ও সমকালীন বিশ্ব নিয়ে চিন্তাশীল লেখা,
               পাঠ এবং বই পরিচিতির একটি ব্যক্তিগত জ্ঞানভিত্তিক আয়োজন।
             </p>
@@ -141,7 +141,7 @@ export const Footer = () => {
                     "inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
                     "border-slate-200 text-slate-600 hover:border-[#E5A93C] hover:bg-[#E5A93C]/10 hover:text-[#d6982b] hover:-translate-y-0.5",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
-                    "dark:border-slate-800 dark:text-slate-400 dark:hover:border-[#E5A93C] dark:hover:bg-[#E5A93C]/15 dark:hover:text-[#E5A93C]",
+                    "    ",
                   )}
                 >
                   {icon}
@@ -153,7 +153,7 @@ export const Footer = () => {
           {/* Navigation Columns - Spanning up to the Right Margin (Aligned with Search Bar) */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 lg:gap-14 w-full lg:w-auto lg:min-w-[55%]">
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+              <h2 className="text-sm font-semibold text-slate-900 ">
                 ইসলামী জীবনপাঠ
               </h2>
               <div className="mt-2 h-0.5 w-8 bg-[#E5A93C]" />
@@ -167,7 +167,7 @@ export const Footer = () => {
             </div>
 
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+              <h2 className="text-sm font-semibold text-slate-900 ">
                 ঘুরে দেখুন
               </h2>
               <div className="mt-2 h-0.5 w-8 bg-[#E5A93C]" />
@@ -181,7 +181,7 @@ export const Footer = () => {
             </div>
 
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+              <h2 className="text-sm font-semibold text-slate-900 ">
                 আরও বিষয়
               </h2>
               <div className="mt-2 h-0.5 w-8 bg-[#E5A93C]" />
@@ -197,28 +197,28 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-slate-200 dark:border-slate-800">
+      <div className="border-t border-slate-200 ">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-center sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:text-left lg:px-8">
-          <p className="text-xs leading-5 text-slate-500 dark:text-slate-500">
+          <p className="text-xs leading-5 text-slate-500 ">
             &copy; {new Date().getFullYear()} উবায়দুল্লাহ তাসনিম। সর্বস্বত্ব
             সংরক্ষিত।
           </p>
           <div className="flex items-center justify-center gap-4 sm:justify-end">
             <Link
               to="/about"
-              className="text-xs text-slate-500 transition hover:text-[#d6982b] dark:text-slate-500 dark:hover:text-[#d6982b]"
+              className="text-xs text-slate-500 transition hover:text-[#d6982b]  "
             >
               পরিচয়
             </Link>
             <Link
               to="/UserReview"
-              className="text-xs text-slate-500 transition hover:text-[#d6982b] dark:text-slate-500 dark:hover:text-[#d6982b]"
+              className="text-xs text-slate-500 transition hover:text-[#d6982b]  "
             >
               পাঠক রিভিউ
             </Link>
             <Link
               to="/readers-love"
-              className="text-xs text-slate-500 transition hover:text-[#d6982b] dark:text-slate-500 dark:hover:text-[#d6982b]"
+              className="text-xs text-slate-500 transition hover:text-[#d6982b]  "
             >
               পাঠকের ভালোবাসা
             </Link>
@@ -236,7 +236,7 @@ export const Footer = () => {
           "bg-white text-slate-700 shadow-lg ring-1 ring-slate-900/10",
           "transition duration-200 hover:-translate-y-0.5 hover:text-[#d6982b] hover:shadow-xl",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
-          "dark:bg-slate-900 dark:text-slate-200 dark:ring-white/10 dark:hover:text-[#d6982b]",
+          "   ",
           showScrollButton
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-3 opacity-0",

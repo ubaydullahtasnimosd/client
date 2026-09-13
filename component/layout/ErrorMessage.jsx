@@ -16,21 +16,21 @@ export const ErrorMessage = ({
   return (
     <div
       className={cx(
-        "mx-auto flex max-w-md flex-col items-center justify-center rounded-2xl border border-rose-200 bg-rose-50/50 p-6 text-center shadow-sm dark:border-rose-950/40 dark:bg-rose-950/10 animate-fade-in",
+        "mx-auto flex max-w-md flex-col items-center justify-center rounded-2xl border border-rose-200 bg-rose-50/50 p-6 text-center shadow-sm   animate-fade-in",
         className
       )}
       role="alert"
       aria-live="assertive"
     >
-      <div className="mb-4 rounded-full bg-rose-100 p-3.5 text-rose-600 dark:bg-rose-900/35 dark:text-rose-400">
+      <div className="mb-4 rounded-full bg-rose-100 p-3.5 text-rose-600  ">
         <ExclamationTriangleIcon className="h-7 w-7" aria-hidden="true" />
       </div>
 
-      <h3 className="text-base font-semibold tracking-tight text-rose-800 dark:text-rose-300">
+      <h3 className="text-base font-semibold tracking-tight text-rose-800 ">
         {title}
       </h3>
 
-      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
+      <p className="mt-2 text-sm leading-6 text-slate-600 ">
         {displayMessage}
       </p>
 
@@ -38,7 +38,7 @@ export const ErrorMessage = ({
         <button
           onClick={onRetry}
           type="button"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-rose-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-rose-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500/40 dark:bg-rose-500 dark:hover:bg-rose-600"
+          className="mt-5 inline-flex items-center justify-center rounded-xl bg-rose-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-rose-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500/40  "
         >
           আবার চেষ্টা করুন
         </button>
@@ -46,7 +46,7 @@ export const ErrorMessage = ({
         <button
           onClick={() => window.location.reload()}
           type="button"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-slate-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-500/40 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+          className="mt-5 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-slate-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-500/40   "
         >
           পৃষ্ঠাটি রিফ্রেশ করুন
         </button>

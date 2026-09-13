@@ -111,7 +111,7 @@ export const SocialMedia = ({
           type="button"
           onClick={() => setInternalIsOpen(true)}
           className={cx(
-            "inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-700 dark:bg-slate-900 dark:text-stone-200 cursor-pointer",
+            "inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]    cursor-pointer",
             buttonClassName
           )}
           aria-label="শেয়ার করুন"
@@ -135,14 +135,14 @@ export const SocialMedia = ({
           />
 
           {/* Modal Container */}
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-6 sm:p-8 shadow-2xl dark:bg-slate-950 border border-stone-100 dark:border-stone-800 transition-all z-10 animate-scale-up">
+          <div className="relative w-full max-w-md rounded-3xl bg-white p-6 sm:p-8 shadow-2xl  border border-stone-100  transition-all z-10 animate-scale-up">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-stone-100 pb-4 dark:border-stone-800">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-4 ">
               <div className="flex items-center gap-2.5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-stone-100 text-stone-800 dark:bg-slate-900 dark:text-stone-200 border border-stone-200/80 dark:border-stone-800">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-stone-100 text-stone-800   border border-stone-200/80 ">
                   <FiLink className="h-4 w-4 rotate-45" />
                 </span>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif]">
                   Share with friends
                 </h3>
               </div>
@@ -150,7 +150,7 @@ export const SocialMedia = ({
               <button
                 type="button"
                 onClick={handleClose}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-stone-400 hover:bg-stone-100 hover:text-stone-700 dark:hover:bg-slate-900 dark:hover:text-stone-200 transition cursor-pointer"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-stone-400 hover:bg-stone-100 hover:text-stone-700   transition cursor-pointer"
                 aria-label="বন্ধ করুন"
               >
                 <FiX className="h-5 w-5" />
@@ -206,19 +206,19 @@ export const SocialMedia = ({
             <div className="pt-2">
               <label
                 htmlFor="share-page-link"
-                className="block mb-2 text-xs sm:text-sm font-medium text-stone-600 dark:text-stone-400"
+                className="block mb-2 text-xs sm:text-sm font-medium text-stone-600 "
               >
                 Or copy page link:
               </label>
 
-              <div className="flex items-center rounded-2xl border border-stone-200 bg-stone-50/90 p-1.5 pl-3.5 shadow-inner dark:border-stone-800 dark:bg-slate-900/90">
+              <div className="flex items-center rounded-2xl border border-stone-200 bg-stone-50/90 p-1.5 pl-3.5 shadow-inner  ">
                 <input
                   id="share-page-link"
                   type="text"
                   readOnly
                   value={currentUrl}
                   onClick={(e) => e.target.select()}
-                  className="w-full bg-transparent text-xs sm:text-sm text-stone-700 dark:text-stone-200 outline-none truncate font-sans select-all"
+                  className="w-full bg-transparent text-xs sm:text-sm text-stone-700  outline-none truncate font-sans select-all"
                 />
 
                 <button
@@ -228,7 +228,7 @@ export const SocialMedia = ({
                     "shrink-0 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm cursor-pointer ml-2 flex items-center gap-1.5",
                     copied
                       ? "bg-emerald-600 text-white"
-                      : "bg-[#121624] hover:bg-black text-white dark:bg-slate-800 dark:hover:bg-slate-700"
+                      : "bg-[#121624] hover:bg-black text-white  "
                   )}
                 >
                   {copied ? (

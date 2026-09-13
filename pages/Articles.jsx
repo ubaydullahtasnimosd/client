@@ -38,7 +38,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
         {badge}
       </span>
     )}
-    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
       {title}
     </h1>
     <div
@@ -48,7 +48,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
       )}
     />
     {subtitle && (
-      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 ">
         {subtitle}
       </p>
     )}
@@ -146,7 +146,7 @@ export const Articles = () => {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24 flex justify-center items-center">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24 flex justify-center items-center">
         <Loading />
       </main>
     );
@@ -154,7 +154,7 @@ export const Articles = () => {
 
   if (isError) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24">
         <div className="max-w-xl mx-auto px-4">
           <ErrorMessage message={error?.message} onRetry={refetch} />
         </div>
@@ -163,11 +163,11 @@ export const Articles = () => {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
+    <main className="min-h-screen bg-[#f5f5f5]  text-slate-900  overflow-x-hidden">
       <Title title="লেখা ও প্রবন্ধ — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: ARTICLES LISTING WITH UNIFIED SECTION SHELL & HEADER */}
-      <SectionShell id="articles" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
+      <SectionShell id="articles" className="bg-[#f5f5f5] ">
         <SectionHeader
           badge="প্রবন্ধ-নিবন্ধ"
           title="আমার লেখা ও প্রবন্ধসমূহ"
@@ -176,7 +176,7 @@ export const Articles = () => {
         />
 
         {/* FILTERING & SEARCH CONTROLS BAR */}
-        <div className="mb-8 sm:mb-12 rounded-2xl border border-stone-200/80 bg-white p-4 sm:p-5 shadow-xs dark:border-stone-800 dark:bg-slate-950">
+        <div className="mb-8 sm:mb-12 rounded-2xl border border-stone-200/80 bg-white p-4 sm:p-5 shadow-xs  ">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
             {/* Search Input Box */}
             <div className="relative flex-1">
@@ -193,14 +193,14 @@ export const Articles = () => {
                   "h-11 w-full rounded-xl border pl-10 pr-4 text-xs sm:text-sm shadow-xs transition",
                   "border-stone-200 bg-stone-50/50 text-stone-900 placeholder:text-stone-400",
                   "focus:border-[#E5A93C] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/30",
-                  "dark:border-stone-800 dark:bg-slate-900 dark:text-stone-100 dark:placeholder:text-stone-500",
+                  "   ",
                 )}
               />
             </div>
 
             {/* Sort Dropdown & Reset */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-              <div className="flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
+              <div className="flex items-center gap-1.5 text-xs text-stone-500 ">
                 <span className="hidden sm:inline">সাজান:</span>
                 <select
                   value={sortBy}
@@ -212,7 +212,7 @@ export const Articles = () => {
                     "h-11 rounded-xl border px-3 text-xs sm:text-sm font-medium shadow-xs transition cursor-pointer",
                     "border-stone-200 bg-stone-50/50 text-stone-800",
                     "focus:border-[#E5A93C] focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/30",
-                    "dark:border-stone-800 dark:bg-slate-900 dark:text-stone-200",
+                    "  ",
                   )}
                 >
                   <option value="latest">সর্বশেষ প্রকাশিত</option>
@@ -225,7 +225,7 @@ export const Articles = () => {
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="inline-flex h-11 items-center gap-1.5 rounded-xl border border-stone-200 bg-stone-100 px-3.5 text-xs sm:text-sm font-medium text-stone-700 transition hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-800 dark:bg-slate-900 dark:text-stone-300 cursor-pointer"
+                  className="inline-flex h-11 items-center gap-1.5 rounded-xl border border-stone-200 bg-stone-100 px-3.5 text-xs sm:text-sm font-medium text-stone-700 transition hover:border-[#E5A93C] hover:text-[#E5A93C]    cursor-pointer"
                   title="ফিল্টার রিসেট করুন"
                 >
                   <FiRotateCcw className="h-3.5 w-3.5" />
@@ -236,9 +236,9 @@ export const Articles = () => {
           </div>
 
           {/* Results Counter */}
-          <div className="mt-3 flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 pt-3 border-t border-stone-100 dark:border-stone-800/60">
+          <div className="mt-3 flex items-center justify-between text-xs text-stone-500  pt-3 border-t border-stone-100 ">
             <span>
-              মোট <strong className="font-semibold text-stone-800 dark:text-stone-200">{filteredArticles.length}</strong> টি প্রবন্ধ
+              মোট <strong className="font-semibold text-stone-800 ">{filteredArticles.length}</strong> টি প্রবন্ধ
               {filteredArticles.length >= 10 && (
                 <span className="text-[#E5A93C] font-medium ml-1.5">
                   (পৃষ্ঠা {currentPage} / {Math.ceil(filteredArticles.length / PAGE_SIZE)})
@@ -257,8 +257,8 @@ export const Articles = () => {
 
         {/* ARTICLES GRID OR EMPTY STATE */}
         {selectedCategory || !filteredArticles.length ? (
-          <div className="mt-8 rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs dark:border-stone-800 dark:bg-slate-950">
-            <p className="text-base text-stone-600 dark:text-stone-400">
+          <div className="mt-8 rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
+            <p className="text-base text-stone-600 ">
               {searchQuery ? `"${searchQuery}" দিয়ে কোনো প্রবন্ধ খুঁজে পাওয়া যায়নি।` : "এখনও কোনো প্রবন্ধ প্রকাশ করা হয়নি।"}
             </p>
             {isFiltering && (
@@ -282,13 +282,13 @@ export const Articles = () => {
                     "group flex flex-col overflow-hidden rounded-3xl border",
                     "border-stone-200/80 bg-white shadow-xs transition-all duration-300",
                     "hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
-                    "dark:border-stone-800 dark:bg-slate-950",
+                    " ",
                   )}
                 >
                   {/* Full Cover Image - Unobstructed, clear and fully edge-to-edge */}
                   <Link
                     to={`/articles/${article.id}`}
-                    className="relative block w-full aspect-[16/9] overflow-hidden bg-stone-100 dark:bg-stone-900 border-b border-stone-200/60 dark:border-stone-800"
+                    className="relative block w-full aspect-[16/9] overflow-hidden bg-stone-100  border-b border-stone-200/60 "
                     aria-label={`${article.articlesEssaysName} পড়ুন`}
                   >
                     <img
@@ -307,14 +307,14 @@ export const Articles = () => {
                     {/* Title */}
                     <Link
                       to={`/articles/${article.id}`}
-                      className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif] line-clamp-2 leading-snug group-hover:text-[#E5A93C] transition-colors"
+                      className="text-lg sm:text-xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif] line-clamp-2 leading-snug group-hover:text-[#E5A93C] transition-colors"
                     >
                       {article.articlesEssaysName}
                     </Link>
 
                     {/* Metadata */}
-                    <p className="mt-2 text-xs sm:text-sm text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
-                      <span className="font-medium text-stone-700 dark:text-stone-300">
+                    <p className="mt-2 text-xs sm:text-sm text-stone-500  flex items-center gap-1.5">
+                      <span className="font-medium text-stone-700 ">
                         {article.articlesEssaysAuthor || "উবায়দুল্লাহ তাসনিম"}
                       </span>
                       <span>•</span>
@@ -322,7 +322,7 @@ export const Articles = () => {
                     </p>
 
                     {/* Excerpt */}
-                    <div className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line break-words text-justify line-clamp-3">
+                    <div className="mt-3 text-sm leading-relaxed text-slate-600  whitespace-pre-line break-words text-justify line-clamp-3">
                       {article.articlesEssaysDescription}
                     </div>
 

@@ -9,7 +9,6 @@ import { baseUrl } from "../constants/env.constants";
 import Title from "../utils/pageTitle";
 
 const authorBannerLight = "/author.webp";
-const authorBannerDark = "/author-dark.webp";
 const Logo = "/logo.webp";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
@@ -38,7 +37,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
         {badge}
       </span>
     )}
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
       {title}
     </h2>
     <div
@@ -48,7 +47,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
       )}
     />
     {subtitle && (
-      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 ">
         {subtitle}
       </p>
     )}
@@ -127,7 +126,7 @@ export const AboutAuthor = () => {
       {/* SECTION 1: HERO / BANNER & INTRODUCTION (bg-white) */}
       <SectionShell
         id="intro"
-        className="bg-white dark:bg-slate-950 pt-10 sm:pt-14 lg:pt-18"
+        className="bg-white  pt-10 sm:pt-14 lg:pt-18"
       >
         <SectionHeader
           badge="পরিচিতি"
@@ -136,18 +135,12 @@ export const AboutAuthor = () => {
           align="center"
         />
 
-        {/* Decorative Arabesque Banner (Light & Dark mode responsive) */}
+        {/* Decorative Arabesque Banner */}
         <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-[#E5A93C]/30 shadow-md bg-[#0c0e14]">
           <img
             src={authorBannerLight}
             alt="লেখক সম্পর্কে"
-            className="w-full h-auto block object-cover dark:hidden min-h-[90px] sm:min-h-[120px] aspect-[1024/180] sm:aspect-[1024/140]"
-            loading="eager"
-          />
-          <img
-            src={authorBannerDark}
-            alt="লেখক সম্পর্কে"
-            className="w-full h-auto hidden dark:block object-cover min-h-[90px] sm:min-h-[120px] aspect-[1024/180] sm:aspect-[1024/140]"
+            className="w-full h-auto block object-cover min-h-[90px] sm:min-h-[120px] aspect-[1024/180] sm:aspect-[1024/140]"
             loading="eager"
           />
         </div>
@@ -156,21 +149,21 @@ export const AboutAuthor = () => {
         <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
           <a
             href="#biography"
-            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300"
+            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
             জীবন ও কর্মপ্রয়াস
           </a>
           <a
             href="#purchase-sources"
-            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300"
+            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
             বই সংগ্রহের স্থানসমূহ
           </a>
           <a
             href="#social-connect"
-            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300"
+            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
             সোশ্যাল মিডিয়া
@@ -181,7 +174,7 @@ export const AboutAuthor = () => {
       {/* SECTION 2: DETAILED BIOGRAPHY & LITERARY JOURNEY (bg-[#f5f5f5]) */}
       <SectionShell
         id="biography"
-        className="bg-[#f5f5f5] dark:bg-[#0f1117] border-y border-stone-200/60 dark:border-stone-800/60"
+        className="bg-[#f5f5f5]  border-y border-stone-200/60 "
       >
         {isLoading ? (
           <div className="py-16 flex justify-center">
@@ -225,7 +218,7 @@ export const AboutAuthor = () => {
                       className={cx(
                         "inline-flex items-center rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-medium",
                         "bg-white text-slate-800 border border-slate-200 shadow-xs",
-                        "dark:bg-slate-900 dark:text-slate-200 dark:border-slate-800",
+                        "  ",
                       )}
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C] mr-2" />
@@ -238,20 +231,20 @@ export const AboutAuthor = () => {
               {/* Right Column: Detailed Biography & Quotation */}
               <div className="w-full lg:w-8/12 text-left">
                 {/* Main Biography Text */}
-                <div className="prose prose-slate dark:prose-invert max-w-none">
-                  <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700 dark:text-slate-300 text-justify whitespace-pre-line font-sans">
+                <div className="prose prose-slate  max-w-none">
+                  <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700  text-justify whitespace-pre-line font-sans">
                     {authorDesc}
                   </p>
                 </div>
 
                 {/* Literary Philosophy & Quote Box */}
-                <div className="mt-8 rounded-2xl border border-stone-200/80 border-l-4 border-l-[#E5A93C] bg-white dark:border-stone-800 dark:bg-slate-900/60 p-5 sm:p-7 shadow-xs">
+                <div className="mt-8 rounded-2xl border border-stone-200/80 border-l-4 border-l-[#E5A93C] bg-white   p-5 sm:p-7 shadow-xs">
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className="text-3xl sm:text-4xl text-[#E5A93C] leading-none font-serif select-none">
                       “
                     </div>
                     <div className="flex-1">
-                      <p className="text-base sm:text-lg italic text-slate-800 dark:text-slate-200 font-['Noto_Serif_Bengali',_serif] leading-relaxed sm:leading-8">
+                      <p className="text-base sm:text-lg italic text-slate-800  font-['Noto_Serif_Bengali',_serif] leading-relaxed sm:leading-8">
                         কলমের আঁচড়েই বলে যেতে চান স্বপ্ন ও সম্ভাবনার কথা, আলো এবং
                         ভালোর কথা। মানুষের মনের গহীনে আলো জ্বালাতে চান শব্দের মশাল
                         দিয়ে।
@@ -275,7 +268,7 @@ export const AboutAuthor = () => {
 
                   <Link
                     to="/articles"
-                    className="inline-flex items-center justify-center gap-2 rounded-none border border-stone-300 bg-white px-7 py-3 text-sm sm:text-base font-medium text-stone-900 shadow-xs transition-all duration-200 hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+                    className="inline-flex items-center justify-center gap-2 rounded-none border border-stone-300 bg-white px-7 py-3 text-sm sm:text-base font-medium text-stone-900 shadow-xs transition-all duration-200 hover:border-[#E5A93C] hover:text-[#E5A93C]   "
                   >
                     <FiBookOpen className="h-4 w-4" />
                     <span>প্রবন্ধ-নিবন্ধ পড়ুন</span>
@@ -288,7 +281,7 @@ export const AboutAuthor = () => {
       </SectionShell>
 
       {/* SECTION 3: WHERE TO BUY BOOKS (bg-white) */}
-      <SectionShell id="purchase-sources" className="bg-white dark:bg-slate-950">
+      <SectionShell id="purchase-sources" className="bg-white ">
         <SectionHeader
           badge="বই সংগ্রহ"
           title="কোথায় পাবেন উবায়দুল্লাহ তাসনিম এর বইসমূহ?"
@@ -319,7 +312,7 @@ export const AboutAuthor = () => {
                   "group relative flex flex-col justify-between rounded-2xl border p-5 sm:p-6 transition-all duration-200",
                   "border-stone-200/80 bg-[#fdfbf7] shadow-xs",
                   "hover:-translate-y-1 hover:border-[#E5A93C] hover:shadow-md",
-                  "dark:border-stone-800 dark:bg-slate-900/60",
+                  " ",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
                 )}
               >
@@ -329,26 +322,26 @@ export const AboutAuthor = () => {
                     <div className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#E5A93C]/10 text-[#E5A93C] font-bold text-sm">
                       ৳
                     </div>
-                    <span className="inline-flex items-center rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-700 dark:bg-stone-800 dark:text-stone-300">
+                    <span className="inline-flex items-center rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-700  ">
                       {store.badge}
                     </span>
                   </div>
 
                   {/* Store Name & Domain */}
-                  <h3 className="mt-4 text-lg font-bold text-stone-900 dark:text-stone-100 font-['Noto_Serif_Bengali',_serif] group-hover:text-[#E5A93C] transition-colors">
+                  <h3 className="mt-4 text-lg font-bold text-stone-900  font-['Noto_Serif_Bengali',_serif] group-hover:text-[#E5A93C] transition-colors">
                     {store.name}
                   </h3>
-                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400 font-mono">
+                  <p className="mt-1 text-xs text-stone-500  font-mono">
                     {store.domain}
                   </p>
 
-                  <p className="mt-3 text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+                  <p className="mt-3 text-xs sm:text-sm text-stone-600  leading-relaxed">
                     {store.description}
                   </p>
                 </div>
 
                 {/* Footer Action Link */}
-                <div className="mt-5 pt-4 border-t border-stone-200/60 dark:border-stone-800/80 flex items-center justify-between text-xs sm:text-sm font-semibold text-[#E5A93C]">
+                <div className="mt-5 pt-4 border-t border-stone-200/60  flex items-center justify-between text-xs sm:text-sm font-semibold text-[#E5A93C]">
                   <span>{isExternal ? "অনলাইনে অর্ডার করুন" : "ক্যাটালগ দেখুন"}</span>
                   {isExternal ? (
                     <FiExternalLink className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -364,7 +357,7 @@ export const AboutAuthor = () => {
 
       {/* SECTION 4: SOCIAL MEDIA CONNECT (bg-[#f5f5f5]) */}
       <div id="social-connect">
-        <Media className="bg-[#f5f5f5] dark:bg-[#0f1117] border-t border-stone-200/60 dark:border-stone-800/60" />
+        <Media className="bg-[#f5f5f5]  border-t border-stone-200/60 " />
       </div>
     </main>
   );

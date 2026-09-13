@@ -44,7 +44,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
         {badge}
       </span>
     )}
-    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif]">
       {title}
     </h1>
     <div
@@ -54,7 +54,7 @@ const SectionHeader = ({ badge, title, subtitle, align = "center" }) => (
       )}
     />
     {subtitle && (
-      <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      <p className="mt-3.5 text-sm sm:text-base text-slate-600 ">
         {subtitle}
       </p>
     )}
@@ -94,11 +94,11 @@ export const ReadersLove = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
+    <main className="min-h-screen bg-[#f5f5f5]  text-slate-900  overflow-x-hidden">
       <Title title="পাঠকের ভালোবাসা — উবায়দুল্লাহ তাসনিম" />
 
       {/* SECTION: READERS LOVE WITH UNIFIED SECTION SHELL & HEADER */}
-      <SectionShell id="readers-love" className="bg-[#f5f5f5] dark:bg-[#0f1117]">
+      <SectionShell id="readers-love" className="bg-[#f5f5f5] ">
         <SectionHeader
           badge="ভালোবাসার মুহূর্ত"
           title="পাঠকের ভালোবাসা"
@@ -117,7 +117,7 @@ export const ReadersLove = () => {
               <ErrorMessage message={imagesError.message} onRetry={refetchImages} />
             </div>
           ) : !images?.length ? (
-            <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs dark:border-stone-800 dark:bg-slate-950">
+            <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
               <EmptyState message="এখনও কোনো পাঠকের ভালোবাসা সংক্রান্ত ছবি প্রকাশ করা হয়নি।" />
             </div>
           ) : (
@@ -129,11 +129,11 @@ export const ReadersLove = () => {
                     className={cx(
                       "group rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col",
                       "border-stone-200/80 bg-white shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
-                      "dark:border-stone-800 dark:bg-slate-950",
+                      " ",
                     )}
                   >
                     {/* Uncropped, clear photo */}
-                    <div className="relative aspect-[4/3] bg-stone-100 dark:bg-stone-900 overflow-hidden border-b border-stone-200/60 dark:border-stone-800">
+                    <div className="relative aspect-[4/3] bg-stone-100  overflow-hidden border-b border-stone-200/60 ">
                       <img
                         src={image.readersBookImg}
                         alt="পাঠকের ভালোবাসা"
@@ -145,7 +145,7 @@ export const ReadersLove = () => {
                       />
                     </div>
 
-                    <div className="p-3.5 sm:p-4 mt-auto flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
+                    <div className="p-3.5 sm:p-4 mt-auto flex items-center justify-between text-xs text-stone-500 ">
                       <span className="flex items-center gap-1.5">
                         <FiCalendar className="h-3.5 w-3.5 text-[#E5A93C]" />
                         <span>{Time(image.readersReviewCreated)}</span>

@@ -170,7 +170,7 @@ export const Pagination = ({
         className={cx(
           "inline-flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-2xl border",
           "border-stone-200/90 bg-white shadow-xs",
-          "dark:border-stone-800 dark:bg-slate-950",
+          " ",
           disabled && "opacity-60 pointer-events-none"
         )}
       >
@@ -185,7 +185,7 @@ export const Pagination = ({
             "h-9 w-9 flex items-center justify-center rounded-xl text-stone-500 transition-all duration-200",
             isFirstPage || disabled
               ? "opacity-30 cursor-not-allowed"
-              : "hover:bg-stone-100 hover:text-stone-900 active:scale-95 dark:text-stone-400 dark:hover:bg-slate-900 dark:hover:text-stone-100 cursor-pointer"
+              : "hover:bg-stone-100 hover:text-stone-900 active:scale-95    cursor-pointer"
           )}
         >
           <FiChevronLeft className="h-4 w-4" />
@@ -217,7 +217,7 @@ export const Pagination = ({
                 "h-9 min-w-[34px] sm:min-w-[38px] px-2 flex items-center justify-center rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none",
                 isActive
                   ? "bg-[#E5A93C] text-stone-950 shadow-xs scale-100"
-                  : "text-stone-600 hover:bg-stone-100 hover:text-stone-950 active:scale-95 dark:text-stone-300 dark:hover:bg-slate-900 dark:hover:text-stone-100"
+                  : "text-stone-600 hover:bg-stone-100 hover:text-stone-950 active:scale-95   "
               )}
             >
               {page}
@@ -236,7 +236,7 @@ export const Pagination = ({
             "h-9 w-9 flex items-center justify-center rounded-xl transition-all duration-200",
             isLastPage || disabled
               ? "opacity-30 text-stone-400 cursor-not-allowed bg-transparent"
-              : "bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-950 active:scale-95 dark:bg-slate-900 dark:text-stone-300 dark:hover:bg-slate-800 dark:hover:text-white cursor-pointer"
+              : "bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-950 active:scale-95     cursor-pointer"
           )}
         >
           <FiChevronRight className="h-4 w-4" />

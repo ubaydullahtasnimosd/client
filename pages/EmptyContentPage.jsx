@@ -14,26 +14,26 @@ export const EmptyContentPage = ({
       className={cx(
         "py-10 md:py-14 min-h-screen",
         "bg-slate-50/60 text-slate-900",
-        "dark:bg-slate-950 dark:text-slate-50"
+        " "
       )}
     >
       <Title title={title} />
 
       <div className={container}>
         <header className="text-center">
-          <div className="inline-flex items-center justify-center rounded-2xl border px-4 py-2 text-sm font-semibold tracking-tight bg-white/70 backdrop-blur shadow-sm border-slate-200/70 dark:bg-slate-950/60 dark:border-slate-800">
+          <div className="inline-flex items-center justify-center rounded-2xl border px-4 py-2 text-sm font-semibold tracking-tight bg-white/70 backdrop-blur shadow-sm border-slate-200/70  ">
             {badge}
           </div>
 
-          <h1 className="mt-5 text-2xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          <h1 className="mt-5 text-2xl md:text-4xl font-semibold tracking-tight text-slate-900 ">
             {title}
           </h1>
 
-          <p className="mx-auto mt-3 max-w-2xl text-sm md:text-base leading-6 text-slate-600 dark:text-slate-300">
+          <p className="mx-auto mt-3 max-w-2xl text-sm md:text-base leading-6 text-slate-600 ">
             {description}
           </p>
 
-          <div className="mx-auto mt-6 h-px w-24 bg-slate-200 dark:bg-slate-800" />
+          <div className="mx-auto mt-6 h-px w-24 bg-slate-200 " />
         </header>
 
         <div className="mt-10">

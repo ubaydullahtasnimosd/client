@@ -60,7 +60,7 @@ export const BookDetails = () => {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24 flex justify-center items-center">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24 flex justify-center items-center">
         <Loading />
       </main>
     );
@@ -68,7 +68,7 @@ export const BookDetails = () => {
 
   if (isError) {
     return (
-      <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] py-24">
+      <main className="min-h-screen bg-[#f5f5f5]  py-24">
         <div className="max-w-xl mx-auto px-4">
           <ErrorMessage message={error?.message} onRetry={refetch} />
         </div>
@@ -77,7 +77,7 @@ export const BookDetails = () => {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1117] text-slate-900 dark:text-slate-50 overflow-x-hidden">
+    <main className="min-h-screen bg-[#f5f5f5]  text-slate-900  overflow-x-hidden">
       <Title
         key="BookDetails"
         title={`${book?.bookTitle || "বইয়ের বিস্তারিত"} — উবায়দুল্লাহ তাসনিম`}
@@ -95,29 +95,29 @@ export const BookDetails = () => {
         <div className="w-full">
           {/* Top Breadcrumb Navigation */}
           <nav
-            className="mb-6 sm:mb-8 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-stone-600 dark:text-stone-400"
+            className="mb-6 sm:mb-8 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-stone-600 "
             aria-label="পেজের অবস্থান"
           >
             <Link
               to="/books"
-              className="inline-flex items-center gap-1.5 font-medium text-stone-700 hover:text-[#E5A93C] dark:text-stone-300 dark:hover:text-[#E5A93C] transition-colors"
+              className="inline-flex items-center gap-1.5 font-medium text-stone-700 hover:text-[#E5A93C]   transition-colors"
             >
               <FiArrowLeft className="h-4 w-4" />
               <span>বই পরিচিতি</span>
             </Link>
-            <span className="text-stone-300 dark:text-stone-700">/</span>
-            <span className="truncate max-w-[240px] sm:max-w-md font-semibold text-stone-900 dark:text-stone-100">
+            <span className="text-stone-300 ">/</span>
+            <span className="truncate max-w-[240px] sm:max-w-md font-semibold text-stone-900 ">
               {book?.bookTitle}
             </span>
           </nav>
 
           {/* Main Book Card */}
-          <article className="overflow-hidden rounded-3xl border border-stone-200/80 bg-white shadow-xs dark:border-stone-800 dark:bg-slate-950 p-6 sm:p-8 lg:p-10">
+          <article className="overflow-hidden rounded-3xl border border-stone-200/80 bg-white shadow-xs   p-6 sm:p-8 lg:p-10">
             {/* Top Showcase: Book Cover (Left) + Primary Details (Right) */}
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-10">
               {/* Left Column: 100% Uncropped Book Cover */}
               {book?.bookImage && (
-                <div className="w-full sm:w-[340px] lg:w-[380px] xl:w-[420px] shrink-0 rounded-2xl overflow-hidden bg-stone-50 dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 shadow-sm flex items-center justify-center p-3 sm:p-4">
+                <div className="w-full sm:w-[340px] lg:w-[380px] xl:w-[420px] shrink-0 rounded-2xl overflow-hidden bg-stone-50  border border-stone-200/80  shadow-sm flex items-center justify-center p-3 sm:p-4">
                   <img
                     src={book.bookImage}
                     alt={book?.bookTitle || "বইয়ের প্রচ্ছদ"}
@@ -133,7 +133,7 @@ export const BookDetails = () => {
               {/* Right Column: Title, Author, Publication & Purchase Link */}
               <div className="flex-1 flex flex-col justify-start w-full">
                 {/* Title with Noto Serif Bengali */}
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif] leading-[1.28]">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif] leading-[1.28]">
                   {book?.bookTitle || "বইয়ের শিরোনাম"}
                 </h1>
 
@@ -141,7 +141,7 @@ export const BookDetails = () => {
                 <div className="mt-4 h-0.5 w-16 bg-[#E5A93C]" />
 
                 {/* Meta Row */}
-                <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-stone-600 dark:text-stone-400">
+                <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-stone-600 ">
                   <div className="flex items-center gap-2">
                     <img
                       className="h-8 w-8 rounded-full object-cover border-2 border-[#E5A93C] shadow-xs bg-slate-950"
@@ -151,17 +151,17 @@ export const BookDetails = () => {
                     />
                     <Link
                       to="/about"
-                      className="font-semibold text-slate-800 hover:text-[#E5A93C] dark:text-slate-200 dark:hover:text-[#E5A93C] transition-colors"
+                      className="font-semibold text-slate-800 hover:text-[#E5A93C]   transition-colors"
                     >
                       {book?.author || "উবায়দুল্লাহ তাসনিম"}
                     </Link>
                   </div>
 
-                  <span className="text-stone-300 dark:text-stone-700">•</span>
+                  <span className="text-stone-300 ">•</span>
                   <span>{Time(book?.bookCreatedAt) || "প্রকাশনার তারিখ"}</span>
 
-                  <span className="text-stone-300 dark:text-stone-700">•</span>
-                  <span className="inline-flex items-center gap-1 font-medium text-stone-700 dark:text-stone-300">
+                  <span className="text-stone-300 ">•</span>
+                  <span className="inline-flex items-center gap-1 font-medium text-stone-700 ">
                     <FiMessageSquare className="h-3.5 w-3.5 text-[#E5A93C]" />
                     <span>{commentCount} মন্তব্য</span>
                   </span>
@@ -170,8 +170,8 @@ export const BookDetails = () => {
                 {/* Publication & Order Info */}
                 <div className="mt-6 space-y-4">
                   {book?.bookPublication && (
-                    <p className="text-sm sm:text-base text-stone-700 dark:text-stone-300">
-                      <strong className="font-semibold text-stone-900 dark:text-stone-100">
+                    <p className="text-sm sm:text-base text-stone-700 ">
+                      <strong className="font-semibold text-stone-900 ">
                         প্রকাশনা :
                       </strong>{" "}
                       {book.bookPublication}
@@ -179,9 +179,9 @@ export const BookDetails = () => {
                   )}
 
                   {book?.bookPurchaseLink && (
-                    <div className="rounded-2xl border border-[#E5A93C]/30 bg-[#fdfbf7] dark:border-stone-800 dark:bg-slate-900/50 p-4 sm:p-5 shadow-xs">
-                      <p className="text-sm sm:text-base text-stone-800 dark:text-stone-200 leading-relaxed">
-                        <strong className="font-semibold text-stone-900 dark:text-stone-100">
+                    <div className="rounded-2xl border border-[#E5A93C]/30 bg-[#fdfbf7]   p-4 sm:p-5 shadow-xs">
+                      <p className="text-sm sm:text-base text-stone-800  leading-relaxed">
+                        <strong className="font-semibold text-stone-900 ">
                           বইটি অনলাইন থেকে সংগ্রহ করতে :
                         </strong>{" "}
                         <a
@@ -213,7 +213,7 @@ export const BookDetails = () => {
 
                   <Link
                     to="/books"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C] dark:border-stone-700 dark:bg-slate-900 dark:text-stone-200"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
                   >
                     <FiArrowLeft className="h-4 w-4" />
                     <span>সকল বইসমূহ</span>
@@ -223,19 +223,19 @@ export const BookDetails = () => {
             </div>
 
             {/* Divider */}
-            <div className="mt-8 sm:mt-10 h-px w-full bg-stone-100 dark:bg-stone-800/80" />
+            <div className="mt-8 sm:mt-10 h-px w-full bg-stone-100 " />
 
             {/* Description Section */}
             <section className="mt-8">
-              <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif]">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif]">
                 বই সম্পর্কে
               </h2>
 
-              <div className="mt-4 text-slate-700 dark:text-slate-300 text-base sm:text-lg whitespace-pre-line leading-relaxed sm:leading-9 text-justify font-sans">
+              <div className="mt-4 text-slate-700  text-base sm:text-lg whitespace-pre-line leading-relaxed sm:leading-9 text-justify font-sans">
                 {book?.bookDescription}
 
                 {book?.bookPurchaseLink && (
-                  <div className="mt-6 rounded-xl border border-stone-200/80 bg-stone-50 p-4 dark:border-stone-800 dark:bg-slate-900/40 text-sm sm:text-base text-stone-700 dark:text-stone-300">
+                  <div className="mt-6 rounded-xl border border-stone-200/80 bg-stone-50 p-4   text-sm sm:text-base text-stone-700 ">
                     বইটি PDF আকারে দেখতে{" "}
                     <a
                       href={book.bookPurchaseLink}
@@ -254,8 +254,8 @@ export const BookDetails = () => {
 
           {/* Comments Section Card */}
           <div className="mt-10 sm:mt-14">
-            <div className="rounded-3xl border border-stone-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs dark:border-stone-800 dark:bg-slate-950">
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 font-['Noto_Serif_Bengali',_serif] flex items-center gap-2">
+            <div className="rounded-3xl border border-stone-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs  ">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif] flex items-center gap-2">
                 <span>মন্তব্যসমূহ</span>
                 <span className="text-sm font-normal text-[#E5A93C]">
                   ({commentCount})
