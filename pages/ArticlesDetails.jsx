@@ -27,6 +27,7 @@ const SectionShell = ({ children, className = "", id }) => (
 export const ArticlesDetails = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const shareUrl = `${window.location.origin}/articles/${id}`;
 
   const {
     data: article,
@@ -80,6 +81,10 @@ export const ArticlesDetails = () => {
             ? `${article.articlesEssaysName} — উবায়দুল্লাহ তাসনিম`
             : "প্রবন্ধের বিস্তারিত"
         }
+        description={article?.articlesEssaysDescription}
+        image={article?.articlesEssaysImg}
+        url={shareUrl}
+        type="article"
       />
 
       {/* SECTION: ARTICLE DETAILS WITH UNIFIED SECTION SHELL */}
@@ -177,7 +182,10 @@ export const ArticlesDetails = () => {
                     <span>মন্তব্য করুন</span>
                   </button>
 
-                  <SocialMedia title={article?.articlesEssaysName} />
+                  <SocialMedia
+                    title={article?.articlesEssaysName}
+                    url={shareUrl}
+                  />
 
                   <Link
                     to="/articles"

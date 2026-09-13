@@ -143,7 +143,7 @@ export const SocialMedia = ({
                   <FiLink className="h-4 w-4 rotate-45" />
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif]">
-                  Share with friends
+                  বন্ধুদের সাথে শেয়ার করুন
                 </h3>
               </div>
 
@@ -208,7 +208,7 @@ export const SocialMedia = ({
                 htmlFor="share-page-link"
                 className="block mb-2 text-xs sm:text-sm font-medium text-stone-600 "
               >
-                Or copy page link:
+                অথবা পেজের লিংক কপি করুন:
               </label>
 
               <div className="flex items-center  border border-stone-200 bg-stone-50/90 p-1.5 pl-3.5 shadow-inner  ">
@@ -234,10 +234,10 @@ export const SocialMedia = ({
                   {copied ? (
                     <>
                       <FiCheck className="h-3.5 w-3.5" />
-                      <span>Copied</span>
+                      <span>কপি হয়েছে</span>
                     </>
                   ) : (
-                    <span>Copy</span>
+                    <span>কপি করুন</span>
                   )}
                 </button>
               </div>

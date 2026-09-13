@@ -39,6 +39,7 @@ const SectionShell = ({ children, className = "", id }) => (
 export const BookDetails = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const shareUrl = `${window.location.origin}/books/${id}`;
 
   const {
     data: book,
@@ -81,6 +82,10 @@ export const BookDetails = () => {
       <Title
         key="BookDetails"
         title={`${book?.bookTitle || "বইয়ের বিস্তারিত"} — উবায়দুল্লাহ তাসনিম`}
+        description={book?.bookDescription}
+        image={book?.bookImage}
+        url={shareUrl}
+        type="book"
       />
 
       {/* SECTION: BOOK DETAILS WITH UNIFIED SECTION SHELL */}
@@ -209,7 +214,7 @@ export const BookDetails = () => {
                     <span>মন্তব্য করুন</span>
                   </button>
 
-                  <SocialMedia title={book?.bookTitle} />
+                  <SocialMedia title={book?.bookTitle} url={shareUrl} />
 
                   <Link
                     to="/books"
