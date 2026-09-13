@@ -424,7 +424,7 @@ export const Header = () => {
                                 "hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none",
                                 " "
                               )}
-                              onClick={() => handleBookSelect(book.id)}
+                              onClick={() => handleBookSelect(book.sku)}
                             >
                               <span className="block text-sm font-semibold text-slate-900 ">{book.bookTitle}</span>
                               <span className="mt-0.5 block text-xs text-slate-500 ">{book.author}</span>
@@ -537,7 +537,7 @@ export const Header = () => {
                               "w-full px-4 py-3 text-left transition",
                               "hover:bg-slate-50 "
                             )}
-                            onClick={() => handleBookSelect(book.id)}
+                            onClick={() => handleBookSelect(book.sku)}
                           >
                             <span className="block text-sm font-semibold text-slate-900 ">{book.bookTitle}</span>
                             <span className="mt-0.5 block text-xs text-slate-500 ">{book.author}</span>
@@ -646,7 +646,7 @@ export const Header = () => {
                                   "w-full px-4 py-3 text-left transition",
                                   "hover:bg-slate-50 "
                                 )}
-                                onClick={() => handleBookSelect(book.id)}
+                                onClick={() => handleBookSelect(book.sku)}
                               >
                                 <span className="block text-sm font-semibold text-slate-900 ">{book.bookTitle}</span>
                                 <span className="mt-0.5 block text-xs text-slate-500 ">{book.author}</span>

@@ -27,7 +27,6 @@ const SectionShell = ({ children, className = "", id }) => (
 export const ArticlesDetails = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const shareUrl = `${window.location.origin}/articles/${id}`;
 
   const {
     data: article,
@@ -43,14 +42,17 @@ export const ArticlesDetails = () => {
     },
   });
 
+  const shareUrl = `${window.location.origin}/articles/${article?.sku || id}`;
+
   const { data: comments = [] } = useQuery({
-    queryKey: ["comments", "articles_essays", id],
+    queryKey: ["comments", "articles_essays", article?.id],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${baseUrl}/comment/content/articles_essays/${id}/comments/`,
+        `${baseUrl}/comment/content/articles_essays/${article?.id || id}/comments/`,
       );
       return data;
     },
+    enabled: Boolean(article?.id),
   });
 
   const commentCount = comments.length;
@@ -93,7 +95,7 @@ export const ArticlesDetails = () => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           content_type="articles_essays"
-          object_id={id}
+          object_id={article?.id || id}
         />
 
         <div className="w-full">
@@ -248,7 +250,7 @@ export const ArticlesDetails = () => {
               <div className="mt-3 h-0.5 w-12 bg-[#E5A93C]" />
 
               <div className="mt-6 sm:mt-8">
-                <CommentsList content_type="articles_essays" object_id={id} />
+                <CommentsList content_type="articles_essays" object_id={article?.id || id} />
               </div>
             </div>
           </div>

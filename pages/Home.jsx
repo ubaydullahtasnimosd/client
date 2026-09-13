@@ -259,7 +259,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
                 >
                   {/* Book Cover - Standalone cover linking directly to book details */}
                   <Link
-                    to={`/books/${book.id}`}
+                    to={`/books/${book.sku}`}
                     className="relative block w-full aspect-[1/1.42] max-w-[260px] overflow-hidden bg-stone-100  shadow-md group-hover/card:shadow-xl transition-all duration-300 group-hover/card:-translate-y-1.5 border border-stone-200/60 "
                   >
                     <img
@@ -275,7 +275,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
 
                   {/* Book Title */}
                   <Link
-                    to={`/books/${book.id}`}
+                    to={`/books/${book.sku}`}
                     className="mt-4 text-sm sm:text-base font-semibold text-stone-900  line-clamp-2 leading-snug min-h-[2.5rem] px-1 hover:text-[#E5A93C] transition-colors"
                   >
                     {book.bookTitle}

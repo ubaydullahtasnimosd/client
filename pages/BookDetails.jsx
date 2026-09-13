@@ -39,7 +39,6 @@ const SectionShell = ({ children, className = "", id }) => (
 export const BookDetails = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const shareUrl = `${window.location.origin}/books/${id}`;
 
   const {
     data: book,
@@ -52,9 +51,12 @@ export const BookDetails = () => {
     queryFn: () => fetchBookDetails(id),
   });
 
+  const shareUrl = `${window.location.origin}/books/${book?.sku || id}`;
+
   const { data: comments = [] } = useQuery({
-    queryKey: ["comments", "book", id],
-    queryFn: () => fetchComments("book", id),
+    queryKey: ["comments", "book", book?.id],
+    queryFn: () => fetchComments("book", book?.id || id),
+    enabled: Boolean(book?.id),
   });
 
   const commentCount = comments.length;
@@ -93,7 +95,7 @@ export const BookDetails = () => {
         <CommentModal
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
-          object_id={id}
+          object_id={book?.id || id}
           content_type="book"
         />
 
@@ -269,7 +271,7 @@ export const BookDetails = () => {
               <div className="mt-3 h-0.5 w-12 bg-[#E5A93C]" />
 
               <div className="mt-6 sm:mt-8">
-                <CommentsList content_type="book" object_id={id} />
+                <CommentsList content_type="book" object_id={book?.id || id} />
               </div>
             </div>
           </div>

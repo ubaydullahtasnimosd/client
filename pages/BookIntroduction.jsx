@@ -3,7 +3,6 @@ import axios from "axios";
 import { useMemo, useState } from "react";
 import { FiArrowRight, FiRotateCcw, FiSearch } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
-import { EmptyState } from "../component/layout/EmptyState";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
 import { Pagination } from "../component/layout/Pagination";
@@ -76,7 +75,7 @@ const BookCard = ({ book }) => {
     >
       {/* Book Cover Image - Unobstructed, clear and full width */}
       <Link
-        to={`/books/${book.id}`}
+        to={`/books/${book.sku}`}
         className="relative block w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden bg-stone-100  border-b border-stone-200/60 "
         aria-label={`${bookTitle} সম্পর্কে পড়ুন`}
       >
@@ -94,7 +93,7 @@ const BookCard = ({ book }) => {
       {/* Book Content */}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <Link
-          to={`/books/${book.id}`}
+          to={`/books/${book.sku}`}
           className="text-lg sm:text-xl font-bold tracking-tight text-slate-900  font-['Noto_Serif_Bengali',_serif] line-clamp-2 leading-snug group-hover:text-[#E5A93C] transition-colors"
         >
           {bookTitle}
@@ -116,7 +115,7 @@ const BookCard = ({ book }) => {
         {/* CTA Button */}
         <div className="mt-auto pt-5">
           <Link
-            to={`/books/${book.id}`}
+            to={`/books/${book.sku}`}
             className="inline-flex w-full items-center justify-center gap-2  bg-[#E5A93C] px-5 py-2.5 text-sm font-semibold text-stone-950 shadow-xs transition-all duration-200 hover:bg-[#d6982b] hover:shadow-md cursor-pointer"
           >
             <span>পুরোটা পড়ুন</span>
