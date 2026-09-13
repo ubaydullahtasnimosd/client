@@ -61,10 +61,28 @@ const html = ({ title, description, image, url, type }) => {
 </html>`;
 };
 
+const isSocialCrawler = (userAgent = "") =>
+  /facebookexternalhit|facebot|twitterbot|whatsapp|telegrambot/i.test(userAgent);
+
 export default async function handler(request, response) {
   const { contentType, id } = request.query;
-  const apiBaseUrl = globalThis.process?.env?.VITE_API_BASE_URL;
-  const origin = `${request.headers["x-forwarded-proto"] || "https"}://${request.headers.host}`;
+  const apiBaseUrl =
+    globalThis.process?.env?.VITE_API_BASE_URL ||
+    globalThis.process?.env?.API_BASE_URL;
+  const protocol = request.headers["x-forwarded-proto"] || "https";
+  const host = request.headers["x-forwarded-host"] || request.headers.host;
+  const origin = `${protocol}://${host}`;
+
+  if (!isSocialCrawler(request.headers["user-agent"])) {
+    try {
+      const appResponse = await fetch(`${origin}/`);
+      response.setHeader("Content-Type", "text/html; charset=utf-8");
+      response.status(appResponse.status).send(await appResponse.text());
+    } catch {
+      response.status(502).send("Unable to load application");
+    }
+    return;
+  }
 
   if (!apiBaseUrl || !id || !["book", "article"].includes(contentType)) {
     response.status(400).send("Invalid share preview request");

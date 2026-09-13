@@ -2,24 +2,10 @@
   "rewrites": [
     {
       "source": "/books/:id",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": "facebookexternalhit.*|Facebot.*|Twitterbot.*|WhatsApp.*|TelegramBot.*"
-        }
-      ],
       "destination": "/api/share-preview?contentType=book&id=:id"
     },
     {
       "source": "/articles/:id",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": "facebookexternalhit.*|Facebot.*|Twitterbot.*|WhatsApp.*|TelegramBot.*"
-        }
-      ],
       "destination": "/api/share-preview?contentType=article&id=:id"
     },
     { "source": "/(.*)", "destination": "/" }
