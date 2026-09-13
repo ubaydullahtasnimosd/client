@@ -16,13 +16,13 @@ export const ErrorMessage = ({
   return (
     <div
       className={cx(
-        "mx-auto flex max-w-md flex-col items-center justify-center rounded-2xl border border-rose-200 bg-rose-50/50 p-6 text-center shadow-sm   animate-fade-in",
+        "mx-auto flex max-w-md flex-col items-center justify-center  border border-rose-200 bg-rose-50/50 p-6 text-center shadow-sm   animate-fade-in",
         className
       )}
       role="alert"
       aria-live="assertive"
     >
-      <div className="mb-4 rounded-full bg-rose-100 p-3.5 text-rose-600  ">
+      <div className="mb-4  bg-rose-100 p-3.5 text-rose-600  ">
         <ExclamationTriangleIcon className="h-7 w-7" aria-hidden="true" />
       </div>
 
@@ -38,7 +38,7 @@ export const ErrorMessage = ({
         <button
           onClick={onRetry}
           type="button"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-rose-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-rose-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500/40  "
+          className="mt-5 inline-flex items-center justify-center  bg-rose-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-rose-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500/40  "
         >
           আবার চেষ্টা করুন
         </button>
@@ -46,7 +46,7 @@ export const ErrorMessage = ({
         <button
           onClick={() => window.location.reload()}
           type="button"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-slate-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-500/40   "
+          className="mt-5 inline-flex items-center justify-center  bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-slate-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-500/40   "
         >
           পৃষ্ঠাটি রিফ্রেশ করুন
         </button>

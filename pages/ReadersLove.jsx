@@ -117,7 +117,7 @@ export const ReadersLove = () => {
               <ErrorMessage message={imagesError.message} onRetry={refetchImages} />
             </div>
           ) : !images?.length ? (
-            <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
+            <div className=" border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
               <EmptyState message="এখনও কোনো পাঠকের ভালোবাসা সংক্রান্ত ছবি প্রকাশ করা হয়নি।" />
             </div>
           ) : (
@@ -127,7 +127,7 @@ export const ReadersLove = () => {
                   <article
                     key={image.id}
                     className={cx(
-                      "group rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col",
+                      "group  border overflow-hidden transition-all duration-300 flex flex-col",
                       "border-stone-200/80 bg-white shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
                       " ",
                     )}

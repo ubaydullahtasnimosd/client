@@ -107,7 +107,7 @@ export const QuranLifeLessons = () => {
         />
 
         {!data?.length ? (
-          <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
+          <div className=" border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
             <EmptyState message="এখনও কুরআন থেকে কোনো জীবনপাঠ প্রকাশ করা হয়নি।" />
           </div>
         ) : (
@@ -117,7 +117,7 @@ export const QuranLifeLessons = () => {
                 <article
                   key={lesson.id}
                   className={cx(
-                    "group flex flex-col overflow-hidden rounded-3xl border transition-all duration-300",
+                    "group flex flex-col overflow-hidden  border transition-all duration-300",
                     "border-stone-200/80 bg-white shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
                     " ",
                   )}
@@ -169,7 +169,7 @@ export const QuranLifeLessons = () => {
                     <div className="mt-auto pt-6">
                       <Link
                         to={`/islam/quran-life-lessons/${lesson.id}`}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#E5A93C] px-5 py-2.5 text-sm font-semibold text-stone-950 shadow-xs transition-all duration-200 hover:bg-[#d6982b] hover:shadow-md cursor-pointer"
+                        className="inline-flex w-full items-center justify-center gap-2  bg-[#E5A93C] px-5 py-2.5 text-sm font-semibold text-stone-950 shadow-xs transition-all duration-200 hover:bg-[#d6982b] hover:shadow-md cursor-pointer"
                       >
                         <span>পুরোটা পড়ুন</span>
                         <FiArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import {
-  FaArrowUp,
-  FaFacebookF,
-  FaInstagram,
-  FaTelegramPlane,
-  FaYoutube,
+    FaArrowUp,
+    FaFacebookF,
+    FaInstagram,
+    FaTelegramPlane,
+    FaYoutube,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const logoImg = "/logo.webp";
@@ -65,7 +65,7 @@ const FooterLink = ({ path, children }) => (
       className={cx(
         "inline-flex py-1 text-sm leading-6 transition-colors",
         "text-slate-600 hover:text-[#d6982b]",
-        "focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
         " ",
       )}
     >
@@ -106,13 +106,13 @@ export const Footer = () => {
           <div className="w-full lg:max-w-sm">
             <Link
               to="/"
-              className="inline-flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40"
+              className="inline-flex items-center gap-3  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40"
               aria-label="উবায়দুল্লাহ তাসনিম হোম"
             >
               <img
                 src={logoImg}
                 alt="উবায়দুল্লাহ তাসনিম"
-                className="h-14 w-14 rounded-full object-cover ring-1 ring-slate-900/10 "
+                className="h-14 w-14  object-cover ring-1 ring-slate-900/10 "
                 loading="lazy"
               />
               <span className="text-lg font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif]">
@@ -138,7 +138,7 @@ export const Footer = () => {
                   aria-label={`${label}-এ উবায়দুল্লাহ তাসনিম`}
                   title={label}
                   className={cx(
-                    "inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
+                    "inline-flex h-10 w-10 items-center justify-center  border transition-all duration-200",
                     "border-slate-200 text-slate-600 hover:border-[#E5A93C] hover:bg-[#E5A93C]/10 hover:text-[#d6982b] hover:-translate-y-0.5",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
                     "    ",
@@ -232,7 +232,7 @@ export const Footer = () => {
         aria-label="পাতার শুরুতে ফিরুন"
         title="পাতার শুরুতে ফিরুন"
         className={cx(
-          "fixed bottom-5 right-5 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full",
+          "fixed bottom-5 right-5 z-40 inline-flex h-11 w-11 items-center justify-center ",
           "bg-white text-slate-700 shadow-lg ring-1 ring-slate-900/10",
           "transition duration-200 hover:-translate-y-0.5 hover:text-[#d6982b] hover:shadow-xl",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",

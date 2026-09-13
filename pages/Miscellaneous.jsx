@@ -139,7 +139,7 @@ export const Miscellaneous = () => {
                   <article
                     key={item._id || item.id || index}
                     className={cx(
-                      "group flex flex-col overflow-hidden rounded-3xl border",
+                      "group flex flex-col overflow-hidden  border",
                       "border-stone-200/80 bg-white shadow-xs transition-all duration-300",
                       "hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
                       " ",

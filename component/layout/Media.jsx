@@ -58,7 +58,7 @@ export const Media = ({ className = "bg-white " }) => (
             rel="noopener noreferrer"
             aria-label={item.label}
             className={cx(
-              "group inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl",
+              "group inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center ",
               "border border-slate-200/80 bg-white shadow-xs",
               "transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/50",
               "active:translate-y-0",

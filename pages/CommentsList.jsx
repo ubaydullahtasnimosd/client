@@ -88,7 +88,7 @@ export const CommentsList = ({ content_type, object_id }) => {
   };
 
   const inputBase = cx(
-    "w-full rounded-2xl border px-4 py-3 text-sm shadow-sm",
+    "w-full  border px-4 py-3 text-sm shadow-sm",
     "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
     "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
     "   ",
@@ -99,18 +99,18 @@ export const CommentsList = ({ content_type, object_id }) => {
     "text-xs font-semibold underline underline-offset-4 transition-colors",
     "text-[#9E7839] hover:text-[#876527]",
     " ",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40 rounded"
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40 "
   );
 
   const primaryBtn = cx(
-    "inline-flex items-center justify-center rounded-2xl px-3.5 py-2 text-sm font-semibold shadow-sm transition",
+    "inline-flex items-center justify-center  px-3.5 py-2 text-sm font-semibold shadow-sm transition",
     "bg-[#CCA764] text-stone-950 font-semibold hover:bg-[#B8914C]",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
 
   const ghostBtn = cx(
-    "inline-flex items-center justify-center rounded-2xl px-3.5 py-2 text-sm font-semibold transition",
+    "inline-flex items-center justify-center  px-3.5 py-2 text-sm font-semibold transition",
     "bg-slate-100 text-slate-700 hover:bg-slate-200",
     "  ",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
@@ -131,7 +131,7 @@ export const CommentsList = ({ content_type, object_id }) => {
 
         <div
           className={cx(
-            "rounded-3xl border p-5 shadow-sm",
+            " border p-5 shadow-sm",
             "border-slate-200/70 bg-white",
             " "
           )}
@@ -140,7 +140,7 @@ export const CommentsList = ({ content_type, object_id }) => {
             <div className="flex items-start gap-3">
               <div
                 className={cx(
-                  "h-10 w-10 rounded-full flex items-center justify-center font-bold",
+                  "h-10 w-10  flex items-center justify-center font-bold",
                   "bg-[#CCA764]/15 text-[#876527]",
                   " "
                 )}
@@ -176,7 +176,7 @@ export const CommentsList = ({ content_type, object_id }) => {
           {replyData.parent_comment === comment.id && (
             <form
               onSubmit={(e) => handleReplySubmit(e, comment.id)}
-              className="mt-5 rounded-3xl border p-4 bg-slate-50/60 border-slate-200/70  "
+              className="mt-5  border p-4 bg-slate-50/60 border-slate-200/70  "
             >
               <div className="space-y-3">
                 <input

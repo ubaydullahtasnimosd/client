@@ -131,7 +131,7 @@ export const CommentModal = ({
   if (!isModalOpen) return null;
 
   const inputBase = cx(
-    "w-full rounded-2xl border px-4 py-3 text-sm shadow-sm",
+    "w-full  border px-4 py-3 text-sm shadow-sm",
     "border-slate-200 bg-white text-slate-900",
     "placeholder:text-slate-400",
     "focus:outline-none focus:ring-2 focus:ring-[#CCA764]/30 focus:border-[#CCA764]/50",
@@ -140,14 +140,14 @@ export const CommentModal = ({
   );
 
   const primaryBtn = cx(
-    "inline-flex items-center justify-center rounded-2xl px-4 py-2.5 text-sm font-semibold shadow-sm transition",
+    "inline-flex items-center justify-center  px-4 py-2.5 text-sm font-semibold shadow-sm transition",
     "bg-[#CCA764] text-stone-950 font-semibold hover:bg-[#B8914C]",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
     "disabled:opacity-70 disabled:cursor-not-allowed"
   );
 
   const ghostBtn = cx(
-    "inline-flex items-center justify-center rounded-2xl px-4 py-2.5 text-sm font-semibold transition",
+    "inline-flex items-center justify-center  px-4 py-2.5 text-sm font-semibold transition",
     "bg-slate-100 text-slate-700 hover:bg-slate-200",
     "  ",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40",
@@ -174,7 +174,7 @@ export const CommentModal = ({
         onKeyDown={handleDialogKeyDown}
         tabIndex={-1}
         className={cx(
-          "relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border shadow-2xl",
+          "relative w-full max-w-2xl max-h-[90vh] overflow-y-auto  border shadow-2xl",
           "border-slate-200 bg-white",
           " ",
           "animate-[fadeIn_.15s_ease-out]"
@@ -195,7 +195,7 @@ export const CommentModal = ({
             <button
               onClick={closeModal}
               className={cx(
-                "rounded-2xl p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700",
+                " p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700",
                 "  ",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40"
               )}

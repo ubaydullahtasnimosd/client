@@ -168,7 +168,7 @@ export const Pagination = ({
       <nav
         aria-label="Pagination"
         className={cx(
-          "inline-flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-2xl border",
+          "inline-flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5  border",
           "border-stone-200/90 bg-white shadow-xs",
           " ",
           disabled && "opacity-60 pointer-events-none"
@@ -182,7 +182,7 @@ export const Pagination = ({
           aria-label="পূর্ববর্তী পৃষ্ঠা"
           title="পূর্ববর্তী পৃষ্ঠা"
           className={cx(
-            "h-9 w-9 flex items-center justify-center rounded-xl text-stone-500 transition-all duration-200",
+            "h-9 w-9 flex items-center justify-center  text-stone-500 transition-all duration-200",
             isFirstPage || disabled
               ? "opacity-30 cursor-not-allowed"
               : "hover:bg-stone-100 hover:text-stone-900 active:scale-95    cursor-pointer"
@@ -214,7 +214,7 @@ export const Pagination = ({
               disabled={disabled}
               aria-current={isActive ? "page" : undefined}
               className={cx(
-                "h-9 min-w-[34px] sm:min-w-[38px] px-2 flex items-center justify-center rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none",
+                "h-9 min-w-[34px] sm:min-w-[38px] px-2 flex items-center justify-center  text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none",
                 isActive
                   ? "bg-[#E5A93C] text-stone-950 shadow-xs scale-100"
                   : "text-stone-600 hover:bg-stone-100 hover:text-stone-950 active:scale-95   "
@@ -233,7 +233,7 @@ export const Pagination = ({
           aria-label="পরবর্তী পৃষ্ঠা"
           title="পরবর্তী পৃষ্ঠা"
           className={cx(
-            "h-9 w-9 flex items-center justify-center rounded-xl transition-all duration-200",
+            "h-9 w-9 flex items-center justify-center  transition-all duration-200",
             isLastPage || disabled
               ? "opacity-30 text-stone-400 cursor-not-allowed bg-transparent"
               : "bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-950 active:scale-95     cursor-pointer"

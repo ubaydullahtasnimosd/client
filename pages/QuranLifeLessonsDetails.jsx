@@ -99,16 +99,16 @@ export const QuranLifeLessonsDetails = () => {
           </nav>
 
           {/* Main Container Card */}
-          <article className="overflow-hidden rounded-3xl border border-stone-200/80 bg-white shadow-xs   p-6 sm:p-8 lg:p-10">
+          <article className="overflow-hidden  border border-stone-200/80 bg-white shadow-xs   p-6 sm:p-8 lg:p-10">
             {/* Top Showcase: Image (Left) + Title & Metadata (Right) */}
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-10">
               {/* Left Column: 100% Uncropped Image */}
               {lesson?.quranLessonImg && (
-                <div className="w-full sm:w-[340px] lg:w-[380px] xl:w-[420px] shrink-0 rounded-2xl overflow-hidden bg-stone-50  border border-stone-200/80  shadow-sm flex items-center justify-center p-3 sm:p-4">
+                <div className="w-full sm:w-[340px] lg:w-[380px] xl:w-[420px] shrink-0  overflow-hidden bg-stone-50  border border-stone-200/80  shadow-sm flex items-center justify-center p-3 sm:p-4">
                   <img
                     src={lesson.quranLessonImg}
                     alt={lesson.quranLessonName}
-                    className="w-full h-auto max-h-[460px] object-contain rounded-xl drop-shadow-md"
+                    className="w-full h-auto max-h-[460px] object-contain  drop-shadow-md"
                     loading="eager"
                     onError={(event) => {
                       event.currentTarget.src = Logo;
@@ -131,7 +131,7 @@ export const QuranLifeLessonsDetails = () => {
                 <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-stone-600 ">
                   <div className="flex items-center gap-2">
                     <img
-                      className="h-8 w-8 rounded-full object-cover border-2 border-[#E5A93C] shadow-xs bg-slate-950"
+                      className="h-8 w-8  object-cover border-2 border-[#E5A93C] shadow-xs bg-slate-950"
                       src={Logo}
                       alt="উবায়দুল্লাহ তাসনিম"
                       loading="lazy"
@@ -162,7 +162,7 @@ export const QuranLifeLessonsDetails = () => {
                   <button
                     onClick={() => setIsModalOpen(true)}
                     type="button"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#E5A93C] px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-stone-950 shadow-md transition-all duration-200 hover:bg-[#d6982b] hover:shadow-lg cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2  bg-[#E5A93C] px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-stone-950 shadow-md transition-all duration-200 hover:bg-[#d6982b] hover:shadow-lg cursor-pointer"
                   >
                     <FiMessageSquare className="h-4 w-4" />
                     <span>মন্তব্য করুন</span>
@@ -172,7 +172,7 @@ export const QuranLifeLessonsDetails = () => {
 
                   <Link
                     to="/islam/quran-life-lessons"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
+                    className="inline-flex items-center justify-center gap-2  border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
                   >
                     <FiArrowLeft className="h-4 w-4" />
                     <span>সকল পাঠসমূহ</span>
@@ -192,7 +192,7 @@ export const QuranLifeLessonsDetails = () => {
 
           {/* Comments Section Card matching Site Consistency */}
           <div className="mt-10 sm:mt-14">
-            <div className="rounded-3xl border border-stone-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs  ">
+            <div className=" border border-stone-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs  ">
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif] flex items-center gap-2">
                 <span>মন্তব্যসমূহ</span>
                 <span className="text-sm font-normal text-[#E5A93C]">

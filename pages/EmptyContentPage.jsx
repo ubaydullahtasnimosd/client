@@ -21,7 +21,7 @@ export const EmptyContentPage = ({
 
       <div className={container}>
         <header className="text-center">
-          <div className="inline-flex items-center justify-center rounded-2xl border px-4 py-2 text-sm font-semibold tracking-tight bg-white/70 backdrop-blur shadow-sm border-slate-200/70  ">
+          <div className="inline-flex items-center justify-center  border px-4 py-2 text-sm font-semibold tracking-tight bg-white/70 backdrop-blur shadow-sm border-slate-200/70  ">
             {badge}
           </div>
 

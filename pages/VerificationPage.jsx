@@ -49,13 +49,13 @@ export const VerificationPage = () => {
   );
 
   const cardBase = cx(
-    "w-full max-w-md rounded-3xl border p-8 text-center shadow-sm",
+    "w-full max-w-md  border p-8 text-center shadow-sm",
     "bg-white ",
     "border-slate-200/70 "
   );
 
   const btn = cx(
-    "inline-flex items-center justify-center rounded-xl px-6 py-2 text-sm font-medium transition shadow-sm",
+    "inline-flex items-center justify-center  px-6 py-2 text-sm font-medium transition shadow-sm",
     "bg-slate-900 text-white hover:bg-slate-800",
     "  ",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CCA764]/40"
@@ -72,7 +72,7 @@ export const VerificationPage = () => {
     return (
       <div
         className={cx(
-          "mx-auto mb-6 inline-flex items-center rounded-2xl border px-4 py-2 text-sm font-semibold",
+          "mx-auto mb-6 inline-flex items-center  border px-4 py-2 text-sm font-semibold",
           styles
         )}
       >

@@ -117,7 +117,7 @@ export const UserReview = () => {
               <ErrorMessage message={reviewsError.message} onRetry={refetchReviews} />
             </div>
           ) : !reviews?.length ? (
-            <div className="rounded-3xl border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
+            <div className=" border border-stone-200/80 bg-white p-10 text-center shadow-xs  ">
               <EmptyState message="এখনও কোনো পাঠক রিভিউ প্রকাশ করা হয়নি।" />
             </div>
           ) : (
@@ -127,7 +127,7 @@ export const UserReview = () => {
                   <article
                     key={review.id}
                     className={cx(
-                      "rounded-3xl border p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between",
+                      " border p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between",
                       "border-stone-200/80 bg-white shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-[#E5A93C]/60",
                       " ",
                     )}
@@ -136,7 +136,7 @@ export const UserReview = () => {
                       <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-stone-100 ">
                         <div className="flex items-center gap-3">
                           {/* Avatar initial badge */}
-                          <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#E5A93C]/15 text-[#E5A93C] font-bold text-base flex items-center justify-center border border-[#E5A93C]/30 shrink-0">
+                          <div className="h-10 w-10 sm:h-11 sm:w-11  bg-[#E5A93C]/15 text-[#E5A93C] font-bold text-base flex items-center justify-center border border-[#E5A93C]/30 shrink-0">
                             {review.readersName ? review.readersName.charAt(0) : "পা"}
                           </div>
 
@@ -153,8 +153,8 @@ export const UserReview = () => {
 
                         {/* Book Tag */}
                         {review.readersBookName && (
-                          <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-stone-100 text-stone-800 border border-stone-200/70   ">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
+                          <div className="inline-flex items-center gap-1.5  px-3 py-1 text-xs font-semibold bg-stone-100 text-stone-800 border border-stone-200/70   ">
+                            <span className="h-1.5 w-1.5  bg-[#E5A93C]" />
                             <span>{review.readersBookName}</span>
                           </div>
                         )}

@@ -111,7 +111,7 @@ export const SocialMedia = ({
           type="button"
           onClick={() => setInternalIsOpen(true)}
           className={cx(
-            "inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]    cursor-pointer",
+            "inline-flex items-center justify-center gap-2  border border-stone-300 bg-white px-5 py-2.5 sm:py-3 text-sm font-medium text-stone-800 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]    cursor-pointer",
             buttonClassName
           )}
           aria-label="শেয়ার করুন"
@@ -135,11 +135,11 @@ export const SocialMedia = ({
           />
 
           {/* Modal Container */}
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-6 sm:p-8 shadow-2xl  border border-stone-100  transition-all z-10 animate-scale-up">
+          <div className="relative w-full max-w-md  bg-white p-6 sm:p-8 shadow-2xl  border border-stone-100  transition-all z-10 animate-scale-up">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-stone-100 pb-4 ">
               <div className="flex items-center gap-2.5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-stone-100 text-stone-800   border border-stone-200/80 ">
+                <span className="flex h-9 w-9 items-center justify-center  bg-stone-100 text-stone-800   border border-stone-200/80 ">
                   <FiLink className="h-4 w-4 rotate-45" />
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900  font-['Noto_Serif_Bengali',_serif]">
@@ -150,7 +150,7 @@ export const SocialMedia = ({
               <button
                 type="button"
                 onClick={handleClose}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-stone-400 hover:bg-stone-100 hover:text-stone-700   transition cursor-pointer"
+                className="inline-flex h-8 w-8 items-center justify-center  text-stone-400 hover:bg-stone-100 hover:text-stone-700   transition cursor-pointer"
                 aria-label="বন্ধ করুন"
               >
                 <FiX className="h-5 w-5" />
@@ -163,9 +163,9 @@ export const SocialMedia = ({
               <button
                 type="button"
                 onClick={() => handleSocialShare("facebook")}
-                className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#1877F2] py-4 px-2 text-white shadow-md hover:bg-[#166fe5] hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
+                className="flex flex-col items-center justify-center gap-2  bg-[#1877F2] py-4 px-2 text-white shadow-md hover:bg-[#166fe5] hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#1877F2]">
+                <span className="flex h-9 w-9 items-center justify-center  bg-white text-[#1877F2]">
                   <FaFacebookF className="h-5 w-5" />
                 </span>
                 <span className="text-xs sm:text-sm font-semibold tracking-wide">
@@ -177,9 +177,9 @@ export const SocialMedia = ({
               <button
                 type="button"
                 onClick={() => handleSocialShare("whatsapp")}
-                className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#25D366] py-4 px-2 text-white shadow-md hover:bg-[#20bd5a] hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
+                className="flex flex-col items-center justify-center gap-2  bg-[#25D366] py-4 px-2 text-white shadow-md hover:bg-[#20bd5a] hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#25D366]">
+                <span className="flex h-9 w-9 items-center justify-center  bg-white text-[#25D366]">
                   <FaWhatsapp className="h-5 w-5" />
                 </span>
                 <span className="text-xs sm:text-sm font-semibold tracking-wide">
@@ -191,9 +191,9 @@ export const SocialMedia = ({
               <button
                 type="button"
                 onClick={() => handleSocialShare("telegram")}
-                className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#229ED9] py-4 px-2 text-white shadow-md hover:bg-[#1f8ec4] hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
+                className="flex flex-col items-center justify-center gap-2  bg-[#229ED9] py-4 px-2 text-white shadow-md hover:bg-[#1f8ec4] hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#229ED9]">
+                <span className="flex h-9 w-9 items-center justify-center  bg-white text-[#229ED9]">
                   <FaTelegramPlane className="h-5 w-5" />
                 </span>
                 <span className="text-xs sm:text-sm font-semibold tracking-wide">
@@ -211,7 +211,7 @@ export const SocialMedia = ({
                 Or copy page link:
               </label>
 
-              <div className="flex items-center rounded-2xl border border-stone-200 bg-stone-50/90 p-1.5 pl-3.5 shadow-inner  ">
+              <div className="flex items-center  border border-stone-200 bg-stone-50/90 p-1.5 pl-3.5 shadow-inner  ">
                 <input
                   id="share-page-link"
                   type="text"
@@ -225,7 +225,7 @@ export const SocialMedia = ({
                   type="button"
                   onClick={handleCopy}
                   className={cx(
-                    "shrink-0 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm cursor-pointer ml-2 flex items-center gap-1.5",
+                    "shrink-0  px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm cursor-pointer ml-2 flex items-center gap-1.5",
                     copied
                       ? "bg-emerald-600 text-white"
                       : "bg-[#121624] hover:bg-black text-white  "

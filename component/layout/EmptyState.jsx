@@ -4,12 +4,12 @@ export const EmptyState = ({
 }) => {
   return (
     <div
-      className="mx-auto flex max-w-xl flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70 px-6 py-12 text-center shadow-sm  "
+      className="mx-auto flex max-w-xl flex-col items-center justify-center  border border-dashed border-slate-300 bg-white/70 px-6 py-12 text-center shadow-sm  "
       role="status"
       aria-live="polite"
     >
       <div
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl font-semibold text-slate-500  "
+        className="flex h-14 w-14 items-center justify-center  bg-slate-100 text-2xl font-semibold text-slate-500  "
         aria-hidden="true"
       >
         !

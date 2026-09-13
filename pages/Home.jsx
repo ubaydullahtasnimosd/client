@@ -120,13 +120,13 @@ const HeroSection = () => (
         <div className="mt-7 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 w-full sm:w-auto max-w-md">
           <Link
             to="/about"
-            className="inline-flex items-center justify-center rounded-none border border-[#E5A93C] bg-[#E5A93C] px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-semibold text-stone-950 shadow-lg shadow-black/40 transition-all duration-200 hover:bg-[#d6982b] hover:border-[#d6982b] text-center"
+            className="inline-flex items-center justify-center  border border-[#E5A93C] bg-[#E5A93C] px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-semibold text-stone-950 shadow-lg shadow-black/40 transition-all duration-200 hover:bg-[#d6982b] hover:border-[#d6982b] text-center"
           >
             পরিচিতি পড়ুন
           </Link>
           <Link
             to="/books"
-            className="inline-flex items-center justify-center rounded-none border border-white/90 bg-black/40 backdrop-blur-xs px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-medium text-white shadow-lg shadow-black/40 transition-all duration-200 hover:bg-white hover:text-stone-950 text-center"
+            className="inline-flex items-center justify-center  border border-white/90 bg-black/40 backdrop-blur-xs px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-medium text-white shadow-lg shadow-black/40 transition-all duration-200 hover:bg-white hover:text-stone-950 text-center"
           >
             বই ও প্রকাশনাসমূহ
           </Link>
@@ -208,7 +208,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
             disabled={isAtStart}
             aria-label="পূর্ববর্তী বইসমূহ"
             className={cx(
-              "absolute left-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200 rounded-none shadow-md",
+              "absolute left-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200  shadow-md",
               isAtStart
                 ? "bg-[#F2ECE4]/70 text-stone-400 cursor-not-allowed opacity-50  "
                 : "bg-[#F2ECE4] text-stone-700 hover:bg-stone-300 cursor-pointer  ",
@@ -224,7 +224,7 @@ const BookShowcase = ({ books = [], isLoading, isError, error, refetch }) => {
             disabled={isAtEnd}
             aria-label="পরবর্তী বইসমূহ"
             className={cx(
-              "absolute right-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200 rounded-none shadow-md",
+              "absolute right-0 top-[38%] -translate-y-1/2 z-20 flex h-11 w-8 sm:w-9 items-center justify-center transition-all duration-200  shadow-md",
               isAtEnd
                 ? "border border-stone-300 bg-stone-200 text-stone-400 cursor-not-allowed opacity-50   "
                 : "border border-[#E5A93C] bg-[#E5A93C] text-stone-950 hover:bg-[#d6982b] cursor-pointer",
@@ -310,11 +310,11 @@ const ProfileSection = () => (
     <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-12 lg:gap-16">
       <div className="w-full md:w-1/3 flex justify-center">
         <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-[#E5A93C]/30 blur-sm opacity-70 group-hover:opacity-100 transition duration-300" />
+          <div className="absolute -inset-1  bg-[#E5A93C]/30 blur-sm opacity-70 group-hover:opacity-100 transition duration-300" />
           <img
             src={Logo}
             alt="উবায়দুল্লাহ তাসনিম"
-            className="relative h-44 w-44 sm:h-56 sm:w-56 md:h-64 md:w-64 rounded-full object-cover border-2 border-[#E5A93C] shadow-lg bg-slate-950"
+            className="relative h-44 w-44 sm:h-56 sm:w-56 md:h-64 md:w-64  object-cover border-2 border-[#E5A93C] shadow-lg bg-slate-950"
             loading="lazy"
           />
         </div>
@@ -340,12 +340,12 @@ const ProfileSection = () => (
             <span
               key={role}
               className={cx(
-                "inline-flex items-center rounded-full px-4 py-1.5 text-xs sm:text-sm font-medium",
+                "inline-flex items-center  px-4 py-1.5 text-xs sm:text-sm font-medium",
                 "bg-white text-slate-800 border border-slate-200 shadow-xs",
                 "  ",
               )}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C] mr-2" />
+              <span className="h-1.5 w-1.5  bg-[#E5A93C] mr-2" />
               {role}
             </span>
           ))}
@@ -410,7 +410,7 @@ export const EmailSubscribe = () => {
     <SectionShell id="newsletter" className="bg-[#f5f5f5] ">
       <div
         className={cx(
-          "rounded-3xl border p-6 sm:p-10 md:p-12",
+          " border p-6 sm:p-10 md:p-12",
           "border-[#E5A93C]/20 bg-[#fdfbf7] shadow-xs",
           " ",
         )}
@@ -424,7 +424,7 @@ export const EmailSubscribe = () => {
         {successMessage && (
           <div
             className={cx(
-              "mx-auto -mt-6 mb-8 max-w-md rounded-xl border px-4 py-3 text-center text-sm",
+              "mx-auto -mt-6 mb-8 max-w-md  border px-4 py-3 text-center text-sm",
               "border-[#E5A93C]/40 bg-[#E5A93C]/10 text-stone-900",
               "  ",
             )}
@@ -449,7 +449,7 @@ export const EmailSubscribe = () => {
               placeholder="আপনার সম্পূর্ণ নাম"
               required
               className={cx(
-                "h-12 w-full rounded-xl border px-4 text-sm shadow-xs transition",
+                "h-12 w-full  border px-4 text-sm shadow-xs transition",
                 "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
                 "focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/40 focus:border-[#E5A93C]",
                 "   ",
@@ -472,7 +472,7 @@ export const EmailSubscribe = () => {
               placeholder="আপনার ইমেইল ঠিকানা"
               required
               className={cx(
-                "h-12 w-full rounded-xl border px-4 text-sm shadow-xs transition",
+                "h-12 w-full  border px-4 text-sm shadow-xs transition",
                 "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
                 "focus:outline-none focus:ring-2 focus:ring-[#E5A93C]/40 focus:border-[#E5A93C]",
                 "   ",
@@ -484,7 +484,7 @@ export const EmailSubscribe = () => {
             type="submit"
             disabled={subscribeMutation.isPending}
             className={cx(
-              "h-12 w-full rounded-xl text-sm font-semibold shadow-md transition-all duration-200",
+              "h-12 w-full  text-sm font-semibold shadow-md transition-all duration-200",
               "bg-[#E5A93C] text-stone-950 hover:bg-[#d6982b]",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5A93C]/40",
               "disabled:opacity-70 disabled:cursor-not-allowed",

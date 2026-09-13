@@ -136,7 +136,7 @@ export const AboutAuthor = () => {
         />
 
         {/* Decorative Arabesque Banner */}
-        <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-[#E5A93C]/30 shadow-md bg-[#0c0e14]">
+        <div className="relative w-full overflow-hidden border border-[#E5A93C]/30 shadow-md bg-[#0c0e14]">
           <img
             src={authorBannerLight}
             alt="লেখক সম্পর্কে"
@@ -149,23 +149,23 @@ export const AboutAuthor = () => {
         <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
           <a
             href="#biography"
-            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
+            className="inline-flex items-center gap-2  border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
+            <span className="h-1.5 w-1.5  bg-[#E5A93C]" />
             জীবন ও কর্মপ্রয়াস
           </a>
           <a
             href="#purchase-sources"
-            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
+            className="inline-flex items-center gap-2  border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
+            <span className="h-1.5 w-1.5  bg-[#E5A93C]" />
             বই সংগ্রহের স্থানসমূহ
           </a>
           <a
             href="#social-connect"
-            className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
+            className="inline-flex items-center gap-2  border border-stone-200/90 bg-[#f5f5f5] px-4 py-1.5 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition hover:border-[#E5A93C] hover:text-[#E5A93C]   "
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C]" />
+            <span className="h-1.5 w-1.5  bg-[#E5A93C]" />
             সোশ্যাল মিডিয়া
           </a>
         </div>
@@ -198,11 +198,11 @@ export const AboutAuthor = () => {
               <div className="w-full lg:w-4/12 flex flex-col items-center lg:items-start text-center lg:text-left">
                 {/* Author Avatar with Gold Ring & Halo */}
                 <div className="relative group mx-auto lg:mx-0">
-                  <div className="absolute -inset-1.5 rounded-full bg-[#E5A93C]/30 blur-md opacity-80 group-hover:opacity-100 transition duration-300" />
+                  <div className="absolute -inset-1.5  bg-[#E5A93C]/30 blur-md opacity-80 group-hover:opacity-100 transition duration-300" />
                   <img
                     src={authorImg}
                     alt={authorName}
-                    className="relative h-48 w-48 sm:h-60 sm:w-60 md:h-64 md:w-64 lg:h-72 lg:w-72 rounded-full object-cover border-2 border-[#E5A93C] shadow-xl bg-slate-950"
+                    className="relative h-48 w-48 sm:h-60 sm:w-60 md:h-64 md:w-64 lg:h-72 lg:w-72  object-cover border-2 border-[#E5A93C] shadow-xl bg-slate-950"
                     loading="lazy"
                     onError={(e) => {
                       e.currentTarget.src = Logo;
@@ -216,12 +216,12 @@ export const AboutAuthor = () => {
                     <span
                       key={role}
                       className={cx(
-                        "inline-flex items-center rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-medium",
+                        "inline-flex items-center  px-3.5 py-1.5 text-xs sm:text-sm font-medium",
                         "bg-white text-slate-800 border border-slate-200 shadow-xs",
                         "  ",
                       )}
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#E5A93C] mr-2" />
+                      <span className="h-1.5 w-1.5  bg-[#E5A93C] mr-2" />
                       {role}
                     </span>
                   ))}
@@ -238,7 +238,7 @@ export const AboutAuthor = () => {
                 </div>
 
                 {/* Literary Philosophy & Quote Box */}
-                <div className="mt-8 rounded-2xl border border-stone-200/80 border-l-4 border-l-[#E5A93C] bg-white   p-5 sm:p-7 shadow-xs">
+                <div className="mt-8  border border-stone-200/80 border-l-4 border-l-[#E5A93C] bg-white   p-5 sm:p-7 shadow-xs">
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className="text-3xl sm:text-4xl text-[#E5A93C] leading-none font-serif select-none">
                       “
@@ -260,7 +260,7 @@ export const AboutAuthor = () => {
                 <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3.5 sm:gap-4">
                   <Link
                     to="/books"
-                    className="inline-flex items-center justify-center gap-2 rounded-none border border-[#E5A93C] bg-[#E5A93C] px-7 py-3 text-sm sm:text-base font-semibold text-stone-950 shadow-md transition-all duration-200 hover:bg-[#d6982b] hover:border-[#d6982b]"
+                    className="inline-flex items-center justify-center gap-2  border border-[#E5A93C] bg-[#E5A93C] px-7 py-3 text-sm sm:text-base font-semibold text-stone-950 shadow-md transition-all duration-200 hover:bg-[#d6982b] hover:border-[#d6982b]"
                   >
                     <FiShoppingBag className="h-4 w-4" />
                     <span>বই ও প্রকাশনাসমূহ</span>
@@ -268,7 +268,7 @@ export const AboutAuthor = () => {
 
                   <Link
                     to="/articles"
-                    className="inline-flex items-center justify-center gap-2 rounded-none border border-stone-300 bg-white px-7 py-3 text-sm sm:text-base font-medium text-stone-900 shadow-xs transition-all duration-200 hover:border-[#E5A93C] hover:text-[#E5A93C]   "
+                    className="inline-flex items-center justify-center gap-2  border border-stone-300 bg-white px-7 py-3 text-sm sm:text-base font-medium text-stone-900 shadow-xs transition-all duration-200 hover:border-[#E5A93C] hover:text-[#E5A93C]   "
                   >
                     <FiBookOpen className="h-4 w-4" />
                     <span>প্রবন্ধ-নিবন্ধ পড়ুন</span>
@@ -309,7 +309,7 @@ export const AboutAuthor = () => {
                 key={store.name}
                 {...linkProps}
                 className={cx(
-                  "group relative flex flex-col justify-between rounded-2xl border p-5 sm:p-6 transition-all duration-200",
+                  "group relative flex flex-col justify-between  border p-5 sm:p-6 transition-all duration-200",
                   "border-stone-200/80 bg-[#fdfbf7] shadow-xs",
                   "hover:-translate-y-1 hover:border-[#E5A93C] hover:shadow-md",
                   " ",
@@ -319,10 +319,10 @@ export const AboutAuthor = () => {
                 <div>
                   {/* Top Bar with Icon & Badge */}
                   <div className="flex items-center justify-between gap-2">
-                    <div className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#E5A93C]/10 text-[#E5A93C] font-bold text-sm">
+                    <div className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center  bg-[#E5A93C]/10 text-[#E5A93C] font-bold text-sm">
                       ৳
                     </div>
-                    <span className="inline-flex items-center rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-700  ">
+                    <span className="inline-flex items-center  bg-stone-100 px-3 py-1 text-xs font-medium text-stone-700  ">
                       {store.badge}
                     </span>
                   </div>

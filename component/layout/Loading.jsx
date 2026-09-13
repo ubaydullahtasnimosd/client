@@ -19,14 +19,14 @@ export const Loading = ({ size = "large", fullScreen = false, className = "" }) 
         {/* Outer subtle ring track */}
         <div
           className={cx(
-            "absolute inset-0 rounded-full border-slate-200 ",
+            "absolute inset-0  border-slate-200 ",
             isLarge ? "border-4" : "border-3"
           )}
         />
         {/* Spinning accent ring */}
         <div
           className={cx(
-            "absolute inset-0 animate-spin rounded-full border-t-[#CCA764] border-r-transparent border-b-[#CCA764] border-l-transparent motion-reduce:animate-none  ",
+            "absolute inset-0 animate-spin  border-t-[#CCA764] border-r-transparent border-b-[#CCA764] border-l-transparent motion-reduce:animate-none  ",
             isLarge ? "border-4" : "border-3"
           )}
         />
@@ -39,9 +39,9 @@ export const Loading = ({ size = "large", fullScreen = false, className = "" }) 
             লোড হচ্ছে, একটু অপেক্ষা করুন
           </span>
           <div className="flex space-x-1">
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none  [animation-delay:-0.3s]" />
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none  [animation-delay:-0.15s]" />
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#CCA764] motion-reduce:animate-none " />
+            <span className="h-1.5 w-1.5 animate-bounce  bg-[#CCA764] motion-reduce:animate-none  [animation-delay:-0.3s]" />
+            <span className="h-1.5 w-1.5 animate-bounce  bg-[#CCA764] motion-reduce:animate-none  [animation-delay:-0.15s]" />
+            <span className="h-1.5 w-1.5 animate-bounce  bg-[#CCA764] motion-reduce:animate-none " />
           </div>
         </div>
       )}

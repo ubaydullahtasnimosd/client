@@ -78,7 +78,7 @@ const VisitCount = () => {
       <div className={shell}>
         <div
           className={cx(
-            "rounded-3xl border p-6 md:p-8 shadow-sm",
+            " border p-6 md:p-8 shadow-sm",
             "border-slate-200/70 bg-white",
             " "
           )}
@@ -100,7 +100,7 @@ const VisitCount = () => {
       <div className={shell}>
         <div
           className={cx(
-            "rounded-3xl border p-6 md:p-8 shadow-sm",
+            " border p-6 md:p-8 shadow-sm",
             "border-slate-200/70 bg-white",
             " "
           )}
@@ -119,7 +119,7 @@ const VisitCount = () => {
     <section className={shell}>
       <div
         className={cx(
-          "rounded-3xl border p-6 md:p-8 shadow-sm transition duration-200",
+          " border p-6 md:p-8 shadow-sm transition duration-200",
           "border-slate-200/70 bg-white hover:shadow-md",
           " "
         )}
@@ -128,7 +128,7 @@ const VisitCount = () => {
           {/* Left: Icon + labels */}
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="rounded-2xl p-4 bg-indigo-100 ">
+              <div className=" p-4 bg-indigo-100 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 text-indigo-700 "
@@ -144,8 +144,8 @@ const VisitCount = () => {
                   />
                 </svg>
               </div>
-              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5 rounded-full bg-[#CCA764]/100 animate-ping" />
-              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5 rounded-full bg-[#CCA764]/100" />
+              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5  bg-[#CCA764]/100 animate-ping" />
+              <span className="absolute -top-1 -right-1 block h-2.5 w-2.5  bg-[#CCA764]/100" />
             </div>
 
             <div>
