@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
 import { FiArrowLeft, FiCalendar, FiMessageSquare } from "react-icons/fi";
+import { Link, useParams } from "react-router-dom";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
+import { SocialMedia } from "../components/layout/SocialMedia";
 import { baseUrl } from "../constants/env.constants";
 import { miscellaneousContentConfigs } from "../constants/miscellaneousContent.constants";
-import { CommentModal } from "./CommentModal";
-import { CommentsList } from "./CommentsList";
-import { SocialMedia } from "../components/layout/SocialMedia";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
+import { CommentModal } from "./CommentModal";
+import { CommentsList } from "./CommentsList";
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 const Logo = "/logo.webp";
@@ -200,7 +200,7 @@ export const MiscellaneousContentDetails = ({ category }) => {
             <div className="mt-8 sm:mt-10 h-px w-full bg-stone-100 " />
 
             {/* Body Text Content */}
-            <div className="mt-8 whitespace-pre-line break-words text-justify text-slate-700  leading-relaxed sm:leading-9 text-base sm:text-lg font-sans">
+            <div className="mt-8 whitespace-pre-line break-words text-justify text-slate-700  leading-relaxed sm:leading-9 text-base sm:text-lg font-['Noto_Serif_Bengali',_serif]">
               {item?.contentDescription}
             </div>
           </article>

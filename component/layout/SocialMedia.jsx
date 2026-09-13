@@ -218,7 +218,7 @@ export const SocialMedia = ({
                   readOnly
                   value={currentUrl}
                   onClick={(e) => e.target.select()}
-                  className="w-full bg-transparent text-xs sm:text-sm text-stone-700  outline-none truncate font-sans select-all"
+                  className="w-full bg-transparent text-xs sm:text-sm text-stone-700  outline-none truncate font-['Noto_Serif_Bengali',_serif] select-all"
                 />
 
                 <button

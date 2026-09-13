@@ -162,7 +162,7 @@ export const UserReview = () => {
 
                       {/* Review Text Body */}
                       <div className="mt-5">
-                        <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700  text-justify font-sans whitespace-pre-line">
+                        <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700  text-justify font-['Noto_Serif_Bengali',_serif] whitespace-pre-line">
                           {review.readersReview}
                         </p>
                       </div>

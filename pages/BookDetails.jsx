@@ -5,10 +5,10 @@ import { FiArrowLeft, FiExternalLink, FiMessageSquare } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
+import { SocialMedia } from "../components/layout/SocialMedia";
 import { baseUrl } from "../constants/env.constants";
 import { CommentModal } from "../pages/CommentModal";
 import { CommentsList } from "../pages/CommentsList";
-import { SocialMedia } from "../components/layout/SocialMedia";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
@@ -231,7 +231,7 @@ export const BookDetails = () => {
                 বই সম্পর্কে
               </h2>
 
-              <div className="mt-4 text-slate-700  text-base sm:text-lg whitespace-pre-line leading-relaxed sm:leading-9 text-justify font-sans">
+              <div className="mt-4 text-slate-700  text-base sm:text-lg whitespace-pre-line leading-relaxed sm:leading-9 text-justify font-['Noto_Serif_Bengali',_serif]">
                 {book?.bookDescription}
 
                 {book?.bookPurchaseLink && (

@@ -5,10 +5,10 @@ import { FiArrowLeft, FiCalendar, FiMessageSquare } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
 import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
+import { SocialMedia } from "../components/layout/SocialMedia";
 import { baseUrl } from "../constants/env.constants";
 import { CommentModal } from "../pages/CommentModal";
 import { CommentsList } from "../pages/CommentsList";
-import { SocialMedia } from "../components/layout/SocialMedia";
 import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
@@ -185,7 +185,7 @@ export const QuranLifeLessonsDetails = () => {
             <div className="mt-8 sm:mt-10 h-px w-full bg-stone-100 " />
 
             {/* Body Text Content */}
-            <div className="mt-8 whitespace-pre-line break-words text-justify text-slate-700  leading-relaxed sm:leading-9 text-base sm:text-lg font-sans">
+            <div className="mt-8 whitespace-pre-line break-words text-justify text-slate-700  leading-relaxed sm:leading-9 text-base sm:text-lg font-['Noto_Serif_Bengali',_serif]">
               {lesson?.quranLessonDescription}
             </div>
           </article>

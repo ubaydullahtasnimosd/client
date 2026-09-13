@@ -232,7 +232,7 @@ export const AboutAuthor = () => {
               <div className="w-full lg:w-8/12 text-left">
                 {/* Main Biography Text */}
                 <div className="prose prose-slate  max-w-none">
-                  <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700  text-justify whitespace-pre-line font-sans">
+                  <p className="text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-700  text-justify whitespace-pre-line font-['Noto_Serif_Bengali',_serif]">
                     {authorDesc}
                   </p>
                 </div>
@@ -240,7 +240,7 @@ export const AboutAuthor = () => {
                 {/* Literary Philosophy & Quote Box */}
                 <div className="mt-8  border border-stone-200/80 border-l-4 border-l-[#E5A93C] bg-white   p-5 sm:p-7 shadow-xs">
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="text-3xl sm:text-4xl text-[#E5A93C] leading-none font-serif select-none">
+                    <div className="text-3xl sm:text-4xl text-[#E5A93C] leading-none font-['Noto_Serif_Bengali',_serif] select-none">
                       “
                     </div>
                     <div className="flex-1">
@@ -331,7 +331,7 @@ export const AboutAuthor = () => {
                   <h3 className="mt-4 text-lg font-bold text-stone-900  font-['Noto_Serif_Bengali',_serif] group-hover:text-[#E5A93C] transition-colors">
                     {store.name}
                   </h3>
-                  <p className="mt-1 text-xs text-stone-500  font-mono">
+                  <p className="mt-1 text-xs text-stone-500  font-['Noto_Serif_Bengali',_serif]">
                     {store.domain}
                   </p>
 

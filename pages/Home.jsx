@@ -8,7 +8,6 @@ import { ErrorMessage } from "../component/layout/ErrorMessage";
 import { Loading } from "../component/layout/Loading";
 import { Media } from "../component/layout/Media";
 import { baseUrl } from "../constants/env.constants";
-import Time from "../utils/banglaDateFormatter";
 import Title from "../utils/pageTitle";
 
 const heroBg = "/hero-section2.webp";
@@ -98,7 +97,7 @@ const HeroSection = () => (
     <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
       <div className="max-w-3xl text-left">
         {/* Roles Subheading - White per user request */}
-        <p className="text-xs sm:text-sm font-semibold tracking-[0.22em] sm:tracking-[0.28em] text-white uppercase font-sans flex flex-wrap items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+        <p className="text-xs sm:text-sm font-semibold tracking-[0.22em] sm:tracking-[0.28em] text-white uppercase font-['Noto_Serif_Bengali',_serif] flex flex-wrap items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
           <span>লেখক</span>
           <span className="text-white/80">•</span>
           <span>অনুবাদক</span>
@@ -112,7 +111,7 @@ const HeroSection = () => (
         </h1>
 
         {/* Biography / Description */}
-        <p className="mt-4 sm:mt-7 text-base sm:text-lg md:text-xl text-white font-light leading-relaxed sm:leading-8 font-sans max-w-2xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+        <p className="mt-4 sm:mt-7 text-base sm:text-lg md:text-xl text-white font-light leading-relaxed sm:leading-8 font-['Noto_Serif_Bengali',_serif] max-w-2xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
         লিখতে ভালোবাসেন। কলমের আঁচড়েই বলে যেতে চান স্বপ্ন ও সম্ভাবনার কথা, আলো এবং ভালোর কথা।
         </p>
 
